@@ -82,11 +82,70 @@ body::after {
   letter-spacing: 0.08em; padding: 0.6rem 1.6rem; border-radius: 3px;
   cursor: pointer; transition: all 0.25s; border: 1px solid;
 }
-.btn-gen { background: var(--gold); color: var(--bg); border-color: var(--gold); }
-.btn-gen:hover { background: var(--gold-bright); border-color: var(--gold-bright); }
-.btn-mode { background: transparent; color: var(--ink-light); border-color: var(--border-strong); }
-.btn-mode:hover { color: var(--ink); border-color: var(--ink-light); }
-.btn-mode.active { color: var(--violet); border-color: var(--violet); background: rgba(104,64,160,0.08); }
+/* === HOLD-TO-GENERATE BUTTON === */
+.hold-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+  -webkit-user-select: none;
+  user-select: none;
+  touch-action: none;
+}
+.hold-btn-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hold-btn-ring {
+  transition: none;
+}
+.hold-btn-label {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.hold-btn:hover .hold-btn-label {
+  color: var(--gold-bright);
+}
+.hold-btn-active .hold-btn-label {
+  color: var(--gold-bright);
+}
+
+/* === NARRATIVE ACTION BUTTON === */
+.narrative-action {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+.btn-narrative {
+  font-family: var(--font-display);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 0.5rem 1.4rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.25s;
+  border: 1px solid var(--violet);
+  background: transparent;
+  color: var(--violet);
+}
+.btn-narrative:hover {
+  background: var(--violet);
+  color: var(--bg);
+}
 
 /* === CONCEPT DISPLAY === */
 .concept { min-height: 180px; }

@@ -7,14 +7,14 @@ import ClickableElement from './ClickableElement';
 interface ConceptDisplayProps {
   concept: Concept | null;
   onReroll: (path: string) => void;
-  narrativeMode: boolean;
+  onCreateNarrative: () => void;
   narrativeLoading: boolean;
 }
 
 export default function ConceptDisplay({
   concept,
   onReroll,
-  narrativeMode,
+  onCreateNarrative,
   narrativeLoading,
 }: ConceptDisplayProps) {
   if (!concept) {
@@ -172,15 +172,27 @@ export default function ConceptDisplay({
         })}
 
         {/* Narrative */}
-        {narrativeMode && (
+        {narrativeLoading && (
           <div className="narrative">
-            <div
-              className={`narrative-text ${narrativeLoading ? 'narrative-loading' : ''}`}
-            >
-              {narrativeLoading
-                ? 'Conjuring narrative...'
-                : concept.narrative || ''}
+            <div className="narrative-text narrative-loading">
+              Conjuring narrative...
             </div>
+          </div>
+        )}
+        {!narrativeLoading && concept.narrative && (
+          <div className="narrative">
+            <div className="narrative-text">{concept.narrative}</div>
+          </div>
+        )}
+        {!narrativeLoading && !concept.narrative && (
+          <div className="narrative-action">
+            <button
+              className="btn btn-narrative"
+              onClick={onCreateNarrative}
+              type="button"
+            >
+              Create Narrative
+            </button>
           </div>
         )}
       </div>

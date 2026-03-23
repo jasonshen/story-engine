@@ -10,6 +10,7 @@ import {
   bsAnchorName,
 } from '@/lib/grammar';
 import ConceptDisplay from '@/components/ConceptDisplay';
+import HoldToGenerate from '@/components/HoldToGenerate';
 import WritingSection, { WritingSectionHandle } from '@/components/WritingSection';
 import SavedEntries from '@/components/SavedEntries';
 import ConceptHistory from '@/components/ConceptHistory';
@@ -72,7 +73,6 @@ function buildNarrativeElements(concept: Concept): string {
 export default function Home() {
   const [concept, setConcept] = useState<Concept | null>(null);
   const [history, setHistory] = useState<Concept[]>([]);
-  const [narrativeMode, setNarrativeMode] = useState(false);
   const [narrativeLoading, setNarrativeLoading] = useState(false);
   const [savedEntries, setSavedEntries] = useState<WritingEntry[]>([]);
   const writingSectionRef = useRef<WritingSectionHandle>(null);
@@ -123,33 +123,22 @@ export default function Home() {
     setConcept(newConcept);
 
     writingSectionRef.current?.reset();
-
-    if (narrativeMode) {
-      fetchNarrative(newConcept);
-    }
-  }, [narrativeMode, fetchNarrative]);
+  }, []);
 
   const handleReroll = useCallback(
     (path: string) => {
       if (!concept) return;
       const updated = rerollElement(concept, path);
       setConcept(updated);
-      if (narrativeMode) {
-        fetchNarrative(updated);
-      }
     },
-    [concept, narrativeMode, fetchNarrative]
+    [concept]
   );
 
-  const handleNarrativeToggle = useCallback(() => {
-    setNarrativeMode((prev) => {
-      const next = !prev;
-      if (next && concept && !concept.narrative) {
-        fetchNarrative(concept);
-      }
-      return next;
-    });
-  }, [concept, fetchNarrative]);
+  const handleCreateNarrative = useCallback(() => {
+    if (concept && !concept.narrative && !narrativeLoading) {
+      fetchNarrative(concept);
+    }
+  }, [concept, narrativeLoading, fetchNarrative]);
 
   const handleSave = useCallback(
     async (data: {
@@ -213,21 +202,13 @@ export default function Home() {
       </header>
 
       <div className="controls">
-        <button className="btn btn-gen" onClick={handleGenerate}>
-          Generate
-        </button>
-        <button
-          className={`btn btn-mode ${narrativeMode ? 'active' : ''}`}
-          onClick={handleNarrativeToggle}
-        >
-          Narrative: {narrativeMode ? 'On' : 'Off'}
-        </button>
+        <HoldToGenerate onGenerate={handleGenerate} />
       </div>
 
       <ConceptDisplay
         concept={concept}
         onReroll={handleReroll}
-        narrativeMode={narrativeMode}
+        onCreateNarrative={handleCreateNarrative}
         narrativeLoading={narrativeLoading}
       />
 
