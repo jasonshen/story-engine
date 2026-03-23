@@ -452,6 +452,21 @@ body::after {
   font-weight: 300; margin-top: 0.3rem; line-height: 1.5;
 }
 
+/* === FOOTER === */
+.footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+.footer p {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  color: var(--ink-faint);
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+
 @media (max-width: 600px) {
   html { font-size: 16px; }
   .app { padding: 2rem 1.2rem 3rem; }

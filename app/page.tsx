@@ -240,6 +240,10 @@ export default function Home() {
       <SavedEntries entries={savedEntries} />
 
       <ConceptHistory history={history} />
+
+      <footer className="footer">
+        <p>Created with ♥️ by Jason Shen</p>
+      </footer>
     </div>
   );
 }
