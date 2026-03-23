@@ -16,3 +16,13 @@ export function getCardsByType(type: CardType): Card[] {
 export function getAllCards(): Card[] {
   return ALL_CARDS;
 }
+
+/** Get N random labels from a card type (for shuffle animation) */
+export function getRandomLabels(type: CardType, count: number): string[] {
+  const cards = INDEX[type] || [];
+  const labels: string[] = [];
+  for (let i = 0; i < count; i++) {
+    labels.push(cards[Math.floor(Math.random() * cards.length)].label);
+  }
+  return labels;
+}

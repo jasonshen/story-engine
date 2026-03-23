@@ -1,5 +1,6 @@
 'use client';
 
+import { useRef, useEffect, useState } from 'react';
 import { Concept } from '@/lib/types';
 import { stripArticle, vowelSound, theAgent, enginePlural } from '@/lib/grammar';
 import ClickableElement from './ClickableElement';
@@ -17,6 +18,17 @@ export default function ConceptDisplay({
   onCreateNarrative,
   narrativeLoading,
 }: ConceptDisplayProps) {
+  // Track concept ID changes to trigger shuffle animation
+  const prevIdRef = useRef<string | null>(null);
+  const [shuffleKey, setShuffleKey] = useState(0);
+
+  useEffect(() => {
+    if (concept && concept.id !== prevIdRef.current) {
+      prevIdRef.current = concept.id;
+      setShuffleKey((k) => k + 1);
+    }
+  }, [concept]);
+
   if (!concept) {
     return (
       <div className="concept">
@@ -44,12 +56,18 @@ export default function ConceptDisplay({
                     className="el-aspect"
                     onReroll={() => onReroll(`agents.${i}.aspect`)}
                     title="Re-roll trait"
+                    cardType="aspect"
+                    shuffleKey={shuffleKey}
+                    shuffleDuration={500}
                   />{' '}
                   <ClickableElement
                     text={stripArticle(a.agent.label)}
                     className="el-agent"
                     onReroll={() => onReroll(`agents.${i}.agent`)}
                     title="Re-roll character"
+                    cardType="agent"
+                    shuffleKey={shuffleKey}
+                    shuffleDuration={600}
                   />
                 </>
               ) : (
@@ -58,6 +76,9 @@ export default function ConceptDisplay({
                   className="el-agent"
                   onReroll={() => onReroll(`agents.${i}.agent`)}
                   title="Re-roll character"
+                  cardType="agent"
+                  shuffleKey={shuffleKey}
+                  shuffleDuration={600}
                 />
               )}
             </span>
@@ -67,6 +88,9 @@ export default function ConceptDisplay({
             className="el-engine"
             onReroll={() => onReroll('engine')}
             title="Re-roll drive"
+            cardType="engine"
+            shuffleKey={shuffleKey}
+            shuffleDuration={700}
           />{' '}
           {concept.anchors.map((a, i) => (
             <span key={`anchor-${i}`}>
@@ -79,12 +103,18 @@ export default function ConceptDisplay({
                     className="el-aspect"
                     onReroll={() => onReroll(`anchors.${i}.aspect`)}
                     title="Re-roll trait"
+                    cardType="aspect"
+                    shuffleKey={shuffleKey}
+                    shuffleDuration={800}
                   />{' '}
                   <ClickableElement
                     text={stripArticle(a.anchor.label)}
                     className="el-anchor"
                     onReroll={() => onReroll(`anchors.${i}.anchor`)}
                     title="Re-roll object"
+                    cardType="anchor"
+                    shuffleKey={shuffleKey}
+                    shuffleDuration={900}
                   />
                 </>
               ) : (
@@ -93,6 +123,9 @@ export default function ConceptDisplay({
                   className="el-anchor"
                   onReroll={() => onReroll(`anchors.${i}.anchor`)}
                   title="Re-roll object"
+                  cardType="anchor"
+                  shuffleKey={shuffleKey}
+                  shuffleDuration={900}
                 />
               )}
             </span>
@@ -103,6 +136,9 @@ export default function ConceptDisplay({
             className="el-conflict"
             onReroll={() => onReroll('conflict')}
             title="Re-roll conflict"
+            cardType="conflict"
+            shuffleKey={shuffleKey}
+            shuffleDuration={1000}
           />
           {'.'}
         </div>
@@ -110,7 +146,7 @@ export default function ConceptDisplay({
         {/* Divider */}
         <hr className="concept-divider" />
 
-        {/* Backstories */}
+        {/* Backstories — no shuffle animation, just normal */}
         {concept.agents.map((a, i) => {
           if (!a.backstory) return null;
           const bsText =
@@ -125,6 +161,7 @@ export default function ConceptDisplay({
                   className="el-bs-engine"
                   onReroll={() => onReroll(`agents.${i}.backstory.engine`)}
                   title="Re-roll backstory"
+                  cardType="backstory-engine"
                 />{' '}
                 {a.backstory.anchorAspect ? (
                   <>
@@ -136,6 +173,7 @@ export default function ConceptDisplay({
                         onReroll(`agents.${i}.backstory.anchorAspect`)
                       }
                       title="Re-roll trait"
+                      cardType="aspect"
                     />{' '}
                     <ClickableElement
                       text={stripArticle(a.backstory.anchor.label)}
@@ -144,6 +182,7 @@ export default function ConceptDisplay({
                         onReroll(`agents.${i}.backstory.anchor`)
                       }
                       title="Re-roll object"
+                      cardType="anchor"
                     />
                   </>
                 ) : (
@@ -154,6 +193,7 @@ export default function ConceptDisplay({
                       onReroll(`agents.${i}.backstory.anchor`)
                     }
                     title="Re-roll object"
+                    cardType="anchor"
                   />
                 )}
                 {', '}
@@ -164,6 +204,7 @@ export default function ConceptDisplay({
                     onReroll(`agents.${i}.backstory.conflict`)
                   }
                   title="Re-roll complication"
+                  cardType="backstory-conflict"
                 />
                 {'.'}
               </div>
