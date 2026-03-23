@@ -1,0 +1,5570 @@
+[
+  {
+    "id": "main-agent-001",
+    "cardId": "main-agent-card-01",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Writer",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-002",
+    "cardId": "main-agent-card-01",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Artist",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-003",
+    "cardId": "main-agent-card-01",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Dancer",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-004",
+    "cardId": "main-agent-card-01",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Musician",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-005",
+    "cardId": "main-agent-card-02",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Tourist",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-006",
+    "cardId": "main-agent-card-02",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Explorer",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-007",
+    "cardId": "main-agent-card-02",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Trailblazer",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-008",
+    "cardId": "main-agent-card-02",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Diplomat",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-009",
+    "cardId": "main-agent-card-03",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Soldier",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-010",
+    "cardId": "main-agent-card-03",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Enforcer",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-011",
+    "cardId": "main-agent-card-03",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Assassin",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-012",
+    "cardId": "main-agent-card-03",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Athlete",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-013",
+    "cardId": "main-agent-card-04",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Ghost",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-014",
+    "cardId": "main-agent-card-04",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Avenger",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-015",
+    "cardId": "main-agent-card-04",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Rival",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-016",
+    "cardId": "main-agent-card-04",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Vigilante",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-017",
+    "cardId": "main-agent-card-05",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Iconoclast",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-018",
+    "cardId": "main-agent-card-05",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Radical",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-019",
+    "cardId": "main-agent-card-05",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Protester",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-020",
+    "cardId": "main-agent-card-05",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Warmonger",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-021",
+    "cardId": "main-agent-card-06",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Politician",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-022",
+    "cardId": "main-agent-card-06",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Leader",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-023",
+    "cardId": "main-agent-card-06",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Guide",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-024",
+    "cardId": "main-agent-card-06",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Boss",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-025",
+    "cardId": "main-agent-card-07",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Shape-Shifter",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-026",
+    "cardId": "main-agent-card-07",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Beast",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-027",
+    "cardId": "main-agent-card-07",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Pet",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-028",
+    "cardId": "main-agent-card-07",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Hedonist",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-029",
+    "cardId": "main-agent-card-08",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Courier",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-030",
+    "cardId": "main-agent-card-08",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Worker",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-031",
+    "cardId": "main-agent-card-08",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Salesperson",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-032",
+    "cardId": "main-agent-card-08",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Master Craftsperson",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-033",
+    "cardId": "main-agent-card-09",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Holy Person",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-034",
+    "cardId": "main-agent-card-09",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Teacher",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-035",
+    "cardId": "main-agent-card-09",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Hermit",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-036",
+    "cardId": "main-agent-card-09",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Messiah",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-037",
+    "cardId": "main-agent-card-10",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Bookworm",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-038",
+    "cardId": "main-agent-card-10",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Student",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-039",
+    "cardId": "main-agent-card-10",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Apprentice",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-040",
+    "cardId": "main-agent-card-10",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Amateur",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-041",
+    "cardId": "main-agent-card-11",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Genius",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-042",
+    "cardId": "main-agent-card-11",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Monster",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-043",
+    "cardId": "main-agent-card-11",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Misfit",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-044",
+    "cardId": "main-agent-card-11",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Demon",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-045",
+    "cardId": "main-agent-card-12",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Performer",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-046",
+    "cardId": "main-agent-card-12",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Actor",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-047",
+    "cardId": "main-agent-card-12",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Understudy",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-048",
+    "cardId": "main-agent-card-12",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Scam Artist",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-049",
+    "cardId": "main-agent-card-13",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Parent",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-050",
+    "cardId": "main-agent-card-13",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Guardian",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-051",
+    "cardId": "main-agent-card-13",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Bouncer",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-052",
+    "cardId": "main-agent-card-13",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Officer",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-053",
+    "cardId": "main-agent-card-14",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Daredevil",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-054",
+    "cardId": "main-agent-card-14",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Fool",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-055",
+    "cardId": "main-agent-card-14",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Comedian",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-056",
+    "cardId": "main-agent-card-14",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Fraud",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-057",
+    "cardId": "main-agent-card-15",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Mentor",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-058",
+    "cardId": "main-agent-card-15",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Hero",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-059",
+    "cardId": "main-agent-card-15",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Warrior",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-060",
+    "cardId": "main-agent-card-15",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Rebel",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-061",
+    "cardId": "main-agent-card-16",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Punk",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-062",
+    "cardId": "main-agent-card-16",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Outcast",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-063",
+    "cardId": "main-agent-card-16",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Foreigner",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-064",
+    "cardId": "main-agent-card-16",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Alien",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-065",
+    "cardId": "main-agent-card-17",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Gardener",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-066",
+    "cardId": "main-agent-card-17",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Caretaker",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-067",
+    "cardId": "main-agent-card-17",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Conservationist",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-068",
+    "cardId": "main-agent-card-17",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Curator",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-069",
+    "cardId": "main-agent-card-18",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Superhuman",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-070",
+    "cardId": "main-agent-card-18",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Idol",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-071",
+    "cardId": "main-agent-card-18",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Model",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-072",
+    "cardId": "main-agent-card-18",
+    "pack": "main",
+    "type": "agent",
+    "label": "A God",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-073",
+    "cardId": "main-agent-card-19",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Prophet",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-074",
+    "cardId": "main-agent-card-19",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Visionary",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-075",
+    "cardId": "main-agent-card-19",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Inventor",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-076",
+    "cardId": "main-agent-card-19",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Painter",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-077",
+    "cardId": "main-agent-card-20",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Black Sheep",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-078",
+    "cardId": "main-agent-card-20",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Heretic",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-079",
+    "cardId": "main-agent-card-20",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Witch",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-080",
+    "cardId": "main-agent-card-20",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Dissident",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-081",
+    "cardId": "main-agent-card-21",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Researcher",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-082",
+    "cardId": "main-agent-card-21",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Hunter",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-083",
+    "cardId": "main-agent-card-21",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Killer",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-084",
+    "cardId": "main-agent-card-21",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Collector",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-085",
+    "cardId": "main-agent-card-22",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Retiree",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-086",
+    "cardId": "main-agent-card-22",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Survivor",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-087",
+    "cardId": "main-agent-card-22",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Victim",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-088",
+    "cardId": "main-agent-card-22",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Veteran",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-089",
+    "cardId": "main-agent-card-23",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Therapist",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-090",
+    "cardId": "main-agent-card-23",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Healer",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-091",
+    "cardId": "main-agent-card-23",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Peacekeeper",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-092",
+    "cardId": "main-agent-card-23",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Doctor",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-093",
+    "cardId": "main-agent-card-24",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Romantic Partner",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-094",
+    "cardId": "main-agent-card-24",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Companion",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-095",
+    "cardId": "main-agent-card-24",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Roommate",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-096",
+    "cardId": "main-agent-card-24",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Secret Admirer",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-097",
+    "cardId": "main-agent-card-25",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Scoundrel",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-098",
+    "cardId": "main-agent-card-25",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Villain",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-099",
+    "cardId": "main-agent-card-25",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Kingpin",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-100",
+    "cardId": "main-agent-card-25",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Tyrant",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-101",
+    "cardId": "main-agent-card-26",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Academic",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-102",
+    "cardId": "main-agent-card-26",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Expert",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-103",
+    "cardId": "main-agent-card-26",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Child Prodigy",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-104",
+    "cardId": "main-agent-card-26",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Virtuoso",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-105",
+    "cardId": "main-agent-card-27",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Scientist",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-106",
+    "cardId": "main-agent-card-27",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Investigator",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-107",
+    "cardId": "main-agent-card-27",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Journalist",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-108",
+    "cardId": "main-agent-card-27",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Conspiracy Theorist",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-109",
+    "cardId": "main-agent-card-28",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Puppet",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-110",
+    "cardId": "main-agent-card-28",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Automaton",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-111",
+    "cardId": "main-agent-card-28",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Servant",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-112",
+    "cardId": "main-agent-card-28",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Machine",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-113",
+    "cardId": "main-agent-card-29",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Magnate",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-114",
+    "cardId": "main-agent-card-29",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Aristocrat",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-115",
+    "cardId": "main-agent-card-29",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Philanthropist",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-116",
+    "cardId": "main-agent-card-29",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Celebrity",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-117",
+    "cardId": "main-agent-card-30",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Alcoholic",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-118",
+    "cardId": "main-agent-card-30",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Addict",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-119",
+    "cardId": "main-agent-card-30",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Gambler",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-120",
+    "cardId": "main-agent-card-30",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Patient",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-121",
+    "cardId": "main-agent-card-31",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Architect",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-122",
+    "cardId": "main-agent-card-31",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Designer",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-123",
+    "cardId": "main-agent-card-31",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Artisan",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-124",
+    "cardId": "main-agent-card-31",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Tailor",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-125",
+    "cardId": "main-agent-card-32",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Profiteer",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-126",
+    "cardId": "main-agent-card-32",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Bully",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-127",
+    "cardId": "main-agent-card-32",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Criminal",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-128",
+    "cardId": "main-agent-card-32",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Predator",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-129",
+    "cardId": "main-agent-card-33",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Stand-In",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-130",
+    "cardId": "main-agent-card-33",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Twin",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-131",
+    "cardId": "main-agent-card-33",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Impostor",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-132",
+    "cardId": "main-agent-card-33",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Doppelganger",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-133",
+    "cardId": "main-agent-card-34",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Librarian",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-134",
+    "cardId": "main-agent-card-34",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Archivist",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-135",
+    "cardId": "main-agent-card-34",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Witness",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-136",
+    "cardId": "main-agent-card-34",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Archaeologist",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-137",
+    "cardId": "main-agent-card-35",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Dreamer",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-138",
+    "cardId": "main-agent-card-35",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Introvert",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-139",
+    "cardId": "main-agent-card-35",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Wanderer",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-140",
+    "cardId": "main-agent-card-35",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Grump",
+    "position": "right"
+  },
+  {
+    "id": "main-agent-141",
+    "cardId": "main-agent-card-36",
+    "pack": "main",
+    "type": "agent",
+    "label": "An Investor",
+    "position": "top"
+  },
+  {
+    "id": "main-agent-142",
+    "cardId": "main-agent-card-36",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Merchant",
+    "position": "bottom"
+  },
+  {
+    "id": "main-agent-143",
+    "cardId": "main-agent-card-36",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Miser",
+    "position": "left"
+  },
+  {
+    "id": "main-agent-144",
+    "cardId": "main-agent-card-36",
+    "pack": "main",
+    "type": "agent",
+    "label": "A Grifter",
+    "position": "right"
+  },
+  {
+    "id": "main-engine-001",
+    "cardId": "main-engine-card-01",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Spread a Lie About",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-002",
+    "cardId": "main-engine-card-01",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Unravel the Mystery of",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-003",
+    "cardId": "main-engine-card-02",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Bring Despair to/with",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-004",
+    "cardId": "main-engine-card-02",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Find Hope in/for",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-005",
+    "cardId": "main-engine-card-03",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Let Go of",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-006",
+    "cardId": "main-engine-card-03",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Hold on to",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-007",
+    "cardId": "main-engine-card-04",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Stop Being Haunted by",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-008",
+    "cardId": "main-engine-card-04",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Hide an Obsession with",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-009",
+    "cardId": "main-engine-card-05",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Find",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-010",
+    "cardId": "main-engine-card-05",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Escape",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-011",
+    "cardId": "main-engine-card-06",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Bury the Secret of",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-012",
+    "cardId": "main-engine-card-06",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Expose the Secret of",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-013",
+    "cardId": "main-engine-card-07",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Restore a Memory of/with",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-014",
+    "cardId": "main-engine-card-07",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Erase a Memory of/with",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-015",
+    "cardId": "main-engine-card-08",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to End a Conflict with",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-016",
+    "cardId": "main-engine-card-08",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Get Revenge with/on",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-017",
+    "cardId": "main-engine-card-09",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Destroy",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-018",
+    "cardId": "main-engine-card-09",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Create (or Improve)",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-019",
+    "cardId": "main-engine-card-10",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Draw Attention to",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-020",
+    "cardId": "main-engine-card-10",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Achieve a Dream Involving",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-021",
+    "cardId": "main-engine-card-11",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Gain the Power of",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-022",
+    "cardId": "main-engine-card-11",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to End the Power of",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-023",
+    "cardId": "main-engine-card-12",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Find a Way Back to",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-024",
+    "cardId": "main-engine-card-12",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Find Redemption in/for",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-025",
+    "cardId": "main-engine-card-13",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Find Peace with/in/for",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-026",
+    "cardId": "main-engine-card-13",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Defeat",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-027",
+    "cardId": "main-engine-card-14",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Save a Life with/from",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-028",
+    "cardId": "main-engine-card-14",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Save the World with/from",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-029",
+    "cardId": "main-engine-card-15",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Destroy Someone's Dream with/for",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-030",
+    "cardId": "main-engine-card-15",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Destroy the World with",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-031",
+    "cardId": "main-engine-card-16",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Win (or Win Over)",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-032",
+    "cardId": "main-engine-card-16",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Win a Bet with/for",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-033",
+    "cardId": "main-engine-card-17",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Establish Loyalty Through/in",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-034",
+    "cardId": "main-engine-card-17",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to End an Obligation to",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-035",
+    "cardId": "main-engine-card-18",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Get Rid of",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-036",
+    "cardId": "main-engine-card-18",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Regain",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-037",
+    "cardId": "main-engine-card-19",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Conceal the Dangers of",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-038",
+    "cardId": "main-engine-card-19",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Reveal the Dangers of",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-039",
+    "cardId": "main-engine-card-20",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Ease a Heartbreak with/of",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-040",
+    "cardId": "main-engine-card-20",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Find Love in/with",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-041",
+    "cardId": "main-engine-card-21",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Heal (or Fix)",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-042",
+    "cardId": "main-engine-card-21",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Hurt (or Damage)",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-043",
+    "cardId": "main-engine-card-22",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Gain Freedom with/from",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-044",
+    "cardId": "main-engine-card-22",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Liberate",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-045",
+    "cardId": "main-engine-card-23",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Steal a Victory from/with",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-046",
+    "cardId": "main-engine-card-23",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Help Solve the Problem of",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-047",
+    "cardId": "main-engine-card-24",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Connect with Family Through",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-048",
+    "cardId": "main-engine-card-24",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to End a Family Obligation to",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-049",
+    "cardId": "main-engine-card-25",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Stop the Theft of",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-050",
+    "cardId": "main-engine-card-25",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Steal (or Steal from)",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-051",
+    "cardId": "main-engine-card-26",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Protect",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-052",
+    "cardId": "main-engine-card-26",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Finally Satisfy an Unspoken Desire for",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-053",
+    "cardId": "main-engine-card-27",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Reveal the Good in",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-054",
+    "cardId": "main-engine-card-27",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Rise to the Challenge of",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-055",
+    "cardId": "main-engine-card-28",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Deliver Justice for/with",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-056",
+    "cardId": "main-engine-card-28",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Betray (or Betray Someone with)",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-057",
+    "cardId": "main-engine-card-29",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Abandon",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-058",
+    "cardId": "main-engine-card-29",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Obtain",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-059",
+    "cardId": "main-engine-card-30",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Save",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-060",
+    "cardId": "main-engine-card-30",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Be Saved by",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-061",
+    "cardId": "main-engine-card-31",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Commit a Crime with/Involving",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-062",
+    "cardId": "main-engine-card-31",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Upstage a Rival with",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-063",
+    "cardId": "main-engine-card-32",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Improve the Reputation of",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-064",
+    "cardId": "main-engine-card-32",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Save a Loved One with",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-065",
+    "cardId": "main-engine-card-33",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Restore Former Glory with the Help of",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-066",
+    "cardId": "main-engine-card-33",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Follow a Path Leading to",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-067",
+    "cardId": "main-engine-card-34",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Shirk Responsibility for",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-068",
+    "cardId": "main-engine-card-34",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Control",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-069",
+    "cardId": "main-engine-card-35",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Gain Fortune with/from",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-070",
+    "cardId": "main-engine-card-35",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Gain Fame with/from",
+    "position": "bottom"
+  },
+  {
+    "id": "main-engine-071",
+    "cardId": "main-engine-card-36",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Unmask the Conspiracy of",
+    "position": "top"
+  },
+  {
+    "id": "main-engine-072",
+    "cardId": "main-engine-card-36",
+    "pack": "main",
+    "type": "engine",
+    "label": "Wants to Enact a Secret Plan Focused on",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-001",
+    "cardId": "main-anchor-card-01",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Basement",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-002",
+    "cardId": "main-anchor-card-01",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Keepsake",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-003",
+    "cardId": "main-anchor-card-01",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A House",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-004",
+    "cardId": "main-anchor-card-01",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Letter",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-005",
+    "cardId": "main-anchor-card-02",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Cage",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-006",
+    "cardId": "main-anchor-card-02",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Trap",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-007",
+    "cardId": "main-anchor-card-02",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Forgery",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-008",
+    "cardId": "main-anchor-card-02",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Prison",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-009",
+    "cardId": "main-anchor-card-03",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Factory",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-010",
+    "cardId": "main-anchor-card-03",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Machine",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-011",
+    "cardId": "main-anchor-card-03",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Picture",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-012",
+    "cardId": "main-anchor-card-03",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Job",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-013",
+    "cardId": "main-anchor-card-04",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Key",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-014",
+    "cardId": "main-anchor-card-04",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Door",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-015",
+    "cardId": "main-anchor-card-04",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Portal",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-016",
+    "cardId": "main-anchor-card-04",
+    "pack": "main",
+    "type": "anchor",
+    "label": "An Address",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-017",
+    "cardId": "main-anchor-card-05",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Technique",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-018",
+    "cardId": "main-anchor-card-05",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Tool",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-019",
+    "cardId": "main-anchor-card-05",
+    "pack": "main",
+    "type": "anchor",
+    "label": "An Invention",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-020",
+    "cardId": "main-anchor-card-05",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Workshop",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-021",
+    "cardId": "main-anchor-card-06",
+    "pack": "main",
+    "type": "anchor",
+    "label": "An Arena",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-022",
+    "cardId": "main-anchor-card-06",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Duel",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-023",
+    "cardId": "main-anchor-card-06",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Shield",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-024",
+    "cardId": "main-anchor-card-06",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Blade",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-025",
+    "cardId": "main-anchor-card-07",
+    "pack": "main",
+    "type": "anchor",
+    "label": "An Artifact",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-026",
+    "cardId": "main-anchor-card-07",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Ruin",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-027",
+    "cardId": "main-anchor-card-07",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Discovery",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-028",
+    "cardId": "main-anchor-card-07",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Dump",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-029",
+    "cardId": "main-anchor-card-08",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Medicine",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-030",
+    "cardId": "main-anchor-card-08",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Hospital",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-031",
+    "cardId": "main-anchor-card-08",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Death",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-032",
+    "cardId": "main-anchor-card-08",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Contagion",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-033",
+    "cardId": "main-anchor-card-09",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A School",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-034",
+    "cardId": "main-anchor-card-09",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Masterpiece",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-035",
+    "cardId": "main-anchor-card-09",
+    "pack": "main",
+    "type": "anchor",
+    "label": "An Instrument",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-036",
+    "cardId": "main-anchor-card-09",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Song",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-037",
+    "cardId": "main-anchor-card-10",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Library",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-038",
+    "cardId": "main-anchor-card-10",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Book",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-039",
+    "cardId": "main-anchor-card-10",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Riddle",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-040",
+    "cardId": "main-anchor-card-10",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Word",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-041",
+    "cardId": "main-anchor-card-11",
+    "pack": "main",
+    "type": "anchor",
+    "label": "An Island",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-042",
+    "cardId": "main-anchor-card-11",
+    "pack": "main",
+    "type": "anchor",
+    "label": "An Archive",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-043",
+    "cardId": "main-anchor-card-11",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A World",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-044",
+    "cardId": "main-anchor-card-11",
+    "pack": "main",
+    "type": "anchor",
+    "label": "An Atlas",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-045",
+    "cardId": "main-anchor-card-12",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Court",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-046",
+    "cardId": "main-anchor-card-12",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Flag",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-047",
+    "cardId": "main-anchor-card-12",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Decree",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-048",
+    "cardId": "main-anchor-card-12",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Nation",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-049",
+    "cardId": "main-anchor-card-13",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Mineral",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-050",
+    "cardId": "main-anchor-card-13",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Cave",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-051",
+    "cardId": "main-anchor-card-13",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Statue",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-052",
+    "cardId": "main-anchor-card-13",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Pool",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-053",
+    "cardId": "main-anchor-card-14",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Tattoo",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-054",
+    "cardId": "main-anchor-card-14",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Staircase",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-055",
+    "cardId": "main-anchor-card-14",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Lock",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-056",
+    "cardId": "main-anchor-card-14",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Facility",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-057",
+    "cardId": "main-anchor-card-15",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Document",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-058",
+    "cardId": "main-anchor-card-15",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Coach",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-059",
+    "cardId": "main-anchor-card-15",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Station",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-060",
+    "cardId": "main-anchor-card-15",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Suitcase",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-061",
+    "cardId": "main-anchor-card-16",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Shore",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-062",
+    "cardId": "main-anchor-card-16",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Ship",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-063",
+    "cardId": "main-anchor-card-16",
+    "pack": "main",
+    "type": "anchor",
+    "label": "An Ocean",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-064",
+    "cardId": "main-anchor-card-16",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Compass",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-065",
+    "cardId": "main-anchor-card-17",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Puzzle",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-066",
+    "cardId": "main-anchor-card-17",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Grave",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-067",
+    "cardId": "main-anchor-card-17",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Flower",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-068",
+    "cardId": "main-anchor-card-17",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Church",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-069",
+    "cardId": "main-anchor-card-18",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Bag",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-070",
+    "cardId": "main-anchor-card-18",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Cache",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-071",
+    "cardId": "main-anchor-card-18",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Camp",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-072",
+    "cardId": "main-anchor-card-18",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Disaster",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-073",
+    "cardId": "main-anchor-card-19",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Weapon",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-074",
+    "cardId": "main-anchor-card-19",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Battleground",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-075",
+    "cardId": "main-anchor-card-19",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Helmet",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-076",
+    "cardId": "main-anchor-card-19",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A War",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-077",
+    "cardId": "main-anchor-card-20",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Bank",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-078",
+    "cardId": "main-anchor-card-20",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Safe",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-079",
+    "cardId": "main-anchor-card-20",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Fortune",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-080",
+    "cardId": "main-anchor-card-20",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Combination",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-081",
+    "cardId": "main-anchor-card-21",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Plant",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-082",
+    "cardId": "main-anchor-card-21",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Forest",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-083",
+    "cardId": "main-anchor-card-21",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Paradise",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-084",
+    "cardId": "main-anchor-card-21",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Seed",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-085",
+    "cardId": "main-anchor-card-22",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Ticket",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-086",
+    "cardId": "main-anchor-card-22",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Map",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-087",
+    "cardId": "main-anchor-card-22",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Path",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-088",
+    "cardId": "main-anchor-card-22",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Tunnel",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-089",
+    "cardId": "main-anchor-card-23",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Holy Symbol",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-090",
+    "cardId": "main-anchor-card-23",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Village",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-091",
+    "cardId": "main-anchor-card-23",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Boat",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-092",
+    "cardId": "main-anchor-card-23",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Restaurant",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-093",
+    "cardId": "main-anchor-card-24",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Date",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-094",
+    "cardId": "main-anchor-card-24",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Timepiece",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-095",
+    "cardId": "main-anchor-card-24",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Pawn Shop",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-096",
+    "cardId": "main-anchor-card-24",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Gift",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-097",
+    "cardId": "main-anchor-card-25",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Device",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-098",
+    "cardId": "main-anchor-card-25",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A City",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-099",
+    "cardId": "main-anchor-card-25",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Battery",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-100",
+    "cardId": "main-anchor-card-25",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Tower",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-101",
+    "cardId": "main-anchor-card-26",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Drug",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-102",
+    "cardId": "main-anchor-card-26",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Shrine",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-103",
+    "cardId": "main-anchor-card-26",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Figure",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-104",
+    "cardId": "main-anchor-card-26",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Vision",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-105",
+    "cardId": "main-anchor-card-27",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Stage",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-106",
+    "cardId": "main-anchor-card-27",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Costume",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-107",
+    "cardId": "main-anchor-card-27",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Script",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-108",
+    "cardId": "main-anchor-card-27",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Performance",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-109",
+    "cardId": "main-anchor-card-28",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Pen",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-110",
+    "cardId": "main-anchor-card-28",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Piece of Evidence",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-111",
+    "cardId": "main-anchor-card-28",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Hideout",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-112",
+    "cardId": "main-anchor-card-28",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Bomb",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-113",
+    "cardId": "main-anchor-card-29",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Code",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-114",
+    "cardId": "main-anchor-card-29",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Base",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-115",
+    "cardId": "main-anchor-card-29",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Recording",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-116",
+    "cardId": "main-anchor-card-29",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Government",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-117",
+    "cardId": "main-anchor-card-30",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Maze",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-118",
+    "cardId": "main-anchor-card-30",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Game",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-119",
+    "cardId": "main-anchor-card-30",
+    "pack": "main",
+    "type": "anchor",
+    "label": "An Ambush",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-120",
+    "cardId": "main-anchor-card-30",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Lost and Found",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-121",
+    "cardId": "main-anchor-card-31",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Poison",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-122",
+    "cardId": "main-anchor-card-31",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Prototype",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-123",
+    "cardId": "main-anchor-card-31",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Company",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-124",
+    "cardId": "main-anchor-card-31",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Laboratory",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-125",
+    "cardId": "main-anchor-card-32",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Piece of Clothing",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-126",
+    "cardId": "main-anchor-card-32",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Construction Site",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-127",
+    "cardId": "main-anchor-card-32",
+    "pack": "main",
+    "type": "anchor",
+    "label": "An Accident",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-128",
+    "cardId": "main-anchor-card-32",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Blueprint",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-129",
+    "cardId": "main-anchor-card-33",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Sacrifice",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-130",
+    "cardId": "main-anchor-card-33",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Mountain",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-131",
+    "cardId": "main-anchor-card-33",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Pit",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-132",
+    "cardId": "main-anchor-card-33",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Flask",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-133",
+    "cardId": "main-anchor-card-34",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Rebellion",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-134",
+    "cardId": "main-anchor-card-34",
+    "pack": "main",
+    "type": "anchor",
+    "label": "An Election",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-135",
+    "cardId": "main-anchor-card-34",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Manifesto",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-136",
+    "cardId": "main-anchor-card-34",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Name",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-137",
+    "cardId": "main-anchor-card-35",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Curse",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-138",
+    "cardId": "main-anchor-card-35",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Piece of Furniture",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-139",
+    "cardId": "main-anchor-card-35",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Hotel",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-140",
+    "cardId": "main-anchor-card-35",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Work of Art",
+    "position": "right"
+  },
+  {
+    "id": "main-anchor-141",
+    "cardId": "main-anchor-card-36",
+    "pack": "main",
+    "type": "anchor",
+    "label": "An Exhibit",
+    "position": "top"
+  },
+  {
+    "id": "main-anchor-142",
+    "cardId": "main-anchor-card-36",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Museum",
+    "position": "bottom"
+  },
+  {
+    "id": "main-anchor-143",
+    "cardId": "main-anchor-card-36",
+    "pack": "main",
+    "type": "anchor",
+    "label": "An Auction Item",
+    "position": "left"
+  },
+  {
+    "id": "main-anchor-144",
+    "cardId": "main-anchor-card-36",
+    "pack": "main",
+    "type": "anchor",
+    "label": "A Piece of Jewelry",
+    "position": "right"
+  },
+  {
+    "id": "main-conflict-001",
+    "cardId": "main-conflict-card-01",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Lose Their Closest Friend",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-002",
+    "cardId": "main-conflict-card-01",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But Must Reconcile with an Old Enemy",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-003",
+    "cardId": "main-conflict-card-02",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But Their Community Will Reject Them",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-004",
+    "cardId": "main-conflict-card-02",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Abandon an Important Duty",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-005",
+    "cardId": "main-conflict-card-03",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Break a Personal Rule",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-006",
+    "cardId": "main-conflict-card-03",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Break a Religious Rule",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-007",
+    "cardId": "main-conflict-card-04",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But No One Will Know the Reasons Why",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-008",
+    "cardId": "main-conflict-card-04",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But Everyone Will Assume They Did It for the Wrong Reasons",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-009",
+    "cardId": "main-conflict-card-05",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Resist a Great Temptation",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-010",
+    "cardId": "main-conflict-card-05",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Endure Something That Repulses Them",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-011",
+    "cardId": "main-conflict-card-06",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Mean Forgiving Family",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-012",
+    "cardId": "main-conflict-card-06",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Mean Betraying Family",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-013",
+    "cardId": "main-conflict-card-07",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Try Something Frightening and New",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-014",
+    "cardId": "main-conflict-card-07",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But the Last Time They Tried, It Ended in Humiliation",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-015",
+    "cardId": "main-conflict-card-08",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Means Risking the Thing Most Precious to Them",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-016",
+    "cardId": "main-conflict-card-08",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Cost Their Soul",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-017",
+    "cardId": "main-conflict-card-09",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Cost Them Self-Respect",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-018",
+    "cardId": "main-conflict-card-09",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Cost Their Reputation",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-019",
+    "cardId": "main-conflict-card-10",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Reveal a Hypocrisy",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-020",
+    "cardId": "main-conflict-card-10",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But Someone They Love Will Pay the Price",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-021",
+    "cardId": "main-conflict-card-11",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Keep a Terrible Secret",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-022",
+    "cardId": "main-conflict-card-11",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But a Terrible Secret Will Come Out",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-023",
+    "cardId": "main-conflict-card-12",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Must Face What They Have Been Running From",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-024",
+    "cardId": "main-conflict-card-12",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Must Leave the Familiar Behind and Face the Unknown",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-025",
+    "cardId": "main-conflict-card-13",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Stop Living a Lie",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-026",
+    "cardId": "main-conflict-card-13",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Mean Forever Living a Lie",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-027",
+    "cardId": "main-conflict-card-14",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Keep a Promise They Have Been Avoiding",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-028",
+    "cardId": "main-conflict-card-14",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Mean Breaking a Promise",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-029",
+    "cardId": "main-conflict-card-15",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Learn Something Difficult",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-030",
+    "cardId": "main-conflict-card-15",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Unlearn Something They Were Taught",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-031",
+    "cardId": "main-conflict-card-16",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Must Take Up a Burden They Have Been Avoiding",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-032",
+    "cardId": "main-conflict-card-16",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Must Let Go of Something They Are Holding on to",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-033",
+    "cardId": "main-conflict-card-17",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Never Forgive Themselves",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-034",
+    "cardId": "main-conflict-card-17",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Must Let Go of an Old Grudge",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-035",
+    "cardId": "main-conflict-card-18",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But the Innocent Will Suffer",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-036",
+    "cardId": "main-conflict-card-18",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Means Giving Up Their Dream",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-037",
+    "cardId": "main-conflict-card-19",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Mean Confessing to an Old Sin",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-038",
+    "cardId": "main-conflict-card-19",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Do Something They Can Never Tell Anyone About",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-039",
+    "cardId": "main-conflict-card-20",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Cost Them Their Physical Health",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-040",
+    "cardId": "main-conflict-card-20",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Cost Them Their Mental Health",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-041",
+    "cardId": "main-conflict-card-21",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Cost Them the World They Know",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-042",
+    "cardId": "main-conflict-card-21",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Must Face Their Deepest Fear",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-043",
+    "cardId": "main-conflict-card-22",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Act Against a Community They Belong to",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-044",
+    "cardId": "main-conflict-card-22",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Turn Against a Mentor",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-045",
+    "cardId": "main-conflict-card-23",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Must Swear Loyalty to Something or Someone They Abhor",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-046",
+    "cardId": "main-conflict-card-23",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Make a Promise They Know They Cannot Keep",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-047",
+    "cardId": "main-conflict-card-24",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Must Find Something They Lost Long Ago",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-048",
+    "cardId": "main-conflict-card-24",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Must Accept a Loss They Have Been in Denial About",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-049",
+    "cardId": "main-conflict-card-25",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Mean Letting Their Greatest Rival Get Ahead",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-050",
+    "cardId": "main-conflict-card-25",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But the Blame Will Fall on Their Closest Friend",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-051",
+    "cardId": "main-conflict-card-26",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Lose the Respect of Someone They Admire",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-052",
+    "cardId": "main-conflict-card-26",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Gain the Attention of Their Enemy",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-053",
+    "cardId": "main-conflict-card-27",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Betray a Friend",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-054",
+    "cardId": "main-conflict-card-27",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Learn to Trust Again",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-055",
+    "cardId": "main-conflict-card-28",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Push a Friend Away",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-056",
+    "cardId": "main-conflict-card-28",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Must Convince an Enemy to Help Them",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-057",
+    "cardId": "main-conflict-card-29",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Means Evil Will Go Unpunished",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-058",
+    "cardId": "main-conflict-card-29",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Means a Good Deed Will Be Punished",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-059",
+    "cardId": "main-conflict-card-30",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Exploit Prejudice",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-060",
+    "cardId": "main-conflict-card-30",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Have to Confront Prejudice",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-061",
+    "cardId": "main-conflict-card-31",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Lose Their Life's Work",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-062",
+    "cardId": "main-conflict-card-31",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It May Cost Them Their Life",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-063",
+    "cardId": "main-conflict-card-32",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Must Become What They Fear",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-064",
+    "cardId": "main-conflict-card-32",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Mean the Corruption of Something Pure",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-065",
+    "cardId": "main-conflict-card-33",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Mean Paying Someone Else's Debts",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-066",
+    "cardId": "main-conflict-card-33",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Mean Taking on a Debt They Cannot Pay",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-067",
+    "cardId": "main-conflict-card-34",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But No One Will Be Able to See the Scars",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-068",
+    "cardId": "main-conflict-card-34",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Bear the Scars for All to See",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-069",
+    "cardId": "main-conflict-card-35",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But They Will Owe Something to Someone They Despise",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-070",
+    "cardId": "main-conflict-card-35",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But First They Must Repair the Damage They Have Done",
+    "position": "bottom"
+  },
+  {
+    "id": "main-conflict-071",
+    "cardId": "main-conflict-card-36",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Take Them Somewhere They Never Wanted to Go",
+    "position": "top"
+  },
+  {
+    "id": "main-conflict-072",
+    "cardId": "main-conflict-card-36",
+    "pack": "main",
+    "type": "conflict",
+    "label": "But It Will Turn Them into Someone They Never Wanted to Be",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-001",
+    "cardId": "main-aspect-card-01",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Decrepit",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-002",
+    "cardId": "main-aspect-card-01",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Possessed",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-003",
+    "cardId": "main-aspect-card-01",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Kind",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-004",
+    "cardId": "main-aspect-card-01",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Beautiful",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-005",
+    "cardId": "main-aspect-card-02",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Faithful",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-006",
+    "cardId": "main-aspect-card-02",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Protective",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-007",
+    "cardId": "main-aspect-card-02",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Deceptive",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-008",
+    "cardId": "main-aspect-card-02",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Empty",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-009",
+    "cardId": "main-aspect-card-03",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Petty",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-010",
+    "cardId": "main-aspect-card-03",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Haunted",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-011",
+    "cardId": "main-aspect-card-03",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Peaceful",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-012",
+    "cardId": "main-aspect-card-03",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Valuable",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-013",
+    "cardId": "main-aspect-card-04",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Passionate",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-014",
+    "cardId": "main-aspect-card-04",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Ethereal",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-015",
+    "cardId": "main-aspect-card-04",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Clever",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-016",
+    "cardId": "main-aspect-card-04",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Dire",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-017",
+    "cardId": "main-aspect-card-05",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Frozen",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-018",
+    "cardId": "main-aspect-card-05",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Bedeviled",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-019",
+    "cardId": "main-aspect-card-05",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Silent",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-020",
+    "cardId": "main-aspect-card-05",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Stalwart",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-021",
+    "cardId": "main-aspect-card-06",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Enchanted",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-022",
+    "cardId": "main-aspect-card-06",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Controlling",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-023",
+    "cardId": "main-aspect-card-06",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Fallen",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-024",
+    "cardId": "main-aspect-card-06",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Ornate",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-025",
+    "cardId": "main-aspect-card-07",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Forgotten",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-026",
+    "cardId": "main-aspect-card-07",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Obsessive",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-027",
+    "cardId": "main-aspect-card-07",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Belligerent",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-028",
+    "cardId": "main-aspect-card-07",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Holy",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-029",
+    "cardId": "main-aspect-card-08",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Rejuvenating",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-030",
+    "cardId": "main-aspect-card-08",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Panic-Inducing",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-031",
+    "cardId": "main-aspect-card-08",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Curious",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-032",
+    "cardId": "main-aspect-card-08",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Charming",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-033",
+    "cardId": "main-aspect-card-09",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Seductive",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-034",
+    "cardId": "main-aspect-card-09",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Harsh",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-035",
+    "cardId": "main-aspect-card-09",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Determined",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-036",
+    "cardId": "main-aspect-card-09",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Shadowy",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-037",
+    "cardId": "main-aspect-card-10",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Arcane",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-038",
+    "cardId": "main-aspect-card-10",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Vindictive",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-039",
+    "cardId": "main-aspect-card-10",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Influential",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-040",
+    "cardId": "main-aspect-card-10",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Decoy",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-041",
+    "cardId": "main-aspect-card-11",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Keen",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-042",
+    "cardId": "main-aspect-card-11",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Fragile",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-043",
+    "cardId": "main-aspect-card-11",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Cursed",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-044",
+    "cardId": "main-aspect-card-11",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Blessed",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-045",
+    "cardId": "main-aspect-card-12",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Burning",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-046",
+    "cardId": "main-aspect-card-12",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Impulsive",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-047",
+    "cardId": "main-aspect-card-12",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Fascinating",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-048",
+    "cardId": "main-aspect-card-12",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Elusive",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-049",
+    "cardId": "main-aspect-card-13",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Divine",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-050",
+    "cardId": "main-aspect-card-13",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Fiery",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-051",
+    "cardId": "main-aspect-card-13",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Humble",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-052",
+    "cardId": "main-aspect-card-13",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Precious",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-053",
+    "cardId": "main-aspect-card-14",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Inspired",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-054",
+    "cardId": "main-aspect-card-14",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Fortune-Telling",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-055",
+    "cardId": "main-aspect-card-14",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Honest",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-056",
+    "cardId": "main-aspect-card-14",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Bloody",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-057",
+    "cardId": "main-aspect-card-15",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Mysterious",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-058",
+    "cardId": "main-aspect-card-15",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Invisible",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-059",
+    "cardId": "main-aspect-card-15",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Trapped",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-060",
+    "cardId": "main-aspect-card-15",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Wealthy",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-061",
+    "cardId": "main-aspect-card-16",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Talkative",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-062",
+    "cardId": "main-aspect-card-16",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Ancient",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-063",
+    "cardId": "main-aspect-card-16",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Shocking",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-064",
+    "cardId": "main-aspect-card-16",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Healing",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-065",
+    "cardId": "main-aspect-card-17",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Icy",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-066",
+    "cardId": "main-aspect-card-17",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Blighted",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-067",
+    "cardId": "main-aspect-card-17",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Thoughtful",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-068",
+    "cardId": "main-aspect-card-17",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Brilliant",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-069",
+    "cardId": "main-aspect-card-18",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Defeated",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-070",
+    "cardId": "main-aspect-card-18",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Hardened",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-071",
+    "cardId": "main-aspect-card-18",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Outgoing",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-072",
+    "cardId": "main-aspect-card-18",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Miraculous",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-073",
+    "cardId": "main-aspect-card-19",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Bitter",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-074",
+    "cardId": "main-aspect-card-19",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Giant",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-075",
+    "cardId": "main-aspect-card-19",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Charmed",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-076",
+    "cardId": "main-aspect-card-19",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Long-Lost",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-077",
+    "cardId": "main-aspect-card-20",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Corrupted",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-078",
+    "cardId": "main-aspect-card-20",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Unlucky",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-079",
+    "cardId": "main-aspect-card-20",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Indestructible",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-080",
+    "cardId": "main-aspect-card-20",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Ghostly",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-081",
+    "cardId": "main-aspect-card-21",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Elegant",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-082",
+    "cardId": "main-aspect-card-21",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Truth-Telling",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-083",
+    "cardId": "main-aspect-card-21",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Ominous",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-084",
+    "cardId": "main-aspect-card-21",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Nurturing",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-085",
+    "cardId": "main-aspect-card-22",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Illusory",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-086",
+    "cardId": "main-aspect-card-22",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Secret",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-087",
+    "cardId": "main-aspect-card-22",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Generous",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-088",
+    "cardId": "main-aspect-card-22",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Scarred",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-089",
+    "cardId": "main-aspect-card-23",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Chilling",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-090",
+    "cardId": "main-aspect-card-23",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Greedy",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-091",
+    "cardId": "main-aspect-card-23",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Young",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-092",
+    "cardId": "main-aspect-card-23",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Vast",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-093",
+    "cardId": "main-aspect-card-24",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Simple",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-094",
+    "cardId": "main-aspect-card-24",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Wounded",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-095",
+    "cardId": "main-aspect-card-24",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Foul-Mouthed",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-096",
+    "cardId": "main-aspect-card-24",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Fierce",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-097",
+    "cardId": "main-aspect-card-25",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Broken",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-098",
+    "cardId": "main-aspect-card-25",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Harmless",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-099",
+    "cardId": "main-aspect-card-25",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Powerful",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-100",
+    "cardId": "main-aspect-card-25",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Irreplaceable",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-101",
+    "cardId": "main-aspect-card-26",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Shape-Shifting",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-102",
+    "cardId": "main-aspect-card-26",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Whispering",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-103",
+    "cardId": "main-aspect-card-26",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Irritating",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-104",
+    "cardId": "main-aspect-card-26",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Benevolent",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-105",
+    "cardId": "main-aspect-card-27",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Distant",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-106",
+    "cardId": "main-aspect-card-27",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Rare",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-107",
+    "cardId": "main-aspect-card-27",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Collapsing",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-108",
+    "cardId": "main-aspect-card-27",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Wild",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-109",
+    "cardId": "main-aspect-card-28",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Tender",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-110",
+    "cardId": "main-aspect-card-28",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Pensive",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-111",
+    "cardId": "main-aspect-card-28",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Shattered",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-112",
+    "cardId": "main-aspect-card-28",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Fearless",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-113",
+    "cardId": "main-aspect-card-29",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Vibrant",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-114",
+    "cardId": "main-aspect-card-29",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Destructive",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-115",
+    "cardId": "main-aspect-card-29",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Complex",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-116",
+    "cardId": "main-aspect-card-29",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Overlooked",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-117",
+    "cardId": "main-aspect-card-30",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Wish-Granting",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-118",
+    "cardId": "main-aspect-card-30",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Glorious",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-119",
+    "cardId": "main-aspect-card-30",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Loving",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-120",
+    "cardId": "main-aspect-card-30",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Treacherous",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-121",
+    "cardId": "main-aspect-card-31",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Hated",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-122",
+    "cardId": "main-aspect-card-31",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Fickle",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-123",
+    "cardId": "main-aspect-card-31",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Innovative",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-124",
+    "cardId": "main-aspect-card-31",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Mighty",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-125",
+    "cardId": "main-aspect-card-32",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Famous",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-126",
+    "cardId": "main-aspect-card-32",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Controversial",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-127",
+    "cardId": "main-aspect-card-32",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Swift",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-128",
+    "cardId": "main-aspect-card-32",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Durable",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-129",
+    "cardId": "main-aspect-card-33",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Unexpected",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-130",
+    "cardId": "main-aspect-card-33",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Private",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-131",
+    "cardId": "main-aspect-card-33",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Crude",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-132",
+    "cardId": "main-aspect-card-33",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Damaged",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-133",
+    "cardId": "main-aspect-card-34",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Well-Loved",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-134",
+    "cardId": "main-aspect-card-34",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Unnerving",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-135",
+    "cardId": "main-aspect-card-34",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Disturbed",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-136",
+    "cardId": "main-aspect-card-34",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Protected",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-137",
+    "cardId": "main-aspect-card-35",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Surprising",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-138",
+    "cardId": "main-aspect-card-35",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Cut-Rate",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-139",
+    "cardId": "main-aspect-card-35",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Cheery",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-140",
+    "cardId": "main-aspect-card-35",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Besieged",
+    "position": "right"
+  },
+  {
+    "id": "main-aspect-141",
+    "cardId": "main-aspect-card-36",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Revolutionary",
+    "position": "top"
+  },
+  {
+    "id": "main-aspect-142",
+    "cardId": "main-aspect-card-36",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Traumatic",
+    "position": "bottom"
+  },
+  {
+    "id": "main-aspect-143",
+    "cardId": "main-aspect-card-36",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Gilded",
+    "position": "left"
+  },
+  {
+    "id": "main-aspect-144",
+    "cardId": "main-aspect-card-36",
+    "pack": "main",
+    "type": "aspect",
+    "label": "Misunderstood",
+    "position": "right"
+  },
+  {
+    "id": "expansion-backstory-engine-001",
+    "cardId": "expansion-backstory-engine-card-01",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Trained by/within",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-002",
+    "cardId": "expansion-backstory-engine-card-01",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Found on the Doorstep of/with",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-003",
+    "cardId": "expansion-backstory-engine-card-02",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Has Always Had to Run or Hide from",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-004",
+    "cardId": "expansion-backstory-engine-card-02",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Has Been Searching All Their Life for",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-005",
+    "cardId": "expansion-backstory-engine-card-03",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Indoctrinated by/within",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-006",
+    "cardId": "expansion-backstory-engine-card-03",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Awakened or Enlightened by/in",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-007",
+    "cardId": "expansion-backstory-engine-card-04",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Loved/Owed Their Lifelong Service to",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-008",
+    "cardId": "expansion-backstory-engine-card-04",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Vowed Revenge on",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-009",
+    "cardId": "expansion-backstory-engine-card-05",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Raised by/within",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-010",
+    "cardId": "expansion-backstory-engine-card-05",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Born Under the Constellation or Omen of",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-011",
+    "cardId": "expansion-backstory-engine-card-06",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Forbidden from Returning to",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-012",
+    "cardId": "expansion-backstory-engine-card-06",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Has Always Returned to Visit",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-013",
+    "cardId": "expansion-backstory-engine-card-07",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Has a Lifelong Dream of Becoming",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-014",
+    "cardId": "expansion-backstory-engine-card-07",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Has Always Had Recurring Dreams About",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-015",
+    "cardId": "expansion-backstory-engine-card-08",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Has Always Been Mysteriously Protected by",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-016",
+    "cardId": "expansion-backstory-engine-card-08",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Spent Their Childhood Trapped in/by",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-017",
+    "cardId": "expansion-backstory-engine-card-09",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Betrayed",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-018",
+    "cardId": "expansion-backstory-engine-card-09",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Adopted as Their Emblem",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-019",
+    "cardId": "expansion-backstory-engine-card-10",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Swore They Would Never Become",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-020",
+    "cardId": "expansion-backstory-engine-card-10",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was the Subject of a Prophecy Involving",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-021",
+    "cardId": "expansion-backstory-engine-card-11",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Is Repressing Memories of",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-022",
+    "cardId": "expansion-backstory-engine-card-11",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Has One Unforgettable Memory of",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-023",
+    "cardId": "expansion-backstory-engine-card-12",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Has Made a Bitter Rival of/with",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-024",
+    "cardId": "expansion-backstory-engine-card-12",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Committed an Embarrassing Blunder Involving",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-025",
+    "cardId": "expansion-backstory-engine-card-13",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was in Love with but Tragically Lost",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-026",
+    "cardId": "expansion-backstory-engine-card-13",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Once Survived by Taking Refuge in/with",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-027",
+    "cardId": "expansion-backstory-engine-card-14",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Lost Their Powers Due to",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-028",
+    "cardId": "expansion-backstory-engine-card-14",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Received Their Powers from",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-029",
+    "cardId": "expansion-backstory-engine-card-15",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Has Not Seen Since Childhood",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-030",
+    "cardId": "expansion-backstory-engine-card-15",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Has Always Carried with Them",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-031",
+    "cardId": "expansion-backstory-engine-card-16",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Had Their Heart Broken by",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-032",
+    "cardId": "expansion-backstory-engine-card-16",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Found an Unexpected Home in/with",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-033",
+    "cardId": "expansion-backstory-engine-card-17",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Lost Leadership of/with/to",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-034",
+    "cardId": "expansion-backstory-engine-card-17",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Took Leadership of/with/from",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-035",
+    "cardId": "expansion-backstory-engine-card-18",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Owes a Lifelong Debt to",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-036",
+    "cardId": "expansion-backstory-engine-card-18",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Brought Ruin to",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-037",
+    "cardId": "expansion-backstory-engine-card-19",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Cursed by",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-038",
+    "cardId": "expansion-backstory-engine-card-19",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Given a Quest by",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-039",
+    "cardId": "expansion-backstory-engine-card-20",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Betrayed by",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-040",
+    "cardId": "expansion-backstory-engine-card-20",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Chosen to Inherit (or Inherit from)",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-041",
+    "cardId": "expansion-backstory-engine-card-21",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Bewitched by",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-042",
+    "cardId": "expansion-backstory-engine-card-21",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Has a Lifelong Fear of",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-043",
+    "cardId": "expansion-backstory-engine-card-22",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Has Been Kept Alive by",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-044",
+    "cardId": "expansion-backstory-engine-card-22",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Once Saved by",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-045",
+    "cardId": "expansion-backstory-engine-card-23",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Once Committed a Crime Involving",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-046",
+    "cardId": "expansion-backstory-engine-card-23",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Once Won a Game of Chance with/for",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-047",
+    "cardId": "expansion-backstory-engine-card-24",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Has Always Looked Up to",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-048",
+    "cardId": "expansion-backstory-engine-card-24",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Has a Long-Standing Feud with/Involving",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-049",
+    "cardId": "expansion-backstory-engine-card-25",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Fled Their Family/Home Due to",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-050",
+    "cardId": "expansion-backstory-engine-card-25",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Contracted a Childhood Illness from/in",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-051",
+    "cardId": "expansion-backstory-engine-card-26",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Once Received a Mysterious Warning About",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-052",
+    "cardId": "expansion-backstory-engine-card-26",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Suffered a Trauma Involving",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-053",
+    "cardId": "expansion-backstory-engine-card-27",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Received a Present from",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-054",
+    "cardId": "expansion-backstory-engine-card-27",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Excommunicated by/Due to",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-055",
+    "cardId": "expansion-backstory-engine-card-28",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Taught to Prize Above All Else",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-056",
+    "cardId": "expansion-backstory-engine-card-28",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Washed Up on Shore Next to",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-057",
+    "cardId": "expansion-backstory-engine-card-29",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Filed/Failed",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-058",
+    "cardId": "expansion-backstory-engine-card-29",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Was Named or Nicknamed After",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-engine-059",
+    "cardId": "expansion-backstory-engine-card-30",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Has Long Sought Their Parents, Following the Clue of",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-engine-060",
+    "cardId": "expansion-backstory-engine-card-30",
+    "pack": "expansion",
+    "type": "backstory-engine",
+    "label": "Lost Their Parents in an Accident Involving",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-001",
+    "cardId": "expansion-backstory-conflict-card-01",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Are Being Consumed by It",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-002",
+    "cardId": "expansion-backstory-conflict-card-01",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now It Has Made Them a Target",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-003",
+    "cardId": "expansion-backstory-conflict-card-02",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now Their Closest Friend Is Finding Out",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-004",
+    "cardId": "expansion-backstory-conflict-card-02",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now an Enemy Is Learning Their Secret",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-005",
+    "cardId": "expansion-backstory-conflict-card-03",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And They Just Hit a Dead End in Their Search for Answers",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-006",
+    "cardId": "expansion-backstory-conflict-card-03",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And They Just Found a Lead in Their Search for Answers",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-007",
+    "cardId": "expansion-backstory-conflict-card-04",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now the Pain Is Being Exploited",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-008",
+    "cardId": "expansion-backstory-conflict-card-04",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now the Wrong People Are Starting to Ask Questions",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-009",
+    "cardId": "expansion-backstory-conflict-card-05",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now Their Family Is Pretending It Never Happened",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-010",
+    "cardId": "expansion-backstory-conflict-card-05",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And a Recent Event Has Brought a New Perspective",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-011",
+    "cardId": "expansion-backstory-conflict-card-06",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now Their Family Is About to Find Out",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-012",
+    "cardId": "expansion-backstory-conflict-card-06",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And the Law Is Starting to Investigate Them",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-013",
+    "cardId": "expansion-backstory-conflict-card-07",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now Someone Is Pressing Them to Reveal It",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-014",
+    "cardId": "expansion-backstory-conflict-card-07",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now Someone Is Pressuring Them to Lie About It",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-015",
+    "cardId": "expansion-backstory-conflict-card-08",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now a Debt Has Come Due",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-016",
+    "cardId": "expansion-backstory-conflict-card-08",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now an Old Enemy Is Appearing in a New Form",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-017",
+    "cardId": "expansion-backstory-conflict-card-09",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Are Learning It Was a Mistake",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-018",
+    "cardId": "expansion-backstory-conflict-card-09",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now Someone Is Trying to Erase All Traces of It",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-019",
+    "cardId": "expansion-backstory-conflict-card-10",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now Their Mentor Is Asking Questions About It",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-020",
+    "cardId": "expansion-backstory-conflict-card-10",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Are Discovering It Was Part of a Vast Conspiracy",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-021",
+    "cardId": "expansion-backstory-conflict-card-11",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now Someone Is Blackmailing Them",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-022",
+    "cardId": "expansion-backstory-conflict-card-11",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now the Truth of It Is Starting to Wear Them Down",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-023",
+    "cardId": "expansion-backstory-conflict-card-12",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Have a Chance to Tell Their Side of the Story",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-024",
+    "cardId": "expansion-backstory-conflict-card-12",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now Their Romantic Partner Is About to Find Out",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-025",
+    "cardId": "expansion-backstory-conflict-card-13",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Are Finding Out It Was Based on a Lie",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-026",
+    "cardId": "expansion-backstory-conflict-card-13",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Want to Reveal It to the World",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-027",
+    "cardId": "expansion-backstory-conflict-card-14",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now It Is Putting Loved Ones at Risk",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-028",
+    "cardId": "expansion-backstory-conflict-card-14",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Are Starting to Feel Sickened by the Knowledge",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-029",
+    "cardId": "expansion-backstory-conflict-card-15",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now an Apparent Stranger Is Punishing Them for It",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-030",
+    "cardId": "expansion-backstory-conflict-card-15",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Are Being Asked to Prove It",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-031",
+    "cardId": "expansion-backstory-conflict-card-16",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now It Could End Up on Trial",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-032",
+    "cardId": "expansion-backstory-conflict-card-16",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Are Finding Ulterior Motives Behind It",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-033",
+    "cardId": "expansion-backstory-conflict-card-17",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now a Past Figure Has Reappeared",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-034",
+    "cardId": "expansion-backstory-conflict-card-17",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Will Have to Break a Related Promise",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-035",
+    "cardId": "expansion-backstory-conflict-card-18",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Realize They Were the Only One Learning It",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-036",
+    "cardId": "expansion-backstory-conflict-card-18",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now the Ghost of It Is Starting to Haunt Them",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-037",
+    "cardId": "expansion-backstory-conflict-card-19",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now the Thing Something Remembering Exactly What Happened",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-038",
+    "cardId": "expansion-backstory-conflict-card-19",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Are Discovering Their Memories of It Are False",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-039",
+    "cardId": "expansion-backstory-conflict-card-20",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now It Is Sending Them on a Long Journey",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-040",
+    "cardId": "expansion-backstory-conflict-card-20",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now Their Community Wants an Explanation",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-041",
+    "cardId": "expansion-backstory-conflict-card-21",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Wish It Should Have Happened to Someone Else",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-042",
+    "cardId": "expansion-backstory-conflict-card-21",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And They Just Received a Mysterious Message About It",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-043",
+    "cardId": "expansion-backstory-conflict-card-22",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Might Be Called Over It",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-044",
+    "cardId": "expansion-backstory-conflict-card-22",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And They Just Discovered Everyone Already Knew",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-045",
+    "cardId": "expansion-backstory-conflict-card-23",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And They Are Only Learning About It Now",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-046",
+    "cardId": "expansion-backstory-conflict-card-23",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And They Are Only Learning About It Now",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-047",
+    "cardId": "expansion-backstory-conflict-card-24",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Have a Chance to Tell Their Side of the Story",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-048",
+    "cardId": "expansion-backstory-conflict-card-24",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And They Just Discovered Everyone Already Knew",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-049",
+    "cardId": "expansion-backstory-conflict-card-25",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And It Makes Their Nightmares Come True",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-050",
+    "cardId": "expansion-backstory-conflict-card-25",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And It Is About to Throw a Wrench in a Lifelong Plan",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-051",
+    "cardId": "expansion-backstory-conflict-card-26",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now the Cycle Could Repeat Itself",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-052",
+    "cardId": "expansion-backstory-conflict-card-26",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And They Are About to Ask for Acceptance for It",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-053",
+    "cardId": "expansion-backstory-conflict-card-27",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now the God Is Punishing Them for It",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-054",
+    "cardId": "expansion-backstory-conflict-card-27",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Are Having Terrible Dreams About It",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-055",
+    "cardId": "expansion-backstory-conflict-card-28",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Are Being Called Because of It",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-056",
+    "cardId": "expansion-backstory-conflict-card-28",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Could Lose Their Position Over It",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-057",
+    "cardId": "expansion-backstory-conflict-card-29",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Are Desperate for a Distraction from It",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-058",
+    "cardId": "expansion-backstory-conflict-card-29",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now They Need Someone to Talk to About It",
+    "position": "bottom"
+  },
+  {
+    "id": "expansion-backstory-conflict-059",
+    "cardId": "expansion-backstory-conflict-card-30",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And Now It Is Starting to Control Their Life",
+    "position": "top"
+  },
+  {
+    "id": "expansion-backstory-conflict-060",
+    "cardId": "expansion-backstory-conflict-card-30",
+    "pack": "expansion",
+    "type": "backstory-conflict",
+    "label": "And They Think a Recent Crime Might Be Connected to It",
+    "position": "bottom"
+  }
+]
