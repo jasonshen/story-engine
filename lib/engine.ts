@@ -50,19 +50,20 @@ export function generateConcept(): Concept {
     concept.anchors.push({ anchor, aspect });
   }
 
-  // Build backstories for each agent
+  // Build backstories for each agent (target is another agent, not an anchor)
+  const usedBsTargetIds: string[] = [...usedAgentIds];
   for (const agentEntry of concept.agents) {
     const bsEngine = pick(getCardsByType('backstory-engine'));
-    const bsAnchor = pick(getCardsByType('anchor'), usedAnchorIds);
-    usedAnchorIds.push(bsAnchor.id);
+    const bsTarget = pick(getCardsByType('agent'), usedBsTargetIds);
+    usedBsTargetIds.push(bsTarget.id);
     const bsAspect = pickAspect(usedAspectIds);
     if (bsAspect) usedAspectIds.push(bsAspect.id);
     const bsConflict = pick(getCardsByType('backstory-conflict'));
 
     agentEntry.backstory = {
       engine: bsEngine,
-      anchor: bsAnchor,
-      anchorAspect: bsAspect,
+      target: bsTarget,
+      targetAspect: bsAspect,
       conflict: bsConflict,
     };
   }
@@ -77,8 +78,14 @@ export function rerollElement(concept: Concept, path: string): Concept {
   const usedAnchorIds = (): string[] => {
     const ids: string[] = [];
     c.anchors.forEach(a => ids.push(a.anchor.id));
+    return ids;
+  };
+
+  const usedBsTargetIds = (): string[] => {
+    const ids: string[] = [];
+    c.agents.forEach(a => ids.push(a.agent.id));
     c.agents.forEach(a => {
-      if (a.backstory) ids.push(a.backstory.anchor.id);
+      if (a.backstory) ids.push(a.backstory.target.id);
     });
     return ids;
   };
@@ -87,7 +94,7 @@ export function rerollElement(concept: Concept, path: string): Concept {
     const ids: string[] = [];
     c.agents.forEach(a => {
       if (a.aspect) ids.push(a.aspect.id);
-      if (a.backstory?.anchorAspect) ids.push(a.backstory.anchorAspect.id);
+      if (a.backstory?.targetAspect) ids.push(a.backstory.targetAspect.id);
     });
     c.anchors.forEach(a => {
       if (a.aspect) ids.push(a.aspect.id);
@@ -116,10 +123,10 @@ export function rerollElement(concept: Concept, path: string): Concept {
 
       if (bsField === 'engine') {
         bs.engine = pick(getCardsByType('backstory-engine'), [bs.engine.id]);
-      } else if (bsField === 'anchor') {
-        bs.anchor = pick(getCardsByType('anchor'), usedAnchorIds());
-      } else if (bsField === 'anchorAspect') {
-        bs.anchorAspect = pickAspect(usedAspectIds());
+      } else if (bsField === 'target') {
+        bs.target = pick(getCardsByType('agent'), usedBsTargetIds());
+      } else if (bsField === 'targetAspect') {
+        bs.targetAspect = pickAspect(usedAspectIds());
       } else if (bsField === 'conflict') {
         bs.conflict = pick(getCardsByType('backstory-conflict'), [bs.conflict.id]);
       }

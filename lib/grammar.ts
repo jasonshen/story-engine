@@ -36,9 +36,9 @@ export function enginePlural(label: string, agentCount: number): string {
   return label;
 }
 
-export function bsAnchorName(backstory: Backstory): string {
-  if (!backstory.anchorAspect) return backstory.anchor.label;
-  const noun = stripArticle(backstory.anchor.label);
-  return (vowelSound(backstory.anchorAspect.label) ? 'an ' : 'a ') +
-    backstory.anchorAspect.label + ' ' + noun;
+export function bsTargetName(backstory: Backstory): string {
+  if (!backstory.targetAspect) return backstory.target.label;
+  const noun = stripArticle(backstory.target.label);
+  return (vowelSound(backstory.targetAspect.label) ? 'an ' : 'a ') +
+    backstory.targetAspect.label + ' ' + noun;
 }

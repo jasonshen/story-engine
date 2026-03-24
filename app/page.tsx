@@ -7,7 +7,7 @@ import {
   agentDisplayName,
   anchorDisplayName,
   enginePlural,
-  bsAnchorName,
+  bsTargetName,
 } from '@/lib/grammar';
 import ConceptDisplay from '@/components/ConceptDisplay';
 import HoldToGenerate from '@/components/HoldToGenerate';
@@ -57,7 +57,7 @@ function buildNarrativeElements(concept: Concept): string {
         '  Backstory: ' +
           a.backstory.engine.label +
           ' ' +
-          bsAnchorName(a.backstory)
+          bsTargetName(a.backstory)
       );
       lines.push('  Complication: ' + a.backstory.conflict.label);
     }

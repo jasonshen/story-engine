@@ -18,8 +18,8 @@ export interface Card {
 
 export interface Backstory {
   engine: Card;
-  anchor: Card;
-  anchorAspect: Card | null;
+  target: Card;
+  targetAspect: Card | null;
   conflict: Card;
 }
 

@@ -163,37 +163,37 @@ export default function ConceptDisplay({
                   title="Re-roll backstory"
                   cardType="backstory-engine"
                 />{' '}
-                {a.backstory.anchorAspect ? (
+                {a.backstory.targetAspect ? (
                   <>
-                    {vowelSound(a.backstory.anchorAspect.label) ? 'an ' : 'a '}
+                    {vowelSound(a.backstory.targetAspect.label) ? 'an ' : 'a '}
                     <ClickableElement
-                      text={a.backstory.anchorAspect.label}
+                      text={a.backstory.targetAspect.label}
                       className="el-aspect"
                       onReroll={() =>
-                        onReroll(`agents.${i}.backstory.anchorAspect`)
+                        onReroll(`agents.${i}.backstory.targetAspect`)
                       }
                       title="Re-roll trait"
                       cardType="aspect"
                     />{' '}
                     <ClickableElement
-                      text={stripArticle(a.backstory.anchor.label)}
-                      className="el-anchor"
+                      text={stripArticle(a.backstory.target.label)}
+                      className="el-agent"
                       onReroll={() =>
-                        onReroll(`agents.${i}.backstory.anchor`)
+                        onReroll(`agents.${i}.backstory.target`)
                       }
-                      title="Re-roll object"
-                      cardType="anchor"
+                      title="Re-roll character"
+                      cardType="agent"
                     />
                   </>
                 ) : (
                   <ClickableElement
-                    text={a.backstory.anchor.label}
-                    className="el-anchor"
+                    text={a.backstory.target.label}
+                    className="el-agent"
                     onReroll={() =>
-                      onReroll(`agents.${i}.backstory.anchor`)
+                      onReroll(`agents.${i}.backstory.target`)
                     }
-                    title="Re-roll object"
-                    cardType="anchor"
+                    title="Re-roll character"
+                    cardType="agent"
                   />
                 )}
                 {', '}
