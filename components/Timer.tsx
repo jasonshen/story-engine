@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect, useCallback, useImperativeHandle, forwardRef } from 'react';
+import { ArrowCounterClockwise, Pause, Play } from '@phosphor-icons/react';
+import Kbd from './Kbd';
 
 export interface TimerHandle {
   reset: () => void;
@@ -48,25 +50,28 @@ const Timer = forwardRef<TimerHandle, { onStart?: () => void }>(
 
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
-    const displayClass = running
-      ? 'timer-display running'
-      : seconds === 0
-        ? 'timer-display done'
-        : 'timer-display';
-
+    const state = running ? 'running' : seconds === 0 ? 'done' : 'idle';
     const buttonLabel = running ? 'Stop' : seconds < 300 && !running ? 'Reset' : 'Start';
+    const Icon = running ? Pause : buttonLabel === 'Reset' ? ArrowCounterClockwise : Play;
 
     return (
-      <div className="timer-area">
-        <span className={displayClass}>
-          {m}:{s < 10 ? '0' : ''}{s}
+      <div className="timer" data-state={state}>
+        <span className="timer-display" aria-live="off">
+          {m}:{s < 10 ? '0' : ''}
+          {s}
         </span>
         <button
-          className={`btn-timer ${running ? 'active-timer' : ''}`}
+          type="button"
+          className="btn btn-quiet btn-sm"
+          data-action="timer"
+          aria-pressed={running}
           onClick={handleClick}
         >
+          <Icon aria-hidden="true" />
           {buttonLabel}
+          <Kbd>T</Kbd>
         </button>
+        {state === 'done' && <span className="timer-note">Time&rsquo;s up.</span>}
       </div>
     );
   }
