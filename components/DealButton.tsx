@@ -9,6 +9,7 @@ interface DealButtonProps {
   /** Only the visible tab listens for the keyboard shortcut */
   active: boolean;
   label?: string;
+  disabled?: boolean;
 }
 
 function isTypingTarget(el: EventTarget | null): boolean {
@@ -22,13 +23,22 @@ function isTypingTarget(el: EventTarget | null): boolean {
   );
 }
 
-export default function DealButton({ onDeal, active, label = 'Deal' }: DealButtonProps) {
+export default function DealButton({
+  onDeal,
+  active,
+  label = 'Deal',
+  disabled = false,
+}: DealButtonProps) {
   const reduce = useReducedMotion();
   const [iconRef, animate] = useAnimate<HTMLSpanElement>();
   const onDealRef = useRef(onDeal);
   onDealRef.current = onDeal;
 
+  const disabledRef = useRef(disabled);
+  disabledRef.current = disabled;
+
   const deal = useCallback(() => {
+    if (disabledRef.current) return;
     if (!reduce && iconRef.current) {
       animate(
         iconRef.current,
@@ -55,10 +65,11 @@ export default function DealButton({ onDeal, active, label = 'Deal' }: DealButto
   return (
     <motion.button
       type="button"
-      className="deal-btn"
+      className={`deal-btn ${disabled ? 'is-disabled' : ''}`}
       onClick={deal}
+      aria-disabled={disabled || undefined}
       aria-keyshortcuts="G"
-      whileTap={{ scale: 0.96 }}
+      whileTap={disabled ? undefined : { scale: 0.96 }}
       transition={{ type: 'spring', stiffness: 500, damping: 28 }}
     >
       <span ref={iconRef} className="deal-btn-icon" aria-hidden="true">

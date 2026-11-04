@@ -11,8 +11,12 @@ import {
 } from '@/lib/grammar';
 import { MotionConfig } from 'motion/react';
 import { BookOpenTextIcon, CardsIcon, UserFocusIcon } from '@phosphor-icons/react';
-import ConceptDisplay from '@/components/ConceptDisplay';
-import DealButton from '@/components/DealButton';
+import ConceptDisplay, {
+  STORY_STEPS,
+  storyCardPaths,
+  storyStageOf,
+} from '@/components/ConceptDisplay';
+import DealControls from '@/components/DealControls';
 import WritingSection, { SaveResult, WritingSectionHandle } from '@/components/WritingSection';
 import SavedEntries from '@/components/SavedEntries';
 import ConceptHistory from '@/components/ConceptHistory';
@@ -88,6 +92,9 @@ export default function Home() {
   const [savedEntries, setSavedEntries] = useState<WritingEntry[]>([]);
   const writingSectionRef = useRef<WritingSectionHandle>(null);
   const [tab, setTab] = useState<Tab>('story');
+  // Staged deal: which step is on the table and which cards are face-up.
+  const [stage, setStage] = useState(0);
+  const [flipped, setFlipped] = useState<Set<string>>(new Set());
 
   // Remember the last tab (per-browser convenience only)
   useEffect(() => {
@@ -155,6 +162,8 @@ export default function Home() {
 
     const newConcept = generateConcept();
     setConcept(newConcept);
+    setStage(0);
+    setFlipped(new Set());
     setNarrativeError(null);
 
     writingSectionRef.current?.reset();
@@ -169,6 +178,20 @@ export default function Home() {
     },
     [concept]
   );
+
+  const handleFlip = useCallback((path: string) => {
+    setFlipped((prev) => new Set(prev).add(path));
+  }, []);
+
+  const dealtPaths = concept
+    ? storyCardPaths(concept).filter((p) => storyStageOf(p) <= stage)
+    : [];
+  const canContinue = dealtPaths.every((p) => flipped.has(p));
+  const storyComplete = !!concept && stage >= STORY_STEPS - 1 && canContinue;
+
+  const handleContinue = useCallback(() => {
+    setStage((s) => Math.min(s + 1, STORY_STEPS - 1));
+  }, []);
 
   const handleCreateNarrative = useCallback(() => {
     if (concept && !concept.narrative && !narrativeLoading) {
@@ -282,9 +305,19 @@ export default function Home() {
             <div className="board">
               <div className="table">
                 <div className="deal-bar">
-                  <DealButton onDeal={handleGenerate} active={tab === 'story'} />
+                  <DealControls
+                    started={!!concept}
+                    complete={storyComplete}
+                    canContinue={canContinue}
+                    step={stage}
+                    steps={STORY_STEPS}
+                    onDeal={handleGenerate}
+                    onContinue={handleContinue}
+                    active={tab === 'story'}
+                  />
                   <p className="table-hint table-hint--inline">
-                    Tap any card, or any underlined word, to re-roll just that piece.
+                    Tap a card to turn it over. Tap it again, or an underlined word, to
+                    re-roll just that piece.
                   </p>
                 </div>
 
@@ -294,6 +327,10 @@ export default function Home() {
                   onCreateNarrative={handleCreateNarrative}
                   narrativeLoading={narrativeLoading}
                   narrativeError={narrativeError}
+                  stage={stage}
+                  flipped={flipped}
+                  onFlip={handleFlip}
+                  complete={storyComplete}
                 />
               </div>
 

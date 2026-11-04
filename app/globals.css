@@ -1541,6 +1541,90 @@ button {
   opacity: 0.45;
 }
 
+
+/* ---- staged deal: Deal / Continue / Start Over ---- */
+.deal-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.deal-aside {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.92rem;
+  color: var(--ink-3);
+  line-height: 1.35;
+}
+.deal-step {
+  font-weight: 650;
+  color: var(--ink-2);
+}
+.deal-aside-row {
+  display: flex;
+  flex-wrap: wrap;
+  column-gap: 4px;
+}
+.link-btn.link-btn--plain {
+  margin-left: 0;
+  padding: 0;
+}
+.deal-btn.is-disabled {
+  background: var(--card-2);
+  color: var(--ink-3);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.deal-btn.is-disabled:hover {
+  box-shadow: none;
+}
+
+/* A slot in the prose that hasn't been turned over yet. */
+.blank {
+  display: inline-block;
+  width: 4.5em;
+  height: 0.9em;
+  margin: 0 2px;
+  vertical-align: -0.08em;
+  border-radius: var(--r-nested);
+  background:
+    repeating-linear-gradient(45deg, transparent 0 5px, var(--line) 5px 6px),
+    var(--card-2);
+  border: 1px dashed var(--line-strong);
+}
+
+/* Face-down card label, shown on the back. */
+.pcard.is-facedown .pcard-face > .pcard-back-hint {
+  visibility: visible;
+}
+.pcard-back-hint {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  text-align: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+.pcard-back-cat {
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ink-2);
+}
+.pcard.is-facedown .pcard-face {
+  cursor: pointer;
+}
+.pcard.is-facedown:hover .pcard-face {
+  border-color: var(--accent);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

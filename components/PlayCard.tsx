@@ -41,6 +41,10 @@ export interface PlayCardProps {
    * that should stay put on a new deal, e.g. locked character cards.
    */
   revealOnMount?: boolean;
+  /** Arrive face-down and wait for a click to turn over */
+  startFaceDown?: boolean;
+  /** Called once the card has been turned face-up by a click */
+  onFlip?: () => void;
 }
 
 // Deal choreography (ms). Cards arrive face-down, then turn over one at a
@@ -73,6 +77,8 @@ export default function PlayCard({
   className = '',
   randomLabel,
   revealOnMount = true,
+  startFaceDown = false,
+  onFlip,
 }: PlayCardProps) {
   const reduce = useReducedMotion();
   const [faceRef, animate] = useAnimate<HTMLButtonElement>();
@@ -91,7 +97,11 @@ export default function PlayCard({
   // What the face shows right now: the real value, or a decoy mid-flip.
   const [shown, setShown] = useState(value);
   const [decoy, setDecoy] = useState(false);
-  const [faceDown, setFaceDown] = useState(revealOnMount);
+  const [faceDown, setFaceDown] = useState(revealOnMount || startFaceDown);
+  const faceDownRef = useRef(faceDown);
+  faceDownRef.current = faceDown;
+  const onFlipRef = useRef(onFlip);
+  onFlipRef.current = onFlip;
 
   useEffect(() => {
     alive.current = true;
@@ -106,7 +116,7 @@ export default function PlayCard({
    * on the way. Starting a new run cancels any run still in progress.
    */
   const reveal = useCallback(
-    async (decoys: number, delayMs: number) => {
+    async (decoys: number, delayMs: number, onLanded?: () => void) => {
       const id = ++runId.current;
       const live = () => alive.current && id === runId.current;
       busy.current = true;
@@ -119,6 +129,7 @@ export default function PlayCard({
           setFaceDown(false);
           setDecoy(false);
           setShown(valueRef.current);
+          onLanded?.();
           await animate(el, { opacity: [0.25, 1], rotateY: 0 }, { duration: 0.22 });
           return;
         }
@@ -138,6 +149,9 @@ export default function PlayCard({
         setFaceDown(false);
         setDecoy(false);
         setShown(valueRef.current);
+        // The real value is showing: count the card as turned over now,
+        // not after the settle, so Continue unlocks without a lag.
+        onLanded?.();
         await animate(
           el,
           { rotateY: [-90, 0] },
@@ -167,6 +181,10 @@ export default function PlayCard({
     const changed = prevValue.current !== value;
     prevValue.current = value;
     if (!changed && rollTick === 0) return;
+    if (faceDownRef.current && runId.current === 0) {
+      setShown(value);
+      return;
+    }
     const fromTap = clicked.current;
     clicked.current = false;
     reveal(1, fromTap ? 0 : Math.min(dealIndex, 14) * CASCADE_STEP);
@@ -174,7 +192,15 @@ export default function PlayCard({
   }, [value, rollTick]);
 
   const handleClick = useCallback(async () => {
-    if (blocked || busy.current || faceDown) return;
+    if (busy.current) return;
+    // A face-down card turns over on click instead of re-rolling.
+    if (faceDown) {
+      if (startFaceDown) {
+        await reveal(2, 0, () => onFlipRef.current?.());
+      }
+      return;
+    }
+    if (blocked) return;
     busy.current = true;
     clicked.current = true;
     const el = faceRef.current;
@@ -190,7 +216,7 @@ export default function PlayCard({
       onReroll();
       setRollTick((t) => t + 1);
     }
-  }, [blocked, reduce, animate, faceRef, onReroll, faceDown]);
+  }, [blocked, reduce, animate, faceRef, onReroll, faceDown, startFaceDown, reveal]);
 
   const tilt = locked ? 0 : TILTS[dealIndex % TILTS.length];
 
@@ -202,7 +228,7 @@ export default function PlayCard({
         decoy ? 'is-decoy' : ''
       } ${className}`}
       initial={
-        !revealOnMount
+        !revealOnMount && !startFaceDown
           ? false
           : reduce
             ? { opacity: 0 }
@@ -226,11 +252,21 @@ export default function PlayCard({
         type="button"
         className="pcard-face"
         onClick={handleClick}
-        aria-disabled={blocked || faceDown || undefined}
-        aria-busy={faceDown || decoy || undefined}
-        title={title}
-        aria-label={`${category}: ${value.replace(/[.!?]+$/, "")}. ${title}`}
+        aria-disabled={(faceDown ? !startFaceDown : blocked) || undefined}
+        aria-busy={decoy || undefined}
+        title={faceDown ? 'Turn over' : title}
+        aria-label={
+          faceDown
+            ? `${category}: face down. Turn over`
+            : `${category}: ${value.replace(/[.!?]+$/, '')}. ${title}`
+        }
       >
+        {faceDown && startFaceDown && (
+          <span className="pcard-back-hint" aria-hidden="true">
+            <span className="pcard-back-cat">{category}</span>
+            Tap to turn over
+          </span>
+        )}
         <span className="pcard-cat">
           <CatIcon size={15} weight="bold" aria-hidden="true" />
           {category}

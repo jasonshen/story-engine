@@ -39,7 +39,7 @@ import {
 } from '@/lib/character-engine';
 import { WritingEntry } from '@/lib/types';
 import ClickableElement from './ClickableElement';
-import DealButton from './DealButton';
+import DealControls from './DealControls';
 import Drawer from './Drawer';
 import EmptyDeck from './EmptyDeck';
 import NarrativeBlock from './NarrativeBlock';
@@ -83,6 +83,22 @@ interface CharacterTabProps {
   savedEntries: React.ReactNode;
 }
 
+// The character is dealt in four steps: the wound and the belief it left,
+// the strategy with its payoff and cost, the four behaviour traits, the arc.
+const CHARACTER_STEPS = 4;
+const CHAR_STAGE: Record<CharacterSlot, number> = {
+  wound: 0,
+  belief: 0,
+  strategy: 1,
+  payoff: 1,
+  cost: 1,
+  coping: 2,
+  negotiating: 2,
+  conflict: 2,
+  wildcard: 2,
+  lesson: 3,
+};
+
 export default function CharacterTab({ onEntrySaved, active, savedEntries }: CharacterTabProps) {
   const [character, setCharacter] = useState<Character | null>(null);
   const [pins, setPins] = useState<Set<CharacterSlot>>(new Set());
@@ -91,6 +107,9 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
   const [sketchLoading, setSketchLoading] = useState(false);
   const [sketchError, setSketchError] = useState<string | null>(null);
   const [shuffleKey, setShuffleKey] = useState(0);
+  // Staged deal: which step is on the table and which cards are face-up.
+  const [stage, setStage] = useState(0);
+  const [flipped, setFlipped] = useState<Set<CharacterSlot>>(new Set());
   const writingRef = useRef<WritingSectionHandle>(null);
 
   // Refs so the deal callback always sees current state.
@@ -107,6 +126,9 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
     setPins(nextPins);
     setSketchError(null);
     setShuffleKey((k) => k + 1);
+    setStage(0);
+    // Locked cards carry over face-up; everything else is dealt face-down.
+    setFlipped(new Set(nextPins));
     writingRef.current?.reset();
   }, []);
 
@@ -256,8 +278,23 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
     }
   };
 
+  const handleFlip = useCallback((slot: CharacterSlot) => {
+    setFlipped((prev) => new Set(prev).add(slot));
+  }, []);
+
+  const dealtSlots = character
+    ? CHARACTER_SLOTS.filter((s) => CHAR_STAGE[s] <= stage)
+    : [];
+  const canContinue = dealtSlots.every((s) => flipped.has(s));
+  const complete = !!character && stage >= CHARACTER_STEPS - 1 && canContinue;
+
+  const handleContinue = useCallback(() => {
+    setStage((s) => Math.min(s + 1, CHARACTER_STEPS - 1));
+  }, []);
+
   const card = (slot: CharacterSlot) => {
     if (!character) return null;
+    if (CHAR_STAGE[slot] > stage) return null;
     const blocked = !canReroll(character, slot, pins);
     return (
       <PlayCard
@@ -273,7 +310,9 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
         onToggleLock={() => togglePin(slot)}
         onReroll={() => handleReroll(slot)}
         randomLabel={() => randomSlotLabel(slot)}
-        revealOnMount={!pins.has(slot)}
+        revealOnMount={false}
+        startFaceDown={!flipped.has(slot)}
+        onFlip={() => handleFlip(slot)}
         quote={slot === 'belief'}
         lead={slot === 'lesson' ? 'Learning that' : undefined}
         meta={slotMeta(character, slot)}
@@ -284,6 +323,9 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
   // Words in the prose summary stay re-rollable too.
   const el = (slot: CharacterSlot) => {
     if (!character) return null;
+    if (!flipped.has(slot)) {
+      return <span className="blank" role="img" aria-label="Not turned over yet" />;
+    }
     const blocked = !canReroll(character, slot, pins);
     return (
       <ClickableElement
@@ -301,7 +343,16 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
       <div className="board">
         <div className="table">
           <div className="deal-bar">
-            <DealButton onDeal={handleGenerate} active={active} />
+            <DealControls
+              started={!!character}
+              complete={complete}
+              canContinue={canContinue}
+              step={stage}
+              steps={CHARACTER_STEPS}
+              onDeal={handleGenerate}
+              onContinue={handleContinue}
+              active={active}
+            />
             <div className="field field--inline">
               <span className="field-label" id="wound-weight-label">
                 Wound weight
@@ -323,8 +374,9 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
           </div>
 
           <p className="table-hint">
-            Tap a card to re-roll it. Lock the ones you like and Deal re-rolls everything
-            around them. Belief and strategy are a pair, so locking one holds the other.
+            Tap a card to turn it over, and again to re-roll it. Locked cards stay face-up
+            when you deal again. Belief and strategy are a pair, so locking one holds the
+            other.
             {pins.size > 0 && (
               <button type="button" className="link-btn" onClick={() => setPins(new Set())}>
                 <LockSimpleOpenIcon size={14} weight="bold" aria-hidden="true" />
@@ -337,18 +389,6 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
             <EmptyDeck text="Press Deal or G to lay out a character." />
           ) : (
             <>
-              <div className="spread spread--character">
-                {card('wound')}
-                {card('belief')}
-                {card('strategy')}
-                {card('payoff')}
-                {card('cost')}
-                <div className="behaviors" role="group" aria-label="How they behave">
-                  {BEHAVIORS.map((s) => card(s))}
-                </div>
-                {card('lesson')}
-              </div>
-
               <div className="prose prose--character">
                 <p>
                   After {el('wound')}, they came to believe: &ldquo;{el('belief')}&rdquo; So
@@ -363,6 +403,22 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
                 <p>Their arc: learning that {el('lesson')}.</p>
               </div>
 
+              <div className="spread spread--character">
+                {card('wound')}
+                {card('belief')}
+                {card('strategy')}
+                {card('payoff')}
+                {card('cost')}
+                {stage >= 2 && (
+                  <div className="behaviors" role="group" aria-label="How they behave">
+                    {BEHAVIORS.map((s) => card(s))}
+                  </div>
+                )}
+                {card('lesson')}
+              </div>
+
+              {complete && (
+              <>
               <NarrativeBlock
                 text={character.sketch}
                 loading={sketchLoading}
@@ -376,6 +432,8 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
               <Drawer title="Anatomy">
                 <Anatomy character={character} />
               </Drawer>
+              </>
+              )}
             </>
           )}
         </div>
