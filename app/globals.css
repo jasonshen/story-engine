@@ -1533,11 +1533,24 @@ button {
 .pcard .pcard-lock {
   z-index: 2;
 }
-/* While a card is being dealt, the slot clips it so the card sliding in
-   covers the one beneath instead of spilling over its neighbour. */
+/* The card being dealt slides over its neighbours rather than under them. */
 .pcard.is-dealing {
-  overflow: hidden;
-  border-radius: var(--r-surface);
+  z-index: 3;
+}
+
+/* A thin outline a few pixels inside each card's edge, so stacked cards
+   read as separate cards. Tinted from the card's own text colour, so it
+   works on light, dark and inverse cards alike. */
+.pcard-face::after {
+  content: '';
+  position: absolute;
+  inset: 5px;
+  border-radius: calc(var(--r-surface) - 5px);
+  border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+  pointer-events: none;
+}
+.pcard-ghost {
+  box-shadow: var(--shadow-card);
 }
 .pcard-ghost {
   position: absolute;

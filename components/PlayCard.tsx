@@ -68,6 +68,12 @@ const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 const POP_IN = 0.05; // s: just enough fade that a card doesn't blink in
 
+// Each decoy lands a little askew, alternating sides, so the cards dealt
+// before the real one read as a loose pile. The real card lands square.
+const ANGLE_MIN = 1.0; // deg
+const ANGLE_SPREAD = 1.5; // deg
+const randomAngle = (side: number) => side * (ANGLE_MIN + Math.random() * ANGLE_SPREAD);
+
 // A small, stable tilt per card so the spread reads as cards on a table.
 const TILTS = [-0.6, 0.45, -0.25, 0.7, -0.5, 0.3, -0.7, 0.55, -0.35, 0.2];
 
@@ -112,6 +118,7 @@ export default function PlayCard({
   // still empty because this card hasn't been dealt yet.
   const [shown, setShown] = useState(value);
   const [under, setUnder] = useState<string | null>(null);
+  const [underAngle, setUnderAngle] = useState(0);
   const [decoy, setDecoy] = useState(false);
   const [pending, setPending] = useState(dealOnMount);
   const [dealing, setDealing] = useState(dealOnMount);
@@ -134,9 +141,13 @@ export default function PlayCard({
    * deal cancels any deal still in progress.
    */
   const slideIn = useCallback(
-    (el: HTMLElement, duration: number, overCard: boolean) =>
+    (el: HTMLElement, duration: number, overCard: boolean, fromDeg: number, toDeg: number) =>
       Promise.all([
-        animate(el, { x: [-SLIDE_PX, 0] }, { duration, ease: EASE_OUT }),
+        animate(
+          el,
+          { x: [-SLIDE_PX, 0], rotate: [fromDeg, toDeg] },
+          { duration, ease: EASE_OUT }
+        ),
         // Into an empty slot, a short fade so it doesn't pop; over another
         // card, fully solid so the card beneath never shows through.
         animate(el, { opacity: overCard ? 1 : [0, 1] }, { duration: overCard ? 0 : POP_IN }),
@@ -160,34 +171,42 @@ export default function PlayCard({
           setDecoy(false);
           setShown(valueRef.current);
           onDealtRef.current?.();
-          await animate(el, { opacity: [0, 1], x: 0 }, { duration: 0.2 });
+          await animate(el, { opacity: [0, 1], x: 0, rotate: 0 }, { duration: 0.2 });
           return;
         }
 
         // What is already in the slot gets covered by the first card in.
         let lying: string | null = pendingRef.current ? null : shownRef.current;
+        let lyingAngle = 0;
+        let side = Math.random() < 0.5 ? -1 : 1;
         const pick = labelRef.current;
         for (let k = 0; pick && k < decoys; k++) {
           const label = pick();
+          const angle = randomAngle(side);
+          side = -side;
           setUnder(lying);
+          setUnderAngle(lyingAngle);
           setPending(false);
           setDecoy(true);
           setShown(label);
-          await slideIn(el, DECOY_IN, lying !== null);
+          // Slides in a touch more crooked than where it comes to rest.
+          await slideIn(el, DECOY_IN, lying !== null, angle * 1.5, angle);
           if (!live()) return;
           await sleep(DECOY_HOLD);
           if (!live()) return;
           lying = label;
+          lyingAngle = angle;
         }
 
         setUnder(lying);
+        setUnderAngle(lyingAngle);
         setPending(false);
         setDecoy(false);
         setShown(valueRef.current);
         // The real card is on its way in: count it as dealt now, so the
         // prose fills in and Continue unlocks without waiting for the settle.
         onDealtRef.current?.();
-        await slideIn(el, FINAL_IN, lying !== null);
+        await slideIn(el, FINAL_IN, lying !== null, randomAngle(side), 0);
         if (!live()) return;
         setUnder(null);
       } finally {
@@ -255,7 +274,11 @@ export default function PlayCard({
       }
     >
       {under !== null && (
-        <div className="pcard-face pcard-ghost" aria-hidden="true">
+        <div
+          className="pcard-face pcard-ghost"
+          aria-hidden="true"
+          style={{ transform: `rotate(${underAngle}deg)` }}
+        >
           <span className="pcard-cat">
             <CatIcon size={15} weight="bold" aria-hidden="true" />
             {category}
