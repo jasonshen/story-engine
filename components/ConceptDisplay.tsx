@@ -3,13 +3,24 @@
 import { useRef, useEffect, useState } from 'react';
 import { Concept } from '@/lib/types';
 import { stripArticle, vowelSound, theAgent, enginePlural } from '@/lib/grammar';
+import { DiceFive, Feather, Warning } from '@phosphor-icons/react';
 import ClickableElement from './ClickableElement';
+
+const LEGEND: { label: string; className: string }[] = [
+  { label: 'Character', className: 'el-agent' },
+  { label: 'Trait', className: 'el-aspect' },
+  { label: 'Drive', className: 'el-engine' },
+  { label: 'Object', className: 'el-anchor' },
+  { label: 'Conflict', className: 'el-conflict' },
+  { label: 'Backstory', className: 'el-bs-engine' },
+];
 
 interface ConceptDisplayProps {
   concept: Concept | null;
   onReroll: (path: string) => void;
   onCreateNarrative: () => void;
   narrativeLoading: boolean;
+  narrativeError?: string | null;
 }
 
 export default function ConceptDisplay({
@@ -17,6 +28,7 @@ export default function ConceptDisplay({
   onReroll,
   onCreateNarrative,
   narrativeLoading,
+  narrativeError = null,
 }: ConceptDisplayProps) {
   // Track concept ID changes to trigger shuffle animation
   const prevIdRef = useRef<string | null>(null);
@@ -32,9 +44,14 @@ export default function ConceptDisplay({
   if (!concept) {
     return (
       <div className="concept">
-        <div className="concept-empty">
-          <span className="glyph">&#x273B;</span>
-          Press generate to conjure a story
+        <div className="stage-empty">
+          <span className="stage-empty-icon" aria-hidden="true">
+            <DiceFive size={28} />
+          </span>
+          <p className="stage-empty-title">Press Generate to conjure a story</p>
+          <p className="stage-empty-sub kbd-hint">
+            Or press <kbd className="kbd">G</kbd> anywhere outside the writing pad.
+          </p>
         </div>
       </div>
     );
@@ -143,10 +160,15 @@ export default function ConceptDisplay({
           {'.'}
         </div>
 
-        {/* Divider */}
-        <hr className="concept-divider" />
+        <ul className="legend" aria-label="Color key">
+          {LEGEND.map((l) => (
+            <li key={l.label} className={`legend-item ${l.className}`}>
+              {l.label}
+            </li>
+          ))}
+        </ul>
 
-        {/* Backstories — no shuffle animation, just normal */}
+        {/* Backstories: no shuffle animation */}
         {concept.agents.map((a, i) => {
           if (!a.backstory) return null;
           const bsText =
@@ -214,26 +236,37 @@ export default function ConceptDisplay({
 
         {/* Narrative */}
         {narrativeLoading && (
-          <div className="narrative">
-            <div className="narrative-text narrative-loading">
-              Conjuring narrative...
+          <div className="narrative" aria-busy="true">
+            <div className="narrative-label">Conjuring narrative...</div>
+            <div className="skeleton" aria-hidden="true">
+              <span />
+              <span />
+              <span />
             </div>
           </div>
         )}
         {!narrativeLoading && concept.narrative && (
           <div className="narrative">
+            <div className="narrative-label">Narrative</div>
             <div className="narrative-text">{concept.narrative}</div>
           </div>
         )}
         {!narrativeLoading && !concept.narrative && (
           <div className="narrative-action">
             <button
-              className="btn btn-narrative"
+              className="btn-secondary"
               onClick={onCreateNarrative}
               type="button"
             >
+              <Feather size={16} aria-hidden="true" />
               Create Narrative
             </button>
+            {narrativeError && (
+              <p className="inline-error" role="alert">
+                <Warning size={16} aria-hidden="true" />
+                {narrativeError}
+              </p>
+            )}
           </div>
         )}
       </div>

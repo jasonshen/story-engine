@@ -38,30 +38,24 @@ function summaryHTML(c: Concept): string {
 export default function ConceptHistory({ history }: ConceptHistoryProps) {
   const reversed = [...history].reverse();
 
+  if (reversed.length === 0) {
+    return (
+      <div className="list-empty">Concepts will collect here as you generate.</div>
+    );
+  }
+
   return (
-    <div className="history">
-      <hr className="history-rule" />
-      <div className="history-title">Previous concepts</div>
-      <div>
-        {reversed.length === 0 ? (
-          <div className="history-empty">
-            Concepts will collect here as you generate.
-          </div>
-        ) : (
-          reversed.map((c, idx) => (
-            <div key={`${c.id}-${idx}`} className="history-item">
-              <div className="history-num">No. {history.length - idx}</div>
-              <div
-                className="history-logline"
-                dangerouslySetInnerHTML={{ __html: summaryHTML(c) }}
-              />
-              {c.narrative && (
-                <div className="history-narr">{c.narrative}</div>
-              )}
-            </div>
-          ))
-        )}
-      </div>
-    </div>
+    <ol className="history-list">
+      {reversed.map((c, idx) => (
+        <li key={`${c.id}-${idx}`} className="history-item">
+          <div className="history-num">No. {history.length - idx}</div>
+          <div
+            className="history-logline hl"
+            dangerouslySetInnerHTML={{ __html: summaryHTML(c) }}
+          />
+          {c.narrative && <div className="history-narr">{c.narrative}</div>}
+        </li>
+      ))}
+    </ol>
   );
 }

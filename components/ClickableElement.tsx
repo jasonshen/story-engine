@@ -18,9 +18,16 @@ interface ClickableElementProps {
   randomLabel?: () => string;
   /** Not re-rollable right now (e.g. blocked by a lock); shows `title` as the reason */
   disabled?: boolean;
+  /** Called when a disabled element is activated, so touch users get the reason too */
+  onBlocked?: () => void;
 }
 
 const SHUFFLE_INTERVAL = 60; // ms between label swaps
+
+function prefersReducedMotion(): boolean {
+  if (typeof window === 'undefined' || !window.matchMedia) return false;
+  return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+}
 
 export default function ClickableElement({
   text,
@@ -32,6 +39,7 @@ export default function ClickableElement({
   shuffleDuration = 500,
   randomLabel,
   disabled = false,
+  onBlocked,
 }: ClickableElementProps) {
   // Keep the label source in a ref so a new function identity each render
   // doesn't retrigger the shuffle effect.
@@ -55,6 +63,10 @@ export default function ClickableElement({
   // Shuffle-in animation on generate (triggered by shuffleKey changing)
   useEffect(() => {
     if (shuffleKey === 0 || !canShuffle) return;
+    if (prefersReducedMotion()) {
+      setDisplayText(text);
+      return;
+    }
 
     setIsShuffling(true);
 
@@ -77,55 +89,80 @@ export default function ClickableElement({
     };
   }, [shuffleKey, canShuffle, shuffleDuration, text]);
 
+  const activate = useCallback(() => {
+    if (disabled) {
+      onBlocked?.();
+      return;
+    }
+    if (isShuffling) return; // don't allow clicks during shuffle
+
+    if (prefersReducedMotion()) {
+      onReroll();
+      return;
+    }
+
+    if (!canShuffle) {
+      // No label source: use the simple swap animation
+      const span = spanRef.current;
+      if (!span) return;
+      span.classList.add('el-swapping');
+      setTimeout(() => {
+        onReroll();
+        span.classList.remove('el-swapping');
+      }, 170);
+      return;
+    }
+
+    // Reroll with shuffle animation (2x duration)
+    setIsShuffling(true);
+    const rerollDuration = 1000;
+
+    intervalRef.current = setInterval(() => {
+      const next = labelSourceRef.current;
+      if (next) setDisplayText(next());
+    }, SHUFFLE_INTERVAL);
+
+    // Fire the reroll partway through so the new value is ready
+    setTimeout(() => {
+      onReroll();
+    }, rerollDuration * 0.7);
+
+    shuffleTimerRef.current = setTimeout(() => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      setIsShuffling(false);
+      // text prop will have updated from onReroll, useEffect will sync displayText
+    }, rerollDuration);
+  }, [onReroll, onBlocked, canShuffle, isShuffling, disabled]);
+
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
-      if (disabled) return;
-      if (isShuffling) return; // don't allow clicks during shuffle
-
-      if (!canShuffle) {
-        // No label source — use the old swap animation
-        const span = spanRef.current;
-        if (!span) return;
-        span.classList.add('el-swapping');
-        setTimeout(() => {
-          onReroll();
-          span.classList.remove('el-swapping');
-        }, 170);
-        return;
-      }
-
-      // Reroll with shuffle animation (2x duration)
-      setIsShuffling(true);
-      const rerollDuration = 1000;
-
-      intervalRef.current = setInterval(() => {
-        const next = labelSourceRef.current;
-        if (next) setDisplayText(next());
-      }, SHUFFLE_INTERVAL);
-
-      // Fire the reroll partway through so the new value is ready
-      setTimeout(() => {
-        onReroll();
-      }, rerollDuration * 0.7);
-
-      shuffleTimerRef.current = setTimeout(() => {
-        if (intervalRef.current) clearInterval(intervalRef.current);
-        setIsShuffling(false);
-        // text prop will have updated from onReroll, useEffect will sync displayText
-      }, rerollDuration);
+      activate();
     },
-    [onReroll, canShuffle, isShuffling, disabled]
+    [activate]
+  );
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        activate();
+      }
+    },
+    [activate]
   );
 
   return (
     <span
       ref={spanRef}
-      className={`el ${className} ${isShuffling ? 'el-shuffling' : ''} ${
+      role="button"
+      tabIndex={0}
+      className={`el chip ${className} ${isShuffling ? 'el-shuffling' : ''} ${
         disabled ? 'el-disabled' : ''
       }`}
       aria-disabled={disabled || undefined}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
       title={title}
     >
       {displayText}

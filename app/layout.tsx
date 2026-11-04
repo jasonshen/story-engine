@@ -1,9 +1,27 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
+import { GeistSans } from 'geist/font/sans';
+import { GeistMono } from 'geist/font/mono';
+import { Literata } from 'next/font/google';
 import './globals.css';
+
+// Prose face for the writing pad and generated narratives. UI stays in Geist.
+const literata = Literata({
+  subsets: ['latin'],
+  style: ['normal', 'italic'],
+  display: 'swap',
+  variable: '--font-literata',
+});
 
 export const metadata: Metadata = {
   title: 'Story Engine',
   description: 'A creative writing tool that randomly assembles story concepts',
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f3f4f6' },
+    { media: '(prefers-color-scheme: dark)', color: '#0f1013' },
+  ],
 };
 
 export default function RootLayout({
@@ -12,19 +30,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link
-          rel="preconnect"
-          href="https://fonts.gstatic.com"
-          crossOrigin="anonymous"
-        />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Crimson+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Uncial+Antiqua&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html
+      lang="en"
+      className={`${GeistSans.variable} ${GeistMono.variable} ${literata.variable}`}
+    >
       <body>{children}</body>
     </html>
   );
