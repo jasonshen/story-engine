@@ -14,6 +14,10 @@ interface ClickableElementProps {
   shuffleKey?: number;
   /** Duration of the shuffle in ms (default 500 for generate, 1000 for reroll) */
   shuffleDuration?: number;
+  /** Custom source of random labels for the shuffle (used instead of cardType) */
+  randomLabel?: () => string;
+  /** Not re-rollable right now (e.g. blocked by a lock); shows `title` as the reason */
+  disabled?: boolean;
 }
 
 const SHUFFLE_INTERVAL = 60; // ms between label swaps
@@ -26,7 +30,15 @@ export default function ClickableElement({
   cardType,
   shuffleKey = 0,
   shuffleDuration = 500,
+  randomLabel,
+  disabled = false,
 }: ClickableElementProps) {
+  // Keep the label source in a ref so a new function identity each render
+  // doesn't retrigger the shuffle effect.
+  const labelSourceRef = useRef<(() => string) | null>(null);
+  labelSourceRef.current =
+    randomLabel ?? (cardType ? () => getRandomLabels(cardType, 1)[0] : null);
+  const canShuffle = !!(randomLabel || cardType);
   const spanRef = useRef<HTMLSpanElement>(null);
   const [displayText, setDisplayText] = useState(text);
   const [isShuffling, setIsShuffling] = useState(false);
@@ -42,14 +54,14 @@ export default function ClickableElement({
 
   // Shuffle-in animation on generate (triggered by shuffleKey changing)
   useEffect(() => {
-    if (shuffleKey === 0 || !cardType) return;
+    if (shuffleKey === 0 || !canShuffle) return;
 
     setIsShuffling(true);
 
     // Cycle through random labels
     intervalRef.current = setInterval(() => {
-      const [label] = getRandomLabels(cardType, 1);
-      setDisplayText(label);
+      const next = labelSourceRef.current;
+      if (next) setDisplayText(next());
     }, SHUFFLE_INTERVAL);
 
     // Stop after duration, land on the real text
@@ -63,15 +75,16 @@ export default function ClickableElement({
       if (intervalRef.current) clearInterval(intervalRef.current);
       if (shuffleTimerRef.current) clearTimeout(shuffleTimerRef.current);
     };
-  }, [shuffleKey, cardType, shuffleDuration, text]);
+  }, [shuffleKey, canShuffle, shuffleDuration, text]);
 
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
+      if (disabled) return;
       if (isShuffling) return; // don't allow clicks during shuffle
 
-      if (!cardType) {
-        // No card type — use the old swap animation
+      if (!canShuffle) {
+        // No label source — use the old swap animation
         const span = spanRef.current;
         if (!span) return;
         span.classList.add('el-swapping');
@@ -87,8 +100,8 @@ export default function ClickableElement({
       const rerollDuration = 1000;
 
       intervalRef.current = setInterval(() => {
-        const [label] = getRandomLabels(cardType, 1);
-        setDisplayText(label);
+        const next = labelSourceRef.current;
+        if (next) setDisplayText(next());
       }, SHUFFLE_INTERVAL);
 
       // Fire the reroll partway through so the new value is ready
@@ -102,13 +115,16 @@ export default function ClickableElement({
         // text prop will have updated from onReroll, useEffect will sync displayText
       }, rerollDuration);
     },
-    [onReroll, cardType, isShuffling]
+    [onReroll, canShuffle, isShuffling, disabled]
   );
 
   return (
     <span
       ref={spanRef}
-      className={`el ${className} ${isShuffling ? 'el-shuffling' : ''}`}
+      className={`el ${className} ${isShuffling ? 'el-shuffling' : ''} ${
+        disabled ? 'el-disabled' : ''
+      }`}
+      aria-disabled={disabled || undefined}
       onClick={handleClick}
       title={title}
     >

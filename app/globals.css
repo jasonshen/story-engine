@@ -520,6 +520,98 @@ body::after {
   font-weight: 300; margin-top: 0.3rem; line-height: 1.5;
 }
 
+
+/* === TABS === */
+.tabs {
+  display: flex; justify-content: center; gap: 2rem;
+  margin: -1rem 0 2.2rem;
+}
+.tab {
+  font-family: var(--font-display); font-size: 0.72rem; font-weight: 700;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  background: none; border: none; cursor: pointer;
+  color: var(--ink-faint); padding: 0.4rem 0.2rem;
+  border-bottom: 1.5px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+.tab:hover { color: var(--ink-mid); }
+.tab-active { color: var(--gold); border-bottom-color: var(--gold); }
+
+/* === CHARACTER TAB === */
+.controls-stack { flex-direction: column; align-items: center; gap: 1.2rem; }
+.filter-section { margin-bottom: 0; text-align: center; }
+.filter-section .opening-pills { justify-content: center; }
+
+.el-wound { color: var(--crimson); }
+.el-belief { color: var(--gold-bright); }
+.el-lesson { color: var(--gold-bright); font-style: italic; font-weight: 600; }
+.el-disabled { cursor: not-allowed; }
+.el-disabled:hover { border-bottom-color: transparent; }
+.anatomy-meta.anatomy-held { color: var(--gold); }
+.el-pinned {
+  border-bottom: 1.5px solid currentColor;
+  background: rgba(138,90,16,0.08);
+  border-radius: 2px;
+}
+
+.character-origin {
+  font-family: var(--font-body); font-size: 1.2rem; font-weight: 400;
+  line-height: 1.7; color: var(--ink-mid); text-align: center;
+}
+.character-belief {
+  font-family: var(--font-body); font-size: 1.6rem; font-weight: 500;
+  line-height: 1.5; color: var(--ink); text-align: center;
+  margin: 0.8rem 0 1rem;
+}
+.character-profile .concept-divider { margin: 1.8rem auto; }
+.character-arc {
+  font-family: var(--font-body); font-size: 1.15rem; font-weight: 400;
+  line-height: 1.7; color: var(--ink-mid); text-align: center;
+  margin-top: 1.4rem;
+}
+.sketch-error {
+  margin-top: 0.6rem; font-size: 0.85rem; font-style: italic; color: var(--crimson);
+}
+
+/* Anatomy panel */
+.anatomy {
+  margin-top: 2.2rem; padding: 1rem 1.2rem;
+  border: 1px solid var(--border-strong); border-radius: 4px;
+  background: rgba(80,60,30,0.03);
+}
+.anatomy-head {
+  display: flex; align-items: baseline; justify-content: space-between;
+  flex-wrap: wrap; gap: 0.4rem; margin-bottom: 0.6rem;
+}
+.anatomy-title {
+  font-family: var(--font-display); font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.08em; color: var(--ink-faint);
+}
+.anatomy-hint { font-size: 0.8rem; font-style: italic; color: var(--ink-faint); }
+.anatomy-clear {
+  font: inherit; font-style: normal; background: none; border: none;
+  color: var(--gold); cursor: pointer; text-decoration: underline;
+}
+.anatomy-row {
+  display: grid; grid-template-columns: 1.6rem 8.5rem 1fr; gap: 0.5rem;
+  align-items: baseline; padding: 0.45rem 0; border-top: 1px solid var(--border);
+}
+.anatomy-lock {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 1.5rem; height: 1.5rem; border-radius: 3px;
+  border: 1px solid transparent; background: none; cursor: pointer;
+  color: var(--ink-faint); align-self: center; transition: all 0.2s;
+}
+.anatomy-lock:hover { color: var(--ink); border-color: var(--border-strong); }
+.anatomy-row.locked .anatomy-lock { color: var(--bg); background: var(--gold); border-color: var(--gold); }
+.anatomy-label {
+  font-family: var(--font-display); font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.06em; color: var(--ink-light); text-transform: uppercase;
+}
+.anatomy-value { font-size: 0.95rem; color: var(--ink); line-height: 1.45; min-width: 0; }
+.anatomy-row.locked .anatomy-value { font-weight: 600; }
+.anatomy-meta { font-size: 0.78rem; color: var(--ink-faint); font-style: italic; margin-top: 0.1rem; }
+
 /* === FOOTER === */
 .footer {
   margin-top: 3rem;
@@ -542,4 +634,9 @@ body::after {
   .header-title { font-size: 1.8rem; }
   .backstory-block { padding-left: 1rem; }
   .writing-header { flex-direction: column; }
+  .character-belief { font-size: 1.3rem; }
+  .character-origin { font-size: 1.05rem; }
+  .anatomy { padding: 0.8rem; }
+  .anatomy-row { grid-template-columns: 1.6rem 1fr; }
+  .anatomy-value { grid-column: 2; }
 }

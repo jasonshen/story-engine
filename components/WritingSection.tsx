@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback, useImperativeHandle, forwardRef } from 'react';
-import { Concept, OpeningStyle } from '@/lib/types';
+import { OpeningStyle } from '@/lib/types';
 import Timer, { TimerHandle } from './Timer';
 import OpeningPills from './OpeningPills';
 
@@ -10,7 +10,10 @@ export interface WritingSectionHandle {
 }
 
 interface WritingSectionProps {
-  concept: Concept | null;
+  /** Show the section only once there is something to write from */
+  ready: boolean;
+  prompt?: string;
+  placeholder?: string;
   onSave: (data: {
     opening_style: string | null;
     body: string;
@@ -20,7 +23,15 @@ interface WritingSectionProps {
 }
 
 const WritingSection = forwardRef<WritingSectionHandle, WritingSectionProps>(
-  function WritingSection({ concept, onSave }, ref) {
+  function WritingSection(
+    {
+      ready,
+      onSave,
+      prompt = 'Now write the opening...',
+      placeholder = 'The story begins here...',
+    },
+    ref
+  ) {
     const [text, setText] = useState('');
     const [openingStyle, setOpeningStyle] = useState<OpeningStyle | null>(null);
     const [saved, setSaved] = useState(false);
@@ -46,7 +57,7 @@ const WritingSection = forwardRef<WritingSectionHandle, WritingSectionProps>(
     }, []);
 
     const handleSave = useCallback(() => {
-      if (!text.trim() || !concept) return;
+      if (!text.trim() || !ready) return;
       onSave({
         opening_style: openingStyle,
         body: text.trim(),
@@ -56,18 +67,18 @@ const WritingSection = forwardRef<WritingSectionHandle, WritingSectionProps>(
       setSaved(true);
       setShowToast(true);
       setTimeout(() => setShowToast(false), 2000);
-    }, [text, concept, openingStyle, wordCount, onSave]);
+    }, [text, ready, openingStyle, wordCount, onSave]);
 
     const handleTimerStart = useCallback(() => {
       textareaRef.current?.focus();
     }, []);
 
-    if (!concept) return null;
+    if (!ready) return null;
 
     return (
       <div className="writing-section">
         <div className="writing-header">
-          <div className="writing-prompt">Now write the opening...</div>
+          <div className="writing-prompt">{prompt}</div>
           <Timer ref={timerRef} onStart={handleTimerStart} />
         </div>
 
@@ -76,7 +87,7 @@ const WritingSection = forwardRef<WritingSectionHandle, WritingSectionProps>(
         <textarea
           ref={textareaRef}
           className="writing-area"
-          placeholder="The story begins here..."
+          placeholder={placeholder}
           value={text}
           onChange={handleTextChange}
         />
