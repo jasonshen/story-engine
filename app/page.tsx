@@ -14,6 +14,14 @@ import HoldToGenerate from '@/components/HoldToGenerate';
 import WritingSection, { WritingSectionHandle } from '@/components/WritingSection';
 import SavedEntries from '@/components/SavedEntries';
 import ConceptHistory from '@/components/ConceptHistory';
+import CharacterTab from '@/components/CharacterTab';
+
+type Tab = 'story' | 'character';
+const TABS: { id: Tab; label: string }[] = [
+  { id: 'story', label: 'Story' },
+  { id: 'character', label: 'Character' },
+];
+const TAB_KEY = 'story-engine-tab';
 
 function escapeHtml(str: string): string {
   return str
@@ -76,6 +84,26 @@ export default function Home() {
   const [narrativeLoading, setNarrativeLoading] = useState(false);
   const [savedEntries, setSavedEntries] = useState<WritingEntry[]>([]);
   const writingSectionRef = useRef<WritingSectionHandle>(null);
+  const [tab, setTab] = useState<Tab>('story');
+
+  // Remember the last tab (per-browser convenience only)
+  useEffect(() => {
+    try {
+      const saved = localStorage.getItem(TAB_KEY);
+      if (saved === 'story' || saved === 'character') setTab(saved);
+    } catch {}
+  }, []);
+
+  const selectTab = useCallback((t: Tab) => {
+    setTab(t);
+    try {
+      localStorage.setItem(TAB_KEY, t);
+    } catch {}
+  }, []);
+
+  const handleEntrySaved = useCallback((entry: WritingEntry) => {
+    setSavedEntries((prev) => [entry, ...prev]);
+  }, []);
 
   // Load saved entries on mount
   useEffect(() => {
@@ -201,26 +229,50 @@ export default function Home() {
         <p className="header-sub">click any highlighted word to re-roll it</p>
       </header>
 
-      <div className="controls">
-        <HoldToGenerate onGenerate={handleGenerate} />
+      <nav className="tabs" role="tablist">
+        {TABS.map((t) => (
+          <button
+            key={t.id}
+            type="button"
+            role="tab"
+            aria-selected={tab === t.id}
+            className={`tab ${tab === t.id ? 'tab-active' : ''}`}
+            onClick={() => selectTab(t.id)}
+          >
+            {t.label}
+          </button>
+        ))}
+      </nav>
+
+      {/* Both tabs stay mounted so switching never loses a roll or a draft */}
+      <div hidden={tab !== 'story'}>
+        <div className="controls">
+          <HoldToGenerate onGenerate={handleGenerate} />
+        </div>
+
+        <ConceptDisplay
+          concept={concept}
+          onReroll={handleReroll}
+          onCreateNarrative={handleCreateNarrative}
+          narrativeLoading={narrativeLoading}
+        />
+
+        <WritingSection
+          ref={writingSectionRef}
+          ready={!!concept}
+          onSave={handleSave}
+        />
       </div>
 
-      <ConceptDisplay
-        concept={concept}
-        onReroll={handleReroll}
-        onCreateNarrative={handleCreateNarrative}
-        narrativeLoading={narrativeLoading}
-      />
-
-      <WritingSection
-        ref={writingSectionRef}
-        concept={concept}
-        onSave={handleSave}
-      />
+      <div hidden={tab !== 'character'}>
+        <CharacterTab onEntrySaved={handleEntrySaved} />
+      </div>
 
       <SavedEntries entries={savedEntries} />
 
-      <ConceptHistory history={history} />
+      <div hidden={tab !== 'story'}>
+        <ConceptHistory history={history} />
+      </div>
 
       <footer className="footer">
         <p>Created with ♥️ by Jason Shen</p>

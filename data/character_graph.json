@@ -1,0 +1,1985 @@
+{
+  "version": 3,
+  "template": "After {wound}, they came to believe: \"{belief}\" So they {strategy}. It buys them {payoff}, but costs them {cost}. On an ordinary day they're {coping}. When they want something, they turn {negotiating}. When the wound gets poked, they go {conflict}. But when the armor slips, they're {wildcard}. Their arc: learning that {lesson}.",
+  "chain": "wound -> belief -> strategy (implied by belief) -> traits (from strategy); payoff/cost from belief; lesson pool = belief lesson + strategy lessons",
+  "enums": {
+    "intensity": [
+      "everyday",
+      "formative",
+      "catastrophic"
+    ],
+    "locus": [
+      "world",
+      "others",
+      "self",
+      "possibility"
+    ],
+    "stance": {
+      "assertive": "moves against: takes up space, pushes for what it wants",
+      "compliant": "moves toward: earns safety by meeting expectations",
+      "withdrawn": "moves away: steps back into an inner world"
+    },
+    "outlook": {
+      "positive": "copes by staying upbeat and minimizing the problem",
+      "competency": "copes by staying rational, capable and in control",
+      "reactive": "copes by feeling it hard and needing others to respond"
+    },
+    "conflictMode": {
+      "bigger": "escalates: louder, more forceful, overwhelming",
+      "sharper": "attacks: cutting, punishing, aimed at the other person",
+      "smaller": "withdraws: freezes, shuts down, disappears",
+      "sideways": "deflects: jokes, blames, intellectualizes, changes the subject"
+    }
+  },
+  "strategies": [
+    {
+      "id": "strategy-perfect",
+      "inspiredBy": "Enneagram 1",
+      "label": "set out to get everything right",
+      "stance": "compliant",
+      "outlook": "competency",
+      "fear": "being bad or wrong",
+      "desire": "to be good",
+      "lessons": [
+        "good enough is sometimes exactly right",
+        "joy isn't a reward for being perfect; it's allowed now",
+        "the inner critic isn't the voice of conscience"
+      ],
+      "traits": {
+        "coping": [
+          "principled",
+          "orderly",
+          "conscientious",
+          "exacting",
+          "earnest",
+          "punctual"
+        ],
+        "negotiating": [
+          "righteous",
+          "precise",
+          "lecturing",
+          "fair-minded",
+          "scrupulous"
+        ],
+        "conflict": [
+          {
+            "word": "indignant",
+            "mode": "bigger"
+          },
+          {
+            "word": "preachy",
+            "mode": "bigger"
+          },
+          {
+            "word": "critical",
+            "mode": "sharper"
+          },
+          {
+            "word": "scolding",
+            "mode": "sharper"
+          },
+          {
+            "word": "tight-lipped",
+            "mode": "smaller"
+          },
+          {
+            "word": "rigid",
+            "mode": "smaller"
+          },
+          {
+            "word": "nitpicking",
+            "mode": "sideways"
+          },
+          {
+            "word": "sanctimonious",
+            "mode": "sideways"
+          }
+        ],
+        "wildcard": [
+          "playful",
+          "spontaneous",
+          "silly",
+          "delighted",
+          "carefree"
+        ]
+      }
+    },
+    {
+      "id": "strategy-help",
+      "inspiredBy": "Enneagram 2",
+      "label": "made themselves needed",
+      "stance": "compliant",
+      "outlook": "positive",
+      "fear": "being unwanted",
+      "desire": "to be loved",
+      "lessons": [
+        "you can ask for love directly instead of earning it",
+        "your own needs deserve the care you give everyone else",
+        "love that keeps score isn't the love you're after"
+      ],
+      "traits": {
+        "coping": [
+          "warm",
+          "generous",
+          "attentive",
+          "hospitable",
+          "doting",
+          "nurturing"
+        ],
+        "negotiating": [
+          "flattering",
+          "charming",
+          "ingratiating",
+          "sweet",
+          "accommodating"
+        ],
+        "conflict": [
+          {
+            "word": "dramatic",
+            "mode": "bigger"
+          },
+          {
+            "word": "clingy",
+            "mode": "bigger"
+          },
+          {
+            "word": "reproachful",
+            "mode": "sharper"
+          },
+          {
+            "word": "bitter",
+            "mode": "sharper"
+          },
+          {
+            "word": "sulking",
+            "mode": "smaller"
+          },
+          {
+            "word": "wounded",
+            "mode": "smaller"
+          },
+          {
+            "word": "martyred",
+            "mode": "sideways"
+          },
+          {
+            "word": "guilt-tripping",
+            "mode": "sideways"
+          }
+        ],
+        "wildcard": [
+          "self-possessed",
+          "unapologetic",
+          "introspective",
+          "raw",
+          "honest"
+        ]
+      }
+    },
+    {
+      "id": "strategy-achieve",
+      "inspiredBy": "Enneagram 3",
+      "label": "set out to win",
+      "stance": "assertive",
+      "outlook": "competency",
+      "fear": "being worthless",
+      "desire": "to be valuable",
+      "lessons": [
+        "who you are is more interesting than what you've won",
+        "the truth about you beats the best version of you",
+        "failing in front of people won't kill you, and it might set you free"
+      ],
+      "traits": {
+        "coping": [
+          "polished",
+          "driven",
+          "efficient",
+          "upbeat",
+          "image-conscious",
+          "adaptable"
+        ],
+        "negotiating": [
+          "charismatic",
+          "persuasive",
+          "salesy",
+          "dazzling",
+          "smooth"
+        ],
+        "conflict": [
+          {
+            "word": "competitive",
+            "mode": "bigger"
+          },
+          {
+            "word": "steamrolling",
+            "mode": "bigger"
+          },
+          {
+            "word": "contemptuous",
+            "mode": "sharper"
+          },
+          {
+            "word": "cutthroat",
+            "mode": "sharper"
+          },
+          {
+            "word": "unreachable",
+            "mode": "smaller"
+          },
+          {
+            "word": "overworked",
+            "mode": "smaller"
+          },
+          {
+            "word": "slick",
+            "mode": "sideways"
+          },
+          {
+            "word": "evasive",
+            "mode": "sideways"
+          }
+        ],
+        "wildcard": [
+          "sincere",
+          "unpolished",
+          "loyal",
+          "devoted",
+          "unguarded"
+        ]
+      }
+    },
+    {
+      "id": "strategy-individualize",
+      "inspiredBy": "Enneagram 4",
+      "label": "made themselves one of a kind",
+      "stance": "withdrawn",
+      "outlook": "reactive",
+      "fear": "having no identity or significance",
+      "desire": "to be truly themselves",
+      "lessons": [
+        "what you have is not less than what you're missing",
+        "an ordinary life can hold extraordinary feeling",
+        "your wound is part of your story, not the whole of it"
+      ],
+      "traits": {
+        "coping": [
+          "moody",
+          "artistic",
+          "introspective",
+          "wistful",
+          "intense",
+          "romantic"
+        ],
+        "negotiating": [
+          "soulful",
+          "mysterious",
+          "dramatic",
+          "confessional",
+          "theatrical"
+        ],
+        "conflict": [
+          {
+            "word": "tempestuous",
+            "mode": "bigger"
+          },
+          {
+            "word": "histrionic",
+            "mode": "bigger"
+          },
+          {
+            "word": "withering",
+            "mode": "sharper"
+          },
+          {
+            "word": "cutting",
+            "mode": "sharper"
+          },
+          {
+            "word": "brooding",
+            "mode": "smaller"
+          },
+          {
+            "word": "despondent",
+            "mode": "smaller"
+          },
+          {
+            "word": "aloof",
+            "mode": "sideways"
+          },
+          {
+            "word": "self-pitying",
+            "mode": "sideways"
+          }
+        ],
+        "wildcard": [
+          "practical",
+          "disciplined",
+          "steady",
+          "grounded",
+          "content"
+        ]
+      }
+    },
+    {
+      "id": "strategy-observe",
+      "inspiredBy": "Enneagram 5",
+      "label": "retreated into understanding",
+      "stance": "withdrawn",
+      "outlook": "competency",
+      "fear": "being overwhelmed or incapable",
+      "desire": "to be competent",
+      "lessons": [
+        "you'll never know enough to feel ready, so act anyway",
+        "the world drains you less than hiding from it does",
+        "you don't have to ration yourself; there's more of you than you think"
+      ],
+      "traits": {
+        "coping": [
+          "curious",
+          "private",
+          "analytical",
+          "frugal",
+          "detached",
+          "absent-minded"
+        ],
+        "negotiating": [
+          "knowledgeable",
+          "withholding",
+          "cryptic",
+          "pedantic",
+          "dry"
+        ],
+        "conflict": [
+          {
+            "word": "argumentative",
+            "mode": "bigger"
+          },
+          {
+            "word": "combative",
+            "mode": "bigger"
+          },
+          {
+            "word": "condescending",
+            "mode": "sharper"
+          },
+          {
+            "word": "icy",
+            "mode": "sharper"
+          },
+          {
+            "word": "vanishing",
+            "mode": "smaller"
+          },
+          {
+            "word": "shut-down",
+            "mode": "smaller"
+          },
+          {
+            "word": "intellectualizing",
+            "mode": "sideways"
+          },
+          {
+            "word": "hair-splitting",
+            "mode": "sideways"
+          }
+        ],
+        "wildcard": [
+          "bold",
+          "decisive",
+          "physical",
+          "commanding",
+          "generous"
+        ]
+      }
+    },
+    {
+      "id": "strategy-secure",
+      "inspiredBy": "Enneagram 6",
+      "label": "prepared for the worst",
+      "stance": "compliant",
+      "outlook": "reactive",
+      "fear": "being without support",
+      "desire": "to be safe",
+      "lessons": [
+        "you can trust yourself as much as any authority",
+        "courage is acting with the fear, not waiting for it to leave",
+        "security is something you build inside, not something you find"
+      ],
+      "traits": {
+        "coping": [
+          "loyal",
+          "vigilant",
+          "dutiful",
+          "skeptical",
+          "worried",
+          "prepared"
+        ],
+        "negotiating": [
+          "testing",
+          "cautious",
+          "collegial",
+          "probing",
+          "hedging"
+        ],
+        "conflict": [
+          {
+            "word": "panicky",
+            "mode": "bigger"
+          },
+          {
+            "word": "defiant",
+            "mode": "bigger"
+          },
+          {
+            "word": "accusatory",
+            "mode": "sharper"
+          },
+          {
+            "word": "suspicious",
+            "mode": "sharper"
+          },
+          {
+            "word": "paralyzed",
+            "mode": "smaller"
+          },
+          {
+            "word": "frozen",
+            "mode": "smaller"
+          },
+          {
+            "word": "legalistic",
+            "mode": "sideways"
+          },
+          {
+            "word": "catastrophizing",
+            "mode": "sideways"
+          }
+        ],
+        "wildcard": [
+          "calm",
+          "trusting",
+          "easygoing",
+          "serene",
+          "brave"
+        ]
+      }
+    },
+    {
+      "id": "strategy-enjoy",
+      "inspiredBy": "Enneagram 7",
+      "label": "kept everything fun",
+      "stance": "assertive",
+      "outlook": "positive",
+      "fear": "being trapped in pain or deprivation",
+      "desire": "to be satisfied",
+      "lessons": [
+        "the pain you outrun follows you everywhere",
+        "staying with one thing is where the real joy is",
+        "the most satisfying life is the one you actually commit to"
+      ],
+      "traits": {
+        "coping": [
+          "playful",
+          "upbeat",
+          "adventurous",
+          "scattered",
+          "charming",
+          "restless"
+        ],
+        "negotiating": [
+          "enthusiastic",
+          "silver-tongued",
+          "infectious",
+          "irresistible",
+          "persuasive"
+        ],
+        "conflict": [
+          {
+            "word": "impulsive",
+            "mode": "bigger"
+          },
+          {
+            "word": "manic",
+            "mode": "bigger"
+          },
+          {
+            "word": "dismissive",
+            "mode": "sharper"
+          },
+          {
+            "word": "scornful",
+            "mode": "sharper"
+          },
+          {
+            "word": "escapist",
+            "mode": "smaller"
+          },
+          {
+            "word": "elusive",
+            "mode": "smaller"
+          },
+          {
+            "word": "jokey",
+            "mode": "sideways"
+          },
+          {
+            "word": "flippant",
+            "mode": "sideways"
+          }
+        ],
+        "wildcard": [
+          "still",
+          "focused",
+          "contemplative",
+          "grave",
+          "patient"
+        ]
+      }
+    },
+    {
+      "id": "strategy-assert",
+      "inspiredBy": "Enneagram 8",
+      "label": "made sure no one could push them around",
+      "stance": "assertive",
+      "outlook": "reactive",
+      "fear": "being controlled or harmed",
+      "desire": "to protect themselves",
+      "lessons": [
+        "letting people see you soft is the bravest thing you'll do",
+        "real strength protects without needing to win",
+        "trust is a kind of strength you haven't trained yet"
+      ],
+      "traits": {
+        "coping": [
+          "blunt",
+          "commanding",
+          "protective",
+          "larger-than-life",
+          "restless",
+          "fierce"
+        ],
+        "negotiating": [
+          "intimidating",
+          "direct",
+          "domineering",
+          "forceful",
+          "uncompromising"
+        ],
+        "conflict": [
+          {
+            "word": "explosive",
+            "mode": "bigger"
+          },
+          {
+            "word": "bulldozing",
+            "mode": "bigger"
+          },
+          {
+            "word": "ruthless",
+            "mode": "sharper"
+          },
+          {
+            "word": "brutal",
+            "mode": "sharper"
+          },
+          {
+            "word": "stonewalling",
+            "mode": "smaller"
+          },
+          {
+            "word": "stone-faced",
+            "mode": "smaller"
+          },
+          {
+            "word": "mocking",
+            "mode": "sideways"
+          },
+          {
+            "word": "sardonic",
+            "mode": "sideways"
+          }
+        ],
+        "wildcard": [
+          "tender",
+          "nurturing",
+          "soft-hearted",
+          "gentle",
+          "warm"
+        ]
+      }
+    },
+    {
+      "id": "strategy-harmonize",
+      "inspiredBy": "Enneagram 9",
+      "label": "kept the peace at any cost",
+      "stance": "withdrawn",
+      "outlook": "positive",
+      "fear": "loss and separation",
+      "desire": "inner peace",
+      "lessons": [
+        "your presence matters, and so does your opinion",
+        "real peace includes you",
+        "showing up fully is worth the friction it creates"
+      ],
+      "traits": {
+        "coping": [
+          "easygoing",
+          "agreeable",
+          "steady",
+          "unhurried",
+          "comfortable",
+          "laid-back"
+        ],
+        "negotiating": [
+          "diplomatic",
+          "accommodating",
+          "mediating",
+          "conciliatory",
+          "gentle"
+        ],
+        "conflict": [
+          {
+            "word": "erupting",
+            "mode": "bigger"
+          },
+          {
+            "word": "volcanic",
+            "mode": "bigger"
+          },
+          {
+            "word": "sniping",
+            "mode": "sharper"
+          },
+          {
+            "word": "cold",
+            "mode": "sharper"
+          },
+          {
+            "word": "checked-out",
+            "mode": "smaller"
+          },
+          {
+            "word": "numb",
+            "mode": "smaller"
+          },
+          {
+            "word": "passive-aggressive",
+            "mode": "sideways"
+          },
+          {
+            "word": "procrastinating",
+            "mode": "sideways"
+          }
+        ],
+        "wildcard": [
+          "driven",
+          "assertive",
+          "ambitious",
+          "opinionated",
+          "energized"
+        ]
+      }
+    }
+  ],
+  "wounds": [
+    {
+      "id": "wound-easy-child",
+      "intensity": "everyday",
+      "label": "growing up as the easy kid in a house that only had attention for the difficult one",
+      "beliefs": [
+        "belief-dont-make-waves",
+        "belief-good-seen",
+        "belief-different-notice",
+        "belief-others-pain-first"
+      ]
+    },
+    {
+      "id": "wound-gifted-kid",
+      "intensity": "everyday",
+      "label": "being the gifted kid everyone said would go far",
+      "beliefs": [
+        "belief-worth-achievement",
+        "belief-master-first",
+        "belief-options-open",
+        "belief-mistakes-reveal",
+        "belief-never-struggling"
+      ]
+    },
+    {
+      "id": "wound-spare-sibling",
+      "intensity": "everyday",
+      "label": "growing up in the shadow of an older sibling who was the family star",
+      "beliefs": [
+        "belief-second-invisible",
+        "belief-no-one-understands",
+        "belief-care-matter",
+        "belief-good-seen"
+      ]
+    },
+    {
+      "id": "wound-punished-speaking",
+      "intensity": "everyday",
+      "label": "being punished for telling the truth about something everyone else ignored",
+      "beliefs": [
+        "belief-go-along",
+        "belief-right-over-liked",
+        "belief-make-them-listen",
+        "belief-outsider",
+        "belief-beyond-reproach"
+      ]
+    },
+    {
+      "id": "wound-funny-one",
+      "intensity": "everyday",
+      "label": "being the funny one in a family that couldn't handle sadness",
+      "beliefs": [
+        "belief-keep-laughing",
+        "belief-others-pain-first",
+        "belief-smooth-feelings",
+        "belief-no-one-understands"
+      ]
+    },
+    {
+      "id": "wound-so-mature",
+      "intensity": "everyday",
+      "label": "being praised for being so mature since they were six",
+      "beliefs": [
+        "belief-hold-together",
+        "belief-others-pain-first",
+        "belief-master-first",
+        "belief-make-up-lost",
+        "belief-need-nothing"
+      ]
+    },
+    {
+      "id": "wound-mocked-voice",
+      "intensity": "everyday",
+      "label": "being mocked for how they talked at a new school",
+      "beliefs": [
+        "belief-fit-in-fast",
+        "belief-outsider",
+        "belief-hit-back",
+        "belief-nothing-serious",
+        "belief-make-them-listen"
+      ]
+    },
+    {
+      "id": "wound-dream-impractical",
+      "intensity": "everyday",
+      "label": "being told their dream was impractical by the people they most wanted to impress",
+      "beliefs": [
+        "belief-options-open",
+        "belief-worth-achievement",
+        "belief-want-less",
+        "belief-ordinary-lie",
+        "belief-right-enough"
+      ]
+    },
+    {
+      "id": "wound-parent-left",
+      "intensity": "formative",
+      "label": "a parent walked out one night and never came back",
+      "beliefs": [
+        "belief-useful-stay",
+        "belief-impressive-stay",
+        "belief-never-need",
+        "belief-too-short",
+        "belief-love-backup"
+      ]
+    },
+    {
+      "id": "wound-volatile-home",
+      "intensity": "formative",
+      "label": "growing up in a house where any dinner could turn into a fight",
+      "beliefs": [
+        "belief-keep-calm",
+        "belief-never-at-mercy",
+        "belief-see-trouble",
+        "belief-fun-no-fight"
+      ]
+    },
+    {
+      "id": "wound-eight-schools",
+      "intensity": "formative",
+      "label": "being moved between eight schools before they turned twelve",
+      "beliefs": [
+        "belief-travel-light",
+        "belief-fit-in-fast",
+        "belief-inner-world",
+        "belief-outsider"
+      ]
+    },
+    {
+      "id": "wound-credit-stolen",
+      "intensity": "formative",
+      "label": "a mentor they adored took credit for their breakthrough",
+      "beliefs": [
+        "belief-rigged",
+        "belief-verify-everyone",
+        "belief-right-enough",
+        "belief-want-less"
+      ]
+    },
+    {
+      "id": "wound-parentified",
+      "intensity": "formative",
+      "label": "spending their childhood holding the family together while a parent fell apart",
+      "beliefs": [
+        "belief-need-nothing",
+        "belief-hold-together",
+        "belief-make-up-lost",
+        "belief-giver-not-burden"
+      ]
+    },
+    {
+      "id": "wound-ally-betrayal",
+      "intensity": "formative",
+      "label": "their closest ally sold them out for a better offer",
+      "beliefs": [
+        "belief-everyone-price",
+        "belief-true-colors",
+        "belief-study-distance",
+        "belief-nothing-serious",
+        "belief-hit-back"
+      ]
+    },
+    {
+      "id": "wound-cold-marriage",
+      "intensity": "formative",
+      "label": "watching their parents' marriage go cold and quiet",
+      "beliefs": [
+        "belief-smooth-feelings",
+        "belief-think-through",
+        "belief-ordinary-lie",
+        "belief-love-backup",
+        "belief-hold-together"
+      ]
+    },
+    {
+      "id": "wound-lost-by-inches",
+      "intensity": "formative",
+      "label": "losing the competition they'd trained years for by a fraction of a second",
+      "beliefs": [
+        "belief-only-winners",
+        "belief-mistakes-reveal",
+        "belief-want-less",
+        "belief-master-first",
+        "belief-second-invisible"
+      ]
+    },
+    {
+      "id": "wound-mood-love",
+      "intensity": "formative",
+      "label": "growing up with a parent whose love depended on their mood that day",
+      "beliefs": [
+        "belief-see-trouble",
+        "belief-keep-calm",
+        "belief-good-seen",
+        "belief-care-matter",
+        "belief-useful-stay"
+      ]
+    },
+    {
+      "id": "wound-disowned",
+      "intensity": "formative",
+      "label": "being disowned by their family for the life they chose",
+      "beliefs": [
+        "belief-take-me-back",
+        "belief-outsider",
+        "belief-never-need",
+        "belief-too-short"
+      ]
+    },
+    {
+      "id": "wound-scarcity",
+      "intensity": "formative",
+      "label": "growing up in a house where one bad month could cost the family everything",
+      "beliefs": [
+        "belief-money-safety",
+        "belief-giver-not-burden",
+        "belief-only-winners",
+        "belief-want-nothing",
+        "belief-never-at-mercy",
+        "belief-worth-achievement"
+      ]
+    },
+    {
+      "id": "wound-first-love",
+      "intensity": "formative",
+      "label": "a first love who left without a word",
+      "beliefs": [
+        "belief-love-hard",
+        "belief-nothing-serious",
+        "belief-my-losses",
+        "belief-true-colors",
+        "belief-impressive-stay"
+      ]
+    },
+    {
+      "id": "wound-bullied",
+      "intensity": "formative",
+      "label": "being bullied for years while the adults looked away",
+      "beliefs": [
+        "belief-hit-back",
+        "belief-never-struggling",
+        "belief-dont-make-waves",
+        "belief-reveal-nothing",
+        "belief-never-at-mercy"
+      ]
+    },
+    {
+      "id": "wound-business-collapse",
+      "intensity": "formative",
+      "label": "a business they built collapsing and taking their friends' savings with it",
+      "beliefs": [
+        "belief-balance-out",
+        "belief-want-less",
+        "belief-mistakes-reveal",
+        "belief-travel-light",
+        "belief-unforgivable"
+      ]
+    },
+    {
+      "id": "wound-secret-exposed",
+      "intensity": "formative",
+      "label": "a secret they confided being spread to everyone they knew",
+      "beliefs": [
+        "belief-reveal-nothing",
+        "belief-never-struggling",
+        "belief-nothing-serious",
+        "belief-verify-everyone"
+      ]
+    },
+    {
+      "id": "wound-family-lie",
+      "intensity": "formative",
+      "label": "discovering their whole family history was a lie",
+      "beliefs": [
+        "belief-ordinary-lie",
+        "belief-true-colors",
+        "belief-study-distance",
+        "belief-right-over-liked",
+        "belief-go-along"
+      ]
+    },
+    {
+      "id": "wound-death-on-watch",
+      "intensity": "catastrophic",
+      "label": "someone in their care died on their watch",
+      "beliefs": [
+        "belief-softness-kills",
+        "belief-prepare-everything",
+        "belief-keep-laughing",
+        "belief-let-others-lead"
+      ]
+    },
+    {
+      "id": "wound-followed-order",
+      "intensity": "catastrophic",
+      "label": "they followed an order that ruined innocent lives",
+      "beliefs": [
+        "belief-short-leash",
+        "belief-no-authority",
+        "belief-unforgivable",
+        "belief-balance-out"
+      ]
+    },
+    {
+      "id": "wound-sole-survivor",
+      "intensity": "catastrophic",
+      "label": "being the only one who walked away from the crash",
+      "beliefs": [
+        "belief-survived-reason",
+        "belief-keep-laughing",
+        "belief-think-through",
+        "belief-let-others-lead",
+        "belief-prepare-everything"
+      ]
+    },
+    {
+      "id": "wound-house-fire",
+      "intensity": "catastrophic",
+      "label": "their home burning down with everything they'd ever made inside",
+      "beliefs": [
+        "belief-my-losses",
+        "belief-want-nothing",
+        "belief-travel-light",
+        "belief-why-happened",
+        "belief-prepare-everything"
+      ]
+    },
+    {
+      "id": "wound-war",
+      "intensity": "catastrophic",
+      "label": "fleeing a war that took their home and half their family",
+      "beliefs": [
+        "belief-power",
+        "belief-want-nothing",
+        "belief-my-losses",
+        "belief-make-up-lost",
+        "belief-money-safety",
+        "belief-softness-kills"
+      ]
+    },
+    {
+      "id": "wound-false-accusation",
+      "intensity": "catastrophic",
+      "label": "being falsely accused and losing years of their life to it",
+      "beliefs": [
+        "belief-beyond-reproach",
+        "belief-rigged",
+        "belief-why-happened",
+        "belief-no-authority",
+        "belief-dont-make-waves"
+      ]
+    }
+  ],
+  "beliefs": [
+    {
+      "id": "belief-softness-kills",
+      "strategy": "strategy-assert",
+      "locus": "world",
+      "label": "Softness gets people killed, so show none.",
+      "payoffs": [
+        "never hesitating when it counts",
+        "a reputation no one dares to test"
+      ],
+      "costs": [
+        "the trust of anyone weaker than them",
+        "the part of themselves that still flinches"
+      ],
+      "lesson": "mercy is strength that has chosen its moment"
+    },
+    {
+      "id": "belief-prepare-everything",
+      "strategy": "strategy-secure",
+      "locus": "possibility",
+      "label": "If I prepare for everything, no one else gets hurt.",
+      "payoffs": [
+        "a plan for every disaster",
+        "the feeling that loss can be prevented"
+      ],
+      "costs": [
+        "the ability to rest",
+        "any moment that isn't a drill"
+      ],
+      "lesson": "you can't prevent every loss, but you can stop losing your life to the fear of it"
+    },
+    {
+      "id": "belief-keep-laughing",
+      "strategy": "strategy-enjoy",
+      "locus": "others",
+      "label": "If I keep everyone laughing, no one has to feel this.",
+      "payoffs": [
+        "being the light in every room",
+        "never having to sit with the grief"
+      ],
+      "costs": [
+        "the chance to mourn",
+        "friends who wonder if they've ever met the real them"
+      ],
+      "lesson": "grief shared is lighter than grief outrun"
+    },
+    {
+      "id": "belief-let-others-lead",
+      "strategy": "strategy-harmonize",
+      "locus": "self",
+      "label": "I fail the people who depend on me, so let someone else lead.",
+      "payoffs": [
+        "never being responsible for another loss",
+        "a quiet, uncomplicated life"
+      ],
+      "costs": [
+        "the leadership everyone can see they're capable of",
+        "the people who needed them to step up"
+      ],
+      "lesson": "failing someone once doesn't make you a failure; staying out of the fight does"
+    },
+    {
+      "id": "belief-useful-stay",
+      "strategy": "strategy-help",
+      "locus": "others",
+      "label": "If I'm useful enough, people will stay.",
+      "payoffs": [
+        "a place in everyone's life",
+        "being the one people call first"
+      ],
+      "costs": [
+        "relationships that don't feel like jobs",
+        "knowing what they want for themselves"
+      ],
+      "lesson": "the people worth keeping stay even when you have nothing to offer"
+    },
+    {
+      "id": "belief-impressive-stay",
+      "strategy": "strategy-achieve",
+      "locus": "self",
+      "label": "If I'm impressive enough, no one will leave me again.",
+      "payoffs": [
+        "a résumé no one can walk away from",
+        "admiration on demand"
+      ],
+      "costs": [
+        "rest",
+        "being loved for anything they didn't earn"
+      ],
+      "lesson": "the people who left weren't leaving because you weren't enough"
+    },
+    {
+      "id": "belief-never-need",
+      "strategy": "strategy-observe",
+      "locus": "others",
+      "label": "Nobody can abandon you if you never need them.",
+      "payoffs": [
+        "total self-sufficiency",
+        "a life no one can take apart"
+      ],
+      "costs": [
+        "help when they need it most",
+        "anyone who wants to get close"
+      ],
+      "lesson": "needing people isn't the danger; needing the wrong ones is"
+    },
+    {
+      "id": "belief-too-short",
+      "strategy": "strategy-enjoy",
+      "locus": "possibility",
+      "label": "Life's too short to dwell on who left.",
+      "payoffs": [
+        "a life full of new people and new places",
+        "never looking back"
+      ],
+      "costs": [
+        "any relationship that needs them to stay through the hard part",
+        "ever getting an answer to why"
+      ],
+      "lesson": "looking back is how you stop repeating it"
+    },
+    {
+      "id": "belief-dont-make-waves",
+      "strategy": "strategy-harmonize",
+      "locus": "self",
+      "label": "My needs aren't important, so don't make waves.",
+      "payoffs": [
+        "being everyone's favorite low-maintenance friend",
+        "a life without fights"
+      ],
+      "costs": [
+        "their own voice",
+        "the life they'd have chosen if anyone had asked"
+      ],
+      "lesson": "being easy isn't the same as being loved"
+    },
+    {
+      "id": "belief-good-seen",
+      "strategy": "strategy-perfect",
+      "locus": "self",
+      "label": "If I'm good enough, someone will finally notice.",
+      "payoffs": [
+        "a spotless record",
+        "the moral high ground in every room"
+      ],
+      "costs": [
+        "the fun they never let themselves have",
+        "patience with anyone less careful"
+      ],
+      "lesson": "you don't have to be flawless to deserve attention"
+    },
+    {
+      "id": "belief-different-notice",
+      "strategy": "strategy-individualize",
+      "locus": "others",
+      "label": "If I'm different enough, they'll have to notice me.",
+      "payoffs": [
+        "a style no one can ignore",
+        "a story about themselves that feels important"
+      ],
+      "costs": [
+        "the comfort of belonging",
+        "any role that requires being ordinary"
+      ],
+      "lesson": "being seen doesn't require being strange"
+    },
+    {
+      "id": "belief-keep-calm",
+      "strategy": "strategy-harmonize",
+      "locus": "others",
+      "label": "Someone has to keep things calm, and it's me.",
+      "payoffs": [
+        "a gift for defusing any room",
+        "being the steady one"
+      ],
+      "costs": [
+        "ever getting to be upset themselves",
+        "conflicts that needed to happen"
+      ],
+      "lesson": "some fights are worth having, and peace that excludes you isn't peace"
+    },
+    {
+      "id": "belief-never-at-mercy",
+      "strategy": "strategy-assert",
+      "locus": "world",
+      "label": "Never be the one at someone else's mercy.",
+      "payoffs": [
+        "control of every situation",
+        "never feeling small again"
+      ],
+      "costs": [
+        "anyone who wants to be an equal",
+        "the chance to be taken care of"
+      ],
+      "lesson": "being at someone's mercy and being in their care are not the same thing"
+    },
+    {
+      "id": "belief-see-trouble",
+      "strategy": "strategy-secure",
+      "locus": "world",
+      "label": "If I can see trouble coming, I can stop it.",
+      "payoffs": [
+        "an uncanny read on any room",
+        "never being blindsided"
+      ],
+      "costs": [
+        "peace in quiet moments",
+        "people who feel watched rather than loved"
+      ],
+      "lesson": "you don't have to scan every room once you're no longer a child in that house"
+    },
+    {
+      "id": "belief-fun-no-fight",
+      "strategy": "strategy-enjoy",
+      "locus": "others",
+      "label": "If I keep things fun, the fight never starts.",
+      "payoffs": [
+        "being the life of every party",
+        "a talent for changing the mood"
+      ],
+      "costs": [
+        "ever being taken seriously",
+        "the conversations that never happen"
+      ],
+      "lesson": "the fight you avoid with a joke is still waiting for you"
+    },
+    {
+      "id": "belief-worth-achievement",
+      "strategy": "strategy-achieve",
+      "locus": "self",
+      "label": "I'm only worth what I achieve, so never stop proving it.",
+      "payoffs": [
+        "a steady supply of validation",
+        "a clear scoreboard for their worth"
+      ],
+      "costs": [
+        "rest",
+        "relationships that aren't audiences"
+      ],
+      "lesson": "your worth was never up for negotiation"
+    },
+    {
+      "id": "belief-master-first",
+      "strategy": "strategy-observe",
+      "locus": "possibility",
+      "label": "Don't act until you've mastered it.",
+      "payoffs": [
+        "encyclopedic knowledge of everything they care about",
+        "never looking foolish"
+      ],
+      "costs": [
+        "years of a life spent preparing",
+        "the things only doing can teach"
+      ],
+      "lesson": "mastery comes from doing it badly first"
+    },
+    {
+      "id": "belief-options-open",
+      "strategy": "strategy-enjoy",
+      "locus": "possibility",
+      "label": "Commitment is a trap, so keep every option open.",
+      "payoffs": [
+        "a potential that can never be disproven",
+        "an endless supply of new beginnings"
+      ],
+      "costs": [
+        "the depth that only commitment brings",
+        "the respect of people who watch them start and quit"
+      ],
+      "lesson": "choosing one path doesn't shrink you; it's how you find out who you are"
+    },
+    {
+      "id": "belief-mistakes-reveal",
+      "strategy": "strategy-perfect",
+      "locus": "self",
+      "label": "Mistakes reveal what you really are, so never make one.",
+      "payoffs": [
+        "work no one can criticize",
+        "never being exposed as a fraud"
+      ],
+      "costs": [
+        "every risk that would have mattered",
+        "the freedom to be a beginner"
+      ],
+      "lesson": "failure is an event, not an identity"
+    },
+    {
+      "id": "belief-second-invisible",
+      "strategy": "strategy-achieve",
+      "locus": "world",
+      "label": "Second place is the same as invisible, so win at everything.",
+      "payoffs": [
+        "a trophy shelf that proves they exist",
+        "relentless motivation"
+      ],
+      "costs": [
+        "friendships that aren't contests",
+        "enjoying anything they're not good at"
+      ],
+      "lesson": "the race was never against your sibling; it was against a story"
+    },
+    {
+      "id": "belief-no-one-understands",
+      "strategy": "strategy-individualize",
+      "locus": "others",
+      "label": "No one will ever really understand me, so stop expecting them to.",
+      "payoffs": [
+        "a rich, private inner life",
+        "a sense of being special in their suffering"
+      ],
+      "costs": [
+        "the people trying to understand them right now",
+        "contentment with the ordinary"
+      ],
+      "lesson": "being understood starts with letting people in"
+    },
+    {
+      "id": "belief-care-matter",
+      "strategy": "strategy-help",
+      "locus": "self",
+      "label": "If I take care of everyone, I'll matter to someone.",
+      "payoffs": [
+        "a reputation for kindness",
+        "being indispensable to the people they love"
+      ],
+      "costs": [
+        "anyone ever taking care of them",
+        "the resentment they never admit to"
+      ],
+      "lesson": "you mattered before you helped anyone"
+    },
+    {
+      "id": "belief-travel-light",
+      "strategy": "strategy-enjoy",
+      "locus": "possibility",
+      "label": "Nothing lasts, so don't build anything you can't carry.",
+      "payoffs": [
+        "freedom to move at a moment's notice",
+        "a talent for starting over"
+      ],
+      "costs": [
+        "a legacy",
+        "roots and community"
+      ],
+      "lesson": "impermanence is a reason to build carefully, not a reason not to build"
+    },
+    {
+      "id": "belief-fit-in-fast",
+      "strategy": "strategy-achieve",
+      "locus": "others",
+      "label": "Fit in fast or get left out.",
+      "payoffs": [
+        "a chameleon's gift for any room",
+        "friends everywhere"
+      ],
+      "costs": [
+        "a self that stays the same from room to room",
+        "anyone who knows the real version"
+      ],
+      "lesson": "the self you keep hiding is the one people would stay for"
+    },
+    {
+      "id": "belief-inner-world",
+      "strategy": "strategy-observe",
+      "locus": "others",
+      "label": "Everyone becomes a stranger eventually, so keep your inner world to yourself.",
+      "payoffs": [
+        "an inner world no move can take away",
+        "nothing to lose when it's time to go"
+      ],
+      "costs": [
+        "friendships that go deeper than the surface",
+        "anyone who could share what they've built inside"
+      ],
+      "lesson": "letting someone in is the one thing that makes a place a home"
+    },
+    {
+      "id": "belief-rigged",
+      "strategy": "strategy-assert",
+      "locus": "world",
+      "label": "The game is rigged, so cheat before you're cheated.",
+      "payoffs": [
+        "never being the sucker again",
+        "results the rules would never allow"
+      ],
+      "costs": [
+        "their own integrity",
+        "anyone who plays fair"
+      ],
+      "lesson": "you can fight a rigged game without becoming the rigging"
+    },
+    {
+      "id": "belief-verify-everyone",
+      "strategy": "strategy-secure",
+      "locus": "others",
+      "label": "Trust is a weakness, so verify everyone.",
+      "payoffs": [
+        "never being played twice",
+        "always seeing the knife before it moves"
+      ],
+      "costs": [
+        "every partnership that needs a leap of faith",
+        "the mentors they never let close again"
+      ],
+      "lesson": "a betrayal says more about the betrayer than about the one who trusted"
+    },
+    {
+      "id": "belief-right-enough",
+      "strategy": "strategy-perfect",
+      "locus": "world",
+      "label": "Doing it right should be enough, so never ask for credit.",
+      "payoffs": [
+        "clean hands",
+        "work that speaks for itself, eventually"
+      ],
+      "costs": [
+        "the recognition they deserve",
+        "a quiet, simmering resentment"
+      ],
+      "lesson": "asking for what you're owed is part of doing it right"
+    },
+    {
+      "id": "belief-want-less",
+      "strategy": "strategy-harmonize",
+      "locus": "possibility",
+      "label": "Ambition only gets you burned, so want less.",
+      "payoffs": [
+        "a calm, low-stakes life",
+        "never being robbed again because there's nothing to take"
+      ],
+      "costs": [
+        "the work they were born to do",
+        "the person they could have become"
+      ],
+      "lesson": "wanting something out loud is worth the risk of losing it"
+    },
+    {
+      "id": "belief-need-nothing",
+      "strategy": "strategy-help",
+      "locus": "self",
+      "label": "Needing anything makes me a burden, so need nothing.",
+      "payoffs": [
+        "never being refused",
+        "the role of the strong one"
+      ],
+      "costs": [
+        "support when they're breaking",
+        "relationships that run both ways"
+      ],
+      "lesson": "letting people help is a gift to them, too"
+    },
+    {
+      "id": "belief-hold-together",
+      "strategy": "strategy-perfect",
+      "locus": "possibility",
+      "label": "If I don't hold it together, everything falls apart.",
+      "payoffs": [
+        "a reputation as the responsible one",
+        "a sense of control"
+      ],
+      "costs": [
+        "the childhood they never had",
+        "ever getting to fall apart themselves"
+      ],
+      "lesson": "other people can carry their share, and it was never your job to carry theirs"
+    },
+    {
+      "id": "belief-make-up-lost",
+      "strategy": "strategy-enjoy",
+      "locus": "self",
+      "label": "My childhood was stolen, so I'll make up for it now.",
+      "payoffs": [
+        "a hunger for life that's contagious",
+        "a refusal to be anyone's caretaker again"
+      ],
+      "costs": [
+        "the grown-up responsibilities they keep dodging",
+        "people who need them to show up"
+      ],
+      "lesson": "you can't get the lost years back, but you can stop letting them run the present"
+    },
+    {
+      "id": "belief-everyone-price",
+      "strategy": "strategy-assert",
+      "locus": "others",
+      "label": "Everyone has a price, so find it first.",
+      "payoffs": [
+        "always holding the leverage",
+        "never being surprised by greed"
+      ],
+      "costs": [
+        "the ability to recognize real kindness",
+        "friends who aren't assets"
+      ],
+      "lesson": "loyalty can't be bought, but it can be built"
+    },
+    {
+      "id": "belief-true-colors",
+      "strategy": "strategy-secure",
+      "locus": "others",
+      "label": "People always show their true colors eventually, so keep watching.",
+      "payoffs": [
+        "an early warning system for betrayal",
+        "a short list of people who've passed every test"
+      ],
+      "costs": [
+        "the benefit of the doubt",
+        "relaxed, easy friendships"
+      ],
+      "lesson": "most people's true colors are better than your fears"
+    },
+    {
+      "id": "belief-study-distance",
+      "strategy": "strategy-observe",
+      "locus": "others",
+      "label": "People are unknowable, so study them from a distance.",
+      "payoffs": [
+        "a sharp eye for what people really want",
+        "never being fooled by charm again"
+      ],
+      "costs": [
+        "being known themselves",
+        "the warmth of being on someone's side"
+      ],
+      "lesson": "you only really know people by letting them know you"
+    },
+    {
+      "id": "belief-nothing-serious",
+      "strategy": "strategy-enjoy",
+      "locus": "others",
+      "label": "Never take anyone too seriously, and they can't hurt you.",
+      "payoffs": [
+        "immunity to heartbreak",
+        "a breezy charm people love"
+      ],
+      "costs": [
+        "anyone who wants to matter to them",
+        "the depth of real partnership"
+      ],
+      "lesson": "taking someone seriously is a risk, and it's the only way to get something real"
+    },
+    {
+      "id": "belief-short-leash",
+      "strategy": "strategy-perfect",
+      "locus": "self",
+      "label": "I'm dangerous, so keep myself on a short leash.",
+      "payoffs": [
+        "a guarantee they'll never do harm again",
+        "a penance that feels like justice"
+      ],
+      "costs": [
+        "their power when it's needed most",
+        "a life lived at half volume"
+      ],
+      "lesson": "the capacity for harm is also the capacity for protection"
+    },
+    {
+      "id": "belief-no-authority",
+      "strategy": "strategy-secure",
+      "locus": "world",
+      "label": "Following orders makes you a monster, so trust no authority.",
+      "payoffs": [
+        "never being complicit again",
+        "the moral high ground"
+      ],
+      "costs": [
+        "every institution that could have helped",
+        "the ability to be part of something"
+      ],
+      "lesson": "you can belong to something without surrendering your judgment to it"
+    },
+    {
+      "id": "belief-unforgivable",
+      "strategy": "strategy-individualize",
+      "locus": "self",
+      "label": "What I did can't be forgiven, so I don't deserve good things.",
+      "payoffs": [
+        "never having to face the people they hurt",
+        "a punishment they get to control"
+      ],
+      "costs": [
+        "every good thing offered to them",
+        "the chance to make real amends"
+      ],
+      "lesson": "forgiveness isn't earned by suffering; it's earned by repair"
+    },
+    {
+      "id": "belief-balance-out",
+      "strategy": "strategy-help",
+      "locus": "possibility",
+      "label": "If I do enough good, it will balance out.",
+      "payoffs": [
+        "a life of service people admire",
+        "a way to keep moving"
+      ],
+      "costs": [
+        "ever facing what they actually did",
+        "the people who need honesty more than help"
+      ],
+      "lesson": "good deeds can't erase harm, but owning the harm makes the good deeds real"
+    },
+    {
+      "id": "belief-go-along",
+      "strategy": "strategy-harmonize",
+      "locus": "world",
+      "label": "Speaking up gets you punished, so go along.",
+      "payoffs": [
+        "a peaceful, conflict-free life",
+        "being liked by everyone"
+      ],
+      "costs": [
+        "their integrity",
+        "the people who needed someone to say something"
+      ],
+      "lesson": "your voice is worth the trouble it causes"
+    },
+    {
+      "id": "belief-right-over-liked",
+      "strategy": "strategy-perfect",
+      "locus": "world",
+      "label": "Being right matters more than being liked.",
+      "payoffs": [
+        "a spine of steel",
+        "a clear conscience"
+      ],
+      "costs": [
+        "allies who share their values but not their tone",
+        "ever being wrong gracefully"
+      ],
+      "lesson": "being right and being heard take different skills"
+    },
+    {
+      "id": "belief-make-them-listen",
+      "strategy": "strategy-assert",
+      "locus": "others",
+      "label": "If they won't listen, make them.",
+      "payoffs": [
+        "never being silenced again",
+        "a voice that fills any room"
+      ],
+      "costs": [
+        "anyone who might have listened if they'd been asked",
+        "the quiet power of persuasion"
+      ],
+      "lesson": "being heard comes from trust, not volume"
+    },
+    {
+      "id": "belief-power",
+      "strategy": "strategy-assert",
+      "locus": "world",
+      "label": "Only power protects, so take as much as you can.",
+      "payoffs": [
+        "never being helpless again",
+        "the power to shield the people they choose"
+      ],
+      "costs": [
+        "anyone who wants to be an equal",
+        "the person they were before"
+      ],
+      "lesson": "real protection comes from people who choose to stand with you"
+    },
+    {
+      "id": "belief-hit-back",
+      "strategy": "strategy-assert",
+      "locus": "others",
+      "label": "Hit back first, and they'll learn to leave you alone.",
+      "payoffs": [
+        "a reputation no bully will test",
+        "never being anyone's target again"
+      ],
+      "costs": [
+        "people who flinch when they raise their voice",
+        "every friendship that started as a misunderstanding"
+      ],
+      "lesson": "you can defend yourself without making every room a fight"
+    },
+    {
+      "id": "belief-money-safety",
+      "strategy": "strategy-secure",
+      "locus": "world",
+      "label": "Money is the only real safety, so never stop saving.",
+      "payoffs": [
+        "a cushion no bad month can touch",
+        "never depending on anyone's charity"
+      ],
+      "costs": [
+        "experiences they'll never let themselves pay for",
+        "generosity, even toward themselves"
+      ],
+      "lesson": "enough is a number, and you've probably already reached it"
+    },
+    {
+      "id": "belief-love-backup",
+      "strategy": "strategy-secure",
+      "locus": "others",
+      "label": "Love can vanish overnight, so always have a backup plan.",
+      "payoffs": [
+        "never being caught off guard by a goodbye",
+        "an exit from every relationship"
+      ],
+      "costs": [
+        "the full commitment of anyone they love",
+        "ever being all in"
+      ],
+      "lesson": "the backup plan is the thing that keeps love from fully arriving"
+    },
+    {
+      "id": "belief-want-nothing",
+      "strategy": "strategy-harmonize",
+      "locus": "possibility",
+      "label": "If I want nothing, nothing can be taken from me.",
+      "payoffs": [
+        "a calm that loss can't shake",
+        "freedom from disappointment"
+      ],
+      "costs": [
+        "any dream worth having",
+        "the hunger that makes a life feel like theirs"
+      ],
+      "lesson": "you can hold things lightly without refusing to hold them at all"
+    },
+    {
+      "id": "belief-smooth-feelings",
+      "strategy": "strategy-harmonize",
+      "locus": "others",
+      "label": "Feelings only make things worse, so smooth them over.",
+      "payoffs": [
+        "a household with no scenes",
+        "a reputation as the reasonable one"
+      ],
+      "costs": [
+        "honesty in their closest relationships",
+        "knowing what they actually feel"
+      ],
+      "lesson": "the feelings you smooth over don't disappear; they go underground"
+    },
+    {
+      "id": "belief-giver-not-burden",
+      "strategy": "strategy-help",
+      "locus": "self",
+      "label": "If I'm always the one giving, no one can call me a burden.",
+      "payoffs": [
+        "a pride no hardship can touch",
+        "being the one people owe"
+      ],
+      "costs": [
+        "ever accepting help gracefully",
+        "relationships that run both ways"
+      ],
+      "lesson": "receiving is a skill, and it doesn't make you smaller"
+    },
+    {
+      "id": "belief-love-hard",
+      "strategy": "strategy-help",
+      "locus": "others",
+      "label": "If I love them hard enough, they won't leave.",
+      "payoffs": [
+        "an intense, all-in devotion",
+        "being the most loving person anyone has met"
+      ],
+      "costs": [
+        "their own sense of self in every relationship",
+        "noticing who isn't loving them back"
+      ],
+      "lesson": "love can't keep someone who's already chosen to go"
+    },
+    {
+      "id": "belief-others-pain-first",
+      "strategy": "strategy-help",
+      "locus": "self",
+      "label": "Other people's pain matters more than mine.",
+      "payoffs": [
+        "a gift for comforting anyone",
+        "never being called selfish"
+      ],
+      "costs": [
+        "ever being comforted themselves",
+        "grief they've never let themselves feel"
+      ],
+      "lesson": "your pain counts, even when someone else's is louder"
+    },
+    {
+      "id": "belief-take-me-back",
+      "strategy": "strategy-achieve",
+      "locus": "others",
+      "label": "If I'm successful enough, they'll have to take me back.",
+      "payoffs": [
+        "a relentless drive toward success",
+        "a story of proving everyone wrong"
+      ],
+      "costs": [
+        "joy in success that no one from home is there to see",
+        "the family they could build instead"
+      ],
+      "lesson": "you can't earn back people who rejected who you are"
+    },
+    {
+      "id": "belief-only-winners",
+      "strategy": "strategy-achieve",
+      "locus": "world",
+      "label": "Only winners are safe, so never lose again.",
+      "payoffs": [
+        "discipline that never quits",
+        "a record that keeps getting better"
+      ],
+      "costs": [
+        "any game played just for fun",
+        "grace when they come in second"
+      ],
+      "lesson": "losing is survivable, and it's often where you learn the most"
+    },
+    {
+      "id": "belief-never-struggling",
+      "strategy": "strategy-achieve",
+      "locus": "self",
+      "label": "Never let them see you struggle, or they'll use it against you.",
+      "payoffs": [
+        "an image no one can crack",
+        "a cool that unsettles enemies"
+      ],
+      "costs": [
+        "help when they're drowning",
+        "anyone who knows the real version"
+      ],
+      "lesson": "letting someone see you struggle is how you find out who's on your side"
+    },
+    {
+      "id": "belief-think-through",
+      "strategy": "strategy-observe",
+      "locus": "possibility",
+      "label": "Feelings change nothing, so think your way through.",
+      "payoffs": [
+        "clarity in any crisis",
+        "never drowning in grief again"
+      ],
+      "costs": [
+        "connection with everyone who needs them to feel",
+        "knowing what they actually want"
+      ],
+      "lesson": "feelings don't fix things, but they tell you what's worth fixing"
+    },
+    {
+      "id": "belief-why-happened",
+      "strategy": "strategy-observe",
+      "locus": "possibility",
+      "label": "If I understand exactly why it happened, it can't happen again.",
+      "payoffs": [
+        "expertise no one else can match",
+        "a sense of order after chaos"
+      ],
+      "costs": [
+        "years spent studying the past instead of living",
+        "the people who just want them back"
+      ],
+      "lesson": "some things happen without a reason you can find, and you can still live fully"
+    },
+    {
+      "id": "belief-reveal-nothing",
+      "strategy": "strategy-observe",
+      "locus": "others",
+      "label": "People will use whatever they know about you, so reveal nothing.",
+      "payoffs": [
+        "a perfect poker face",
+        "secrets no one can weaponize"
+      ],
+      "costs": [
+        "intimacy",
+        "anyone who wants to know them"
+      ],
+      "lesson": "the right people use what they know about you to care for you better"
+    },
+    {
+      "id": "belief-beyond-reproach",
+      "strategy": "strategy-perfect",
+      "locus": "self",
+      "label": "If I'm beyond reproach, no one can accuse me again.",
+      "payoffs": [
+        "a record no one can question",
+        "unshakable integrity"
+      ],
+      "costs": [
+        "any mistake forgiven, even by themselves",
+        "the ease of being imperfect around people"
+      ],
+      "lesson": "no amount of perfection protects you from someone determined to blame"
+    },
+    {
+      "id": "belief-survived-reason",
+      "strategy": "strategy-individualize",
+      "locus": "possibility",
+      "label": "I survived for a reason, so my life has to mean something.",
+      "payoffs": [
+        "a life lived with burning purpose",
+        "a story that turns loss into destiny"
+      ],
+      "costs": [
+        "an ordinary day without guilt",
+        "permission to just be alive"
+      ],
+      "lesson": "you don't have to justify surviving; you're allowed to simply live"
+    },
+    {
+      "id": "belief-outsider",
+      "strategy": "strategy-individualize",
+      "locus": "others",
+      "label": "I'll never belong, so I'll make being the outsider my identity.",
+      "payoffs": [
+        "a fierce, original voice",
+        "never having to compete for a place"
+      ],
+      "costs": [
+        "the belonging that's actually on offer",
+        "seeing when someone is reaching out"
+      ],
+      "lesson": "you can keep your edge and still let someone bring you in"
+    },
+    {
+      "id": "belief-ordinary-lie",
+      "strategy": "strategy-individualize",
+      "locus": "world",
+      "label": "Ordinary life is a lie, so chase only what's intense and true.",
+      "payoffs": [
+        "a life of vivid, unforgettable moments",
+        "an unflinching nose for hypocrisy"
+      ],
+      "costs": [
+        "the quiet, steady love that ordinary life is made of",
+        "patience with anything that isn't dramatic"
+      ],
+      "lesson": "truth also lives in the boring, ordinary days"
+    },
+    {
+      "id": "belief-my-losses",
+      "strategy": "strategy-individualize",
+      "locus": "self",
+      "label": "My losses are what make me who I am.",
+      "payoffs": [
+        "a depth of feeling no one else can match",
+        "an identity no fire can take"
+      ],
+      "costs": [
+        "a future that isn't defined by the past",
+        "joy that doesn't feel like betrayal"
+      ],
+      "lesson": "you can honor what you lost without living inside it"
+    }
+  ],
+  "sampling": "On Generate, pick a belief uniformly at random (keeps the 9 strategies balanced), then a random wound linked to that belief. Re-rolls cascade downstream: wound -> belief -> strategy traits/payoff/cost/lesson. Pinned elements survive the cascade and constrain it."
+}
