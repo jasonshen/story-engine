@@ -1,7 +1,9 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
+import { Books, Info } from '@phosphor-icons/react';
 import { Concept, WritingEntry } from '@/lib/types';
+import { Character } from '@/lib/character-types';
 import { generateConcept, rerollElement } from '@/lib/engine';
 import {
   agentDisplayName,
@@ -10,11 +12,13 @@ import {
   bsTargetName,
 } from '@/lib/grammar';
 import ConceptDisplay from '@/components/ConceptDisplay';
-import HoldToGenerate from '@/components/HoldToGenerate';
+import GenerateButton from '@/components/GenerateButton';
 import WritingSection, { WritingSectionHandle } from '@/components/WritingSection';
 import SavedEntries from '@/components/SavedEntries';
 import ConceptHistory from '@/components/ConceptHistory';
 import CharacterTab from '@/components/CharacterTab';
+import CharacterHistory from '@/components/CharacterHistory';
+import LibraryDrawer from '@/components/LibraryDrawer';
 
 type Tab = 'story' | 'character';
 const TABS: { id: Tab; label: string }[] = [
@@ -82,6 +86,10 @@ export default function Home() {
   const [concept, setConcept] = useState<Concept | null>(null);
   const [history, setHistory] = useState<Concept[]>([]);
   const [narrativeLoading, setNarrativeLoading] = useState(false);
+  const [narrativeError, setNarrativeError] = useState<string | null>(null);
+  const [characterHistory, setCharacterHistory] = useState<Character[]>([]);
+  const [libraryOpen, setLibraryOpen] = useState(false);
+  const libraryBtnRef = useRef<HTMLButtonElement>(null);
   const [savedEntries, setSavedEntries] = useState<WritingEntry[]>([]);
   const writingSectionRef = useRef<WritingSectionHandle>(null);
   const [tab, setTab] = useState<Tab>('story');
@@ -101,6 +109,12 @@ export default function Home() {
     } catch {}
   }, []);
 
+  const archiveCharacter = useCallback((c: Character) => {
+    setCharacterHistory((h) => [...h, c]);
+  }, []);
+
+  const closeLibrary = useCallback(() => setLibraryOpen(false), []);
+
   const handleEntrySaved = useCallback((entry: WritingEntry) => {
     setSavedEntries((prev) => [entry, ...prev]);
   }, []);
@@ -117,6 +131,7 @@ export default function Home() {
 
   const fetchNarrative = useCallback(async (c: Concept) => {
     setNarrativeLoading(true);
+    setNarrativeError(null);
     try {
       const elements = buildNarrativeElements(c);
       const res = await fetch('/api/narrative', {
@@ -131,9 +146,11 @@ export default function Home() {
             ? { ...prev, narrative: data.narrative }
             : prev
         );
+      } else {
+        setNarrativeError(data.error || 'Narrative failed.');
       }
     } catch {
-      // Silently fail
+      setNarrativeError('Narrative engine unavailable.');
     } finally {
       setNarrativeLoading(false);
     }
@@ -149,6 +166,7 @@ export default function Home() {
 
     const newConcept = generateConcept();
     setConcept(newConcept);
+    setNarrativeError(null);
 
     writingSectionRef.current?.reset();
   }, []);
@@ -204,8 +222,9 @@ export default function Home() {
 
         // Add to local state
         const newEntry: WritingEntry = {
-          id: entryData.id,
-          concept_id: conceptData.id,
+          // Fall back to a local id so the list stays keyed if the store is down
+          id: entryData.id ?? `local-${Date.now()}`,
+          concept_id: conceptData.id ?? null,
           concept_summary: summaryHTML(concept),
           opening_style: data.opening_style,
           body: data.body,
@@ -221,58 +240,135 @@ export default function Home() {
     [concept]
   );
 
+  const selectByKey = (e: React.KeyboardEvent) => {
+    if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+    e.preventDefault();
+    const idx = TABS.findIndex((t) => t.id === tab);
+    const next = TABS[(idx + (e.key === 'ArrowRight' ? 1 : TABS.length - 1)) % TABS.length];
+    selectTab(next.id);
+    document.getElementById(`tab-${next.id}`)?.focus();
+  };
+
   return (
     <div className="app">
-      <header className="header">
-        <h1 className="header-title">Story Engine</h1>
-        <hr className="header-rule" />
-        <p className="header-sub">click any highlighted word to re-roll it</p>
+      <header className="topbar">
+        <div className="topbar-inner">
+          <div className="brand">Story Engine</div>
+          <nav className="segmented tabs" role="tablist" aria-label="Mode" onKeyDown={selectByKey}>
+            {TABS.map((t) => (
+              <button
+                key={t.id}
+                id={`tab-${t.id}`}
+                type="button"
+                role="tab"
+                aria-selected={tab === t.id}
+                aria-controls={`panel-${t.id}`}
+                tabIndex={tab === t.id ? 0 : -1}
+                className={`seg ${tab === t.id ? 'seg-active' : ''}`}
+                onClick={() => selectTab(t.id)}
+              >
+                {t.label}
+              </button>
+            ))}
+          </nav>
+          <button
+            ref={libraryBtnRef}
+            type="button"
+            className="btn-ghost library-btn"
+            onClick={() => setLibraryOpen(true)}
+            aria-haspopup="dialog"
+            aria-expanded={libraryOpen}
+          >
+            <Books size={18} aria-hidden="true" />
+            <span className="library-btn-label">Library</span>
+            <span className="count" aria-label={`${savedEntries.length} saved`}>
+              {savedEntries.length}
+            </span>
+          </button>
+        </div>
       </header>
 
-      <nav className="tabs" role="tablist">
-        {TABS.map((t) => (
-          <button
-            key={t.id}
-            type="button"
-            role="tab"
-            aria-selected={tab === t.id}
-            className={`tab ${tab === t.id ? 'tab-active' : ''}`}
-            onClick={() => selectTab(t.id)}
-          >
-            {t.label}
-          </button>
-        ))}
-      </nav>
+      <main className="main">
+        {/* Both tabs stay mounted so switching never loses a roll or a draft */}
+        <div
+          id="panel-story"
+          role="tabpanel"
+          aria-labelledby="tab-story"
+          hidden={tab !== 'story'}
+        >
+          <div className="workspace">
+            <section className="gen-pane" aria-label="Story generator">
+              <div className="toolbar">
+                <GenerateButton
+                  onGenerate={handleGenerate}
+                  hotkeyEnabled={tab === 'story' && !libraryOpen}
+                />
+                {concept && (
+                  <p className="hint">
+                    <Info size={15} aria-hidden="true" />
+                    Click any highlighted word to re-roll it.
+                  </p>
+                )}
+              </div>
 
-      {/* Both tabs stay mounted so switching never loses a roll or a draft */}
-      <div hidden={tab !== 'story'}>
-        <div className="controls">
-          <HoldToGenerate onGenerate={handleGenerate} />
+              <ConceptDisplay
+                concept={concept}
+                onReroll={handleReroll}
+                onCreateNarrative={handleCreateNarrative}
+                narrativeLoading={narrativeLoading}
+                narrativeError={narrativeError}
+              />
+            </section>
+
+            <aside className="pad-pane" aria-label="Writing pad">
+              <WritingSection
+                ref={writingSectionRef}
+                ready={!!concept}
+                onSave={handleSave}
+              />
+            </aside>
+          </div>
         </div>
 
-        <ConceptDisplay
-          concept={concept}
-          onReroll={handleReroll}
-          onCreateNarrative={handleCreateNarrative}
-          narrativeLoading={narrativeLoading}
-        />
+        <div
+          id="panel-character"
+          role="tabpanel"
+          aria-labelledby="tab-character"
+          hidden={tab !== 'character'}
+        >
+          <CharacterTab
+            onEntrySaved={handleEntrySaved}
+            onArchive={archiveCharacter}
+            active={tab === 'character' && !libraryOpen}
+          />
+        </div>
+      </main>
 
-        <WritingSection
-          ref={writingSectionRef}
-          ready={!!concept}
-          onSave={handleSave}
-        />
-      </div>
-
-      <div hidden={tab !== 'character'}>
-        <CharacterTab onEntrySaved={handleEntrySaved} />
-      </div>
-
-      <SavedEntries entries={savedEntries} />
-
-      <div hidden={tab !== 'story'}>
-        <ConceptHistory history={history} />
-      </div>
+      <LibraryDrawer
+        open={libraryOpen}
+        onClose={closeLibrary}
+        returnFocusRef={libraryBtnRef}
+        views={[
+          {
+            id: 'saved',
+            label: 'Saved',
+            count: savedEntries.length,
+            content: <SavedEntries entries={savedEntries} />,
+          },
+          {
+            id: 'concepts',
+            label: 'Concepts',
+            count: history.length,
+            content: <ConceptHistory history={history} />,
+          },
+          {
+            id: 'characters',
+            label: 'Characters',
+            count: characterHistory.length,
+            content: <CharacterHistory history={characterHistory} />,
+          },
+        ]}
+      />
 
       <footer className="footer">
         <p>Created with ♥️ by Jason Shen</p>

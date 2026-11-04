@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback, useImperativeHandle, forwardRef } from 'react';
+import { Check, PencilSimpleLine } from '@phosphor-icons/react';
 import { OpeningStyle } from '@/lib/types';
 import Timer, { TimerHandle } from './Timer';
 import OpeningPills from './OpeningPills';
@@ -10,10 +11,12 @@ export interface WritingSectionHandle {
 }
 
 interface WritingSectionProps {
-  /** Show the section only once there is something to write from */
+  /** The pad unlocks once there is something to write from */
   ready: boolean;
   prompt?: string;
   placeholder?: string;
+  /** Shown in the pad before anything has been generated */
+  emptyHint?: string;
   onSave: (data: {
     opening_style: string | null;
     body: string;
@@ -29,6 +32,7 @@ const WritingSection = forwardRef<WritingSectionHandle, WritingSectionProps>(
       onSave,
       prompt = 'Now write the opening...',
       placeholder = 'The story begins here...',
+      emptyHint = 'Generate a story and your writing pad opens here.',
     },
     ref
   ) {
@@ -73,12 +77,25 @@ const WritingSection = forwardRef<WritingSectionHandle, WritingSectionProps>(
       textareaRef.current?.focus();
     }, []);
 
-    if (!ready) return null;
+    if (!ready) {
+      return (
+        <div className="pad pad-empty">
+          <span className="pad-empty-icon" aria-hidden="true">
+            <PencilSimpleLine size={24} />
+          </span>
+          <p className="pad-empty-title">Writing pad</p>
+          <p className="pad-empty-sub">{emptyHint}</p>
+          <p className="pad-empty-sub">
+            Five minutes on the clock, one opening move, then save.
+          </p>
+        </div>
+      );
+    }
 
     return (
-      <div className="writing-section">
-        <div className="writing-header">
-          <div className="writing-prompt">{prompt}</div>
+      <div className="pad">
+        <div className="pad-head">
+          <p className="pad-prompt">{prompt}</p>
           <Timer ref={timerRef} onStart={handleTimerStart} />
         </div>
 
@@ -86,24 +103,28 @@ const WritingSection = forwardRef<WritingSectionHandle, WritingSectionProps>(
 
         <textarea
           ref={textareaRef}
-          className="writing-area"
+          className="pad-text"
+          aria-label="Your writing"
           placeholder={placeholder}
           value={text}
           onChange={handleTextChange}
         />
 
-        <div className="writing-footer">
+        <div className="pad-foot">
           <span className="word-count">
             {wordCount} {wordCount === 1 ? 'word' : 'words'}
           </span>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
-            <span className={`save-toast ${showToast ? 'show' : ''}`}>
-              Saved.
+          <div className="pad-foot-actions">
+            <span className={`save-toast ${showToast ? 'show' : ''}`} role="status">
+              {showToast ? 'Saved.' : ''}
             </span>
             <button
+              type="button"
               className={`btn-save ${saved ? 'saved' : ''}`}
               onClick={handleSave}
+              disabled={!text.trim() && !saved}
             >
+              {saved && <Check size={14} weight="bold" aria-hidden="true" />}
               {saved ? 'Saved' : 'Save entry'}
             </button>
           </div>
