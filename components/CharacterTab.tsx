@@ -31,6 +31,7 @@ import {
   characterSummaryHTML,
   characterText,
   generateCharacter,
+  randomSlotLabel,
   rerollSlot,
   slotValue,
   strategyOf,
@@ -271,6 +272,8 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
         locked={pins.has(slot)}
         onToggleLock={() => togglePin(slot)}
         onReroll={() => handleReroll(slot)}
+        randomLabel={() => randomSlotLabel(slot)}
+        revealOnMount={!pins.has(slot)}
         quote={slot === 'belief'}
         lead={slot === 'lesson' ? 'Learning that' : undefined}
         meta={slotMeta(character, slot)}

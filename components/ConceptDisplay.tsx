@@ -11,7 +11,8 @@ import {
   UserIcon,
 } from '@phosphor-icons/react';
 import type { Icon } from '@phosphor-icons/react';
-import { Concept } from '@/lib/types';
+import { CardType, Concept } from '@/lib/types';
+import { getRandomLabels } from '@/lib/data';
 import { stripArticle, vowelSound, theAgent, enginePlural } from '@/lib/grammar';
 import ClickableElement from './ClickableElement';
 import PlayCard from './PlayCard';
@@ -41,6 +42,26 @@ export default function ConceptDisplay({
 
   // Deal order follows reading order so cards land left to right.
   let dealIndex = 0;
+
+  const decoyFor = (path: string) => {
+    const field = path.split('.').pop();
+    const inBackstory = path.includes('backstory');
+    const type: CardType =
+      field === 'aspect' || field === 'targetAspect'
+        ? 'aspect'
+        : field === 'agent' || field === 'target'
+          ? 'agent'
+          : field === 'anchor'
+            ? 'anchor'
+            : field === 'engine'
+              ? inBackstory ? 'backstory-engine' : 'engine'
+              : inBackstory ? 'backstory-conflict' : 'conflict';
+    const strip = type === 'agent' || type === 'anchor';
+    return () => {
+      const label = getRandomLabels(type, 1)[0] ?? '';
+      return strip ? cap(stripArticle(label)) : cap(label);
+    };
+  };
   const card = (
     path: string,
     category: string,
@@ -58,6 +79,7 @@ export default function ConceptDisplay({
       title={title}
       dealIndex={dealIndex++}
       onReroll={() => onReroll(path)}
+      randomLabel={decoyFor(path)}
     />
   );
 

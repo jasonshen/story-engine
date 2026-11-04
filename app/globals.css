@@ -1511,6 +1511,36 @@ button {
   }
 }
 
+
+/* ---- deal choreography: face-down backs and decoy flashes ---- */
+.pcard.is-facedown .pcard-face > *,
+.pcard.is-facedown .pcard-lock {
+  visibility: hidden;
+}
+.pcard.is-facedown .pcard-face {
+  cursor: default;
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 9px,
+      var(--line) 9px 10px
+    ),
+    var(--card-2);
+}
+.pcard.is-facedown .pcard-face::after {
+  content: '';
+  position: absolute;
+  inset: 10px;
+  border-radius: var(--r-nested);
+  border: 1px solid var(--line-strong);
+  pointer-events: none;
+}
+.pcard.is-decoy .pcard-value,
+.pcard.is-decoy .pcard-meta,
+.pcard.is-decoy .pcard-lead {
+  opacity: 0.45;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
