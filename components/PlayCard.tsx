@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { motion, useAnimate, useReducedMotion } from 'motion/react';
 import {
   ArrowsClockwiseIcon,
@@ -70,6 +70,31 @@ const CASCADE_STEP = 120; // ms between cards changed by a cascade
 const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+// Card text is sized to fill its card: the largest size (within these
+// bounds, in px) at which the text fits the space left on the card.
+const FIT_MIN = 11;
+const FIT_MAX = 24;
+
+/** Largest font size at which `el`'s text fits its own box. */
+function fitText(el: HTMLElement | null) {
+  if (!el || !el.clientHeight || !el.clientWidth) return;
+  const fits = () => el.scrollHeight <= el.clientHeight + 1 && el.scrollWidth <= el.clientWidth + 1;
+  let lo = FIT_MIN;
+  let hi = FIT_MAX;
+  el.style.fontSize = `${hi}px`;
+  if (fits()) return;
+  for (let i = 0; i < 7; i++) {
+    const mid = (lo + hi) / 2;
+    el.style.fontSize = `${mid}px`;
+    if (fits()) lo = mid;
+    else hi = mid;
+  }
+  el.style.fontSize = `${Math.floor(lo * 2) / 2}px`;
+}
+
+// useLayoutEffect warns during server rendering; fall back to useEffect there.
+const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
 const POP_IN = 0.05; // s: just enough fade that a card doesn't blink in
 
 // Each decoy lands a little askew, alternating sides, so the cards dealt
@@ -117,6 +142,8 @@ export default function PlayCard({
   const alive = useRef(true);
   const mounted = useRef(false);
   const [rollTick, setRollTick] = useState(0);
+  const valueEl = useRef<HTMLSpanElement>(null);
+  const ghostValueEl = useRef<HTMLSpanElement>(null);
 
   // What the top card shows (a decoy mid-deal, or the real value), the card
   // underneath it while the next one slides over, and whether the slot is
@@ -131,6 +158,19 @@ export default function PlayCard({
   pendingRef.current = pending;
   const shownRef = useRef(shown);
   shownRef.current = shown;
+
+  const refit = useCallback(() => {
+    fitText(valueEl.current);
+    fitText(ghostValueEl.current);
+  }, []);
+
+  useEffect(() => {
+    const el = faceRef.current;
+    if (!el || typeof ResizeObserver === 'undefined') return;
+    const ro = new ResizeObserver(() => refit());
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [faceRef, refit]);
 
   useEffect(() => {
     alive.current = true;
@@ -260,6 +300,10 @@ export default function PlayCard({
     setRollTick((t) => t + 1);
   }, [blocked, dealing, pending, dealt, onReroll, onRequestDeal]);
 
+  useIsoLayoutEffect(() => {
+    refit();
+  }, [shown, under, decoy, pending, meta, blocked, refit]);
+
   const tiltSeed = (category + variant).split('').reduce((n, ch) => n + ch.charCodeAt(0), 0);
   const tilt = locked ? 0 : TILTS[tiltSeed % TILTS.length];
   const waiting = pending && !dealt;
@@ -303,7 +347,7 @@ export default function PlayCard({
             <CatIcon size={15} weight="bold" aria-hidden="true" />
             {category}
           </span>
-          <span className="pcard-value">
+          <span className="pcard-value" ref={ghostValueEl}>
             {lead && <span className="pcard-lead">{lead} </span>}
             {valueText(under)}
           </span>
@@ -329,7 +373,7 @@ export default function PlayCard({
           <CatIcon size={15} weight="bold" aria-hidden="true" />
           {category}
         </span>
-        <span className="pcard-value">
+        <span className="pcard-value" ref={valueEl}>
           {lead && <span className="pcard-lead">{lead} </span>}
           {valueText(shown)}
         </span>

@@ -1659,6 +1659,108 @@ button {
   border: 1px dashed var(--line-strong);
 }
 
+
+/* ============ STANDARD GRID ============
+   Every card is the same size, on one grid shared by both tabs. Columns
+   follow the width of the table (not the window), and each card's text is
+   sized to fill its card (see fitText in PlayCard). */
+.table {
+  container-type: inline-size;
+}
+.spread--story,
+.spread--backstory,
+.spread--character {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-cols, 5), minmax(0, 1fr));
+  grid-auto-rows: var(--card-h, 196px);
+  gap: 12px;
+}
+/* Groupings stay in the markup for reading order and screen readers, but
+   their cards sit directly on the grid. */
+.spread .pair,
+.spread--character > .behaviors {
+  display: contents;
+}
+.spread .pcard,
+.behaviors .pcard {
+  grid-column: auto;
+  flex: none;
+  min-width: 0;
+  min-height: 0;
+}
+.spread .pcard-face,
+.behaviors .pcard-face {
+  min-height: 0;
+  height: 100%;
+  padding: 14px 16px 12px;
+  border-radius: var(--r-surface);
+  overflow: hidden;
+}
+.spread .pcard-value,
+.behaviors .pcard-value {
+  flex: 1 1 auto;
+  min-height: 0;
+  width: 100%;
+  max-width: none;
+  overflow: hidden;
+  /* fitText sets the actual size; this is the starting point */
+  font-size: 1.3rem;
+  /* Never split a word: a long word shrinks the text until it fits whole. */
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: manual;
+}
+.behaviors .pcard.has-lock .pcard-cat {
+  min-height: 30px;
+  padding-right: 44px;
+}
+.behaviors .pcard-lock {
+  width: 38px;
+  height: 38px;
+  top: 8px;
+  right: 8px;
+}
+.spread .pcard-meta {
+  flex: none;
+}
+.spread .pcard-foot {
+  flex: none;
+}
+@container (max-width: 900px) {
+  .spread--story,
+  .spread--backstory,
+  .spread--character {
+    --grid-cols: 4;
+  }
+}
+@container (max-width: 700px) {
+  .spread--story,
+  .spread--backstory,
+  .spread--character {
+    --grid-cols: 3;
+    --card-h: 176px;
+  }
+}
+@container (max-width: 520px) {
+  .spread--story,
+  .spread--backstory,
+  .spread--character {
+    --grid-cols: 2;
+    --card-h: 168px;
+    gap: 10px;
+  }
+  /* On two columns, the cards that carry a whole sentence take a full row,
+     so they never shrink to an unreadable size. */
+  .spread .pcard--wound,
+  .spread .pcard--belief,
+  .spread .pcard--arc,
+  .spread .pcard--conflict,
+  .spread .pcard--bs-engine,
+  .spread .pcard--bs-conflict {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
