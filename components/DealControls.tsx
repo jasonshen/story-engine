@@ -3,61 +3,72 @@
 import DealButton from './DealButton';
 
 interface DealControlsProps {
-  /** A deal is on the table */
+  /** Some card of this deal has been dealt (or asked for) */
   started: boolean;
-  /** Every step has been dealt and every card turned over */
+  /** Every card of this deal is on the table */
   complete: boolean;
-  /** Every card dealt so far is face-up */
-  canContinue: boolean;
-  /** Zero-based current step, and the total number of steps */
-  step: number;
-  steps: number;
-  onDeal: () => void;
-  onContinue: () => void;
+  /** Cards are sliding in right now */
+  dealing: boolean;
+  /** Name of the group the button deals next, e.g. "Drive and object" */
+  nextName: string | null;
+  dealtCount: number;
+  total: number;
+  /** Deal the next group */
+  onDealNext: () => void;
+  /** Throw this deal away and lay out a fresh, empty table */
+  onNewDeal: () => void;
   /** Only the visible tab listens for the keyboard shortcut */
   active: boolean;
 }
 
 /**
- * The deal is revealed in steps. Deal lays out the first step face-down;
- * once every card on the table is turned over, Continue deals the next.
- * Start Over throws the whole deal away and begins again.
+ * The whole deal is laid out as empty slots up front. The button deals the
+ * next group (Deal, then Continue); any single slot can also be tapped to
+ * deal just that card. Once everything is on the table the button starts a
+ * new deal. Start Over throws away a deal in progress.
  */
 export default function DealControls({
   started,
   complete,
-  canContinue,
-  step,
-  steps,
-  onDeal,
-  onContinue,
+  dealing,
+  nextName,
+  dealtCount,
+  total,
+  onDealNext,
+  onNewDeal,
   active,
 }: DealControlsProps) {
-  const midDeal = started && !complete;
+  const label = complete ? 'New deal' : started ? 'Continue' : 'Deal';
 
   return (
     <div className="deal-controls">
       <DealButton
-        label={midDeal ? 'Continue' : 'Deal'}
-        onDeal={midDeal ? onContinue : onDeal}
-        disabled={midDeal && !canContinue}
+        label={label}
+        onDeal={complete ? onNewDeal : onDealNext}
+        disabled={dealing}
         active={active}
       />
-      {midDeal && (
-        <div className="deal-aside">
-          <span className="deal-step">
-            Step {step + 1} of {steps}
-          </span>
-          <span className="deal-aside-row">
+      <div className="deal-aside">
+        <span className="deal-step">
+          {complete ? `All ${total} cards dealt` : nextName ? `Next up: ${nextName}` : 'Dealing'}
+        </span>
+        <span className="deal-aside-row">
+          {!complete && (
             <span>
-              or{' '}
-              <button type="button" className="link-btn link-btn--plain" onClick={onDeal}>
-                Start Over
-              </button>
+              {dealtCount} of {total} dealt
+              {started && (
+                <>
+                  , or{' '}
+                  <button type="button" className="link-btn link-btn--plain" onClick={onNewDeal}>
+                    Start Over
+                  </button>
+                </>
+              )}
             </span>
-          </span>
-        </div>
-      )}
+          )}
+          {complete && <span>Tap any card to re-roll it.</span>}
+        </span>
+      </div>
     </div>
   );
 }

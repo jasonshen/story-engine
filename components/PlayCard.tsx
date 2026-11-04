@@ -40,12 +40,16 @@ export interface PlayCardProps {
   /** Random label from this card's pool, dealt as a decoy before the real card */
   randomLabel?: () => string;
   /**
-   * Deal this card in when it first appears (default). False for a card that
-   * is already on the table, e.g. a locked character card carried over.
+   * Whether this card has been asked to deal. Slots start empty; when this
+   * turns true the card deals in after its turn (dealIndex). A card that is
+   * true from the start (e.g. a locked card carried over) is simply on the
+   * table, with no deal.
    */
-  dealOnMount?: boolean;
+  dealt?: boolean;
   /** Called once the real card has landed after its deal */
   onDealt?: () => void;
+  /** Tapping an empty slot asks for just this card to be dealt */
+  onRequestDeal?: () => void;
 }
 
 /*
@@ -93,8 +97,9 @@ export default function PlayCard({
   onToggleLock,
   className = '',
   randomLabel,
-  dealOnMount = true,
+  dealt = false,
   onDealt,
+  onRequestDeal,
 }: PlayCardProps) {
   const reduce = useReducedMotion();
   const [faceRef, animate] = useAnimate<HTMLButtonElement>();
@@ -120,8 +125,8 @@ export default function PlayCard({
   const [under, setUnder] = useState<string | null>(null);
   const [underAngle, setUnderAngle] = useState(0);
   const [decoy, setDecoy] = useState(false);
-  const [pending, setPending] = useState(dealOnMount);
-  const [dealing, setDealing] = useState(dealOnMount);
+  const [pending, setPending] = useState(!dealt);
+  const [dealing, setDealing] = useState(false);
   const pendingRef = useRef(pending);
   pendingRef.current = pending;
   const shownRef = useRef(shown);
@@ -216,12 +221,12 @@ export default function PlayCard({
     [reduce, animate, faceRef, slideIn]
   );
 
-  // First appearance: wait for this card's turn in the step, then deal it.
+  // When this slot is asked to deal, wait for its turn in the batch, then deal.
   useEffect(() => {
-    if (!dealOnMount) return;
+    if (!dealt || !pendingRef.current || runId.current !== 0) return;
     deal(DEAL_DECOYS, DEAL_BASE + Math.min(dealIndex, 14) * DEAL_STEP);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dealt]);
 
   // Later value changes: a tap on this card re-deals it straight away; a
   // cascade from another card re-deals the changed cards in order.
@@ -245,13 +250,19 @@ export default function PlayCard({
   }, [value, rollTick]);
 
   const handleClick = useCallback(() => {
-    if (blocked || dealing || pending) return;
+    if (pending) {
+      if (!dealt && !dealing) onRequestDeal?.();
+      return;
+    }
+    if (blocked || dealing) return;
     clicked.current = true;
     onReroll();
     setRollTick((t) => t + 1);
-  }, [blocked, dealing, pending, onReroll]);
+  }, [blocked, dealing, pending, dealt, onReroll, onRequestDeal]);
 
-  const tilt = locked ? 0 : TILTS[dealIndex % TILTS.length];
+  const tiltSeed = (category + variant).split('').reduce((n, ch) => n + ch.charCodeAt(0), 0);
+  const tilt = locked ? 0 : TILTS[tiltSeed % TILTS.length];
+  const waiting = pending && !dealt;
 
   const valueText = (v: string) => (quote ? <>&ldquo;{v}&rdquo;</> : v);
 
@@ -264,7 +275,7 @@ export default function PlayCard({
       } ${
         decoy ? 'is-decoy' : ''
       } ${className}`}
-      initial={dealOnMount ? { opacity: 0 } : false}
+      initial={false}
       animate={{ opacity: 1, rotate: tilt }}
       transition={{ duration: 0.2 }}
       whileHover={
@@ -273,6 +284,15 @@ export default function PlayCard({
           : { y: -3, transition: { type: 'spring', stiffness: 420, damping: 26 } }
       }
     >
+      {pending && (
+        <span className="pcard-slot" aria-hidden="true">
+          <span className="pcard-slot-cat">
+            <CatIcon size={16} weight="bold" aria-hidden="true" />
+            {category}
+          </span>
+          {waiting && <span className="pcard-slot-hint">Tap to deal</span>}
+        </span>
+      )}
       {under !== null && (
         <div
           className="pcard-face pcard-ghost"
@@ -294,12 +314,14 @@ export default function PlayCard({
         type="button"
         className="pcard-face"
         onClick={handleClick}
-        aria-disabled={blocked || pending || undefined}
+        aria-disabled={(pending ? dealt : blocked) || undefined}
         aria-busy={dealing || undefined}
-        title={pending ? `${category}: being dealt` : title}
+        title={pending ? (dealt ? `${category}: being dealt` : 'Deal this card') : title}
         aria-label={
           pending
-            ? `${category}: being dealt`
+            ? dealt
+              ? `${category}: being dealt`
+              : `${category}: not dealt yet. Deal this card`
             : `${category}: ${value.replace(/[.!?]+$/, '')}. ${title}`
         }
       >

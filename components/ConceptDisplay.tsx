@@ -25,20 +25,28 @@ interface ConceptDisplayProps {
   onCreateNarrative: () => void;
   narrativeLoading: boolean;
   narrativeError?: string | null;
-  /** Zero-based step of the staged deal (see STORY_STEPS) */
-  stage: number;
-  /** Card paths the writer has turned face-up */
-  flipped: ReadonlySet<string>;
-  onFlip: (path: string) => void;
-  /** Every step dealt and every card turned over */
+  /** Cards asked to deal, with each one's turn within its batch */
+  queued: ReadonlyMap<string, number>;
+  /** Cards that have landed on the table */
+  landed: ReadonlySet<string>;
+  onLanded: (path: string) => void;
+  /** Deal just this one card (tapping its empty slot) */
+  onRequestDeal: (path: string) => void;
+  /** Every card is on the table */
   complete: boolean;
 }
 
 /**
- * The story is dealt in five steps: who (trait + character), what they want
+ * The story is dealt in five groups: who (trait + character), what they want
  * and the object or place, the conflict, the backstory, the complication.
  */
-export const STORY_STEPS = 5;
+export const STORY_GROUPS = [
+  'Trait and character',
+  'Drive and object',
+  'Conflict',
+  'Backstory',
+  'Complication',
+];
 
 export function storyStageOf(path: string): number {
   if (path.includes('backstory')) return path.endsWith('.conflict') ? 4 : 3;
@@ -78,18 +86,18 @@ export default function ConceptDisplay({
   onCreateNarrative,
   narrativeLoading,
   narrativeError = null,
-  stage,
-  flipped,
-  onFlip,
+  queued,
+  landed,
+  onLanded,
+  onRequestDeal,
   complete,
 }: ConceptDisplayProps) {
   if (!concept) {
-    return <EmptyDeck text="Press Deal or G to lay out a story." />;
+    return <EmptyDeck text="Shuffling the deck..." />;
   }
 
   // Deal order follows reading order within each step.
-  const stepIndex = [0, 0, 0, 0, 0];
-  const up = (path: string) => flipped.has(path);
+  const up = (path: string) => landed.has(path);
   // Articles depend on the trait's first letter, so keep them neutral
   // until the trait is turned over.
   const article = (path: string, label: string, capital: boolean) => {
@@ -124,8 +132,6 @@ export default function ConceptDisplay({
     variant: string,
     title: string
   ) => {
-    const s = storyStageOf(path);
-    if (s > stage) return null;
     return (
       <PlayCard
         key={`${concept.id}-${path}`}
@@ -134,11 +140,12 @@ export default function ConceptDisplay({
         value={value}
         variant={variant}
         title={title}
-        dealIndex={stepIndex[s]++}
+        dealIndex={queued.get(path) ?? 0}
         onReroll={() => onReroll(path)}
         randomLabel={decoyFor(path)}
-        dealOnMount={!up(path)}
-        onDealt={() => onFlip(path)}
+        dealt={queued.has(path)}
+        onDealt={() => onLanded(path)}
+        onRequestDeal={() => onRequestDeal(path)}
       />
     );
   };
@@ -164,7 +171,7 @@ export default function ConceptDisplay({
             {i > 0 && ' and '}
             {a.aspect ? (
               <>
-                {article(`agents.${i}.aspect`, a.aspect.label, true)}
+                {article(`agents.${i}.aspect`, a.aspect.label, i === 0)}
                 {word(`agents.${i}.aspect`, a.aspect.label, 'el-aspect', 'Re-roll trait')}{' '}
                 {word(`agents.${i}.agent`, stripArticle(a.agent.label), 'el-agent', 'Re-roll character')}
               </>
@@ -223,7 +230,7 @@ export default function ConceptDisplay({
           'engine',
           'Re-roll drive'
         )}
-        {stage >= 1 && concept.anchors.map((a, i) =>
+        {concept.anchors.map((a, i) =>
           a.aspect ? (
             <div className="pair" key={`${concept.id}-pair-anchor-${i}`}>
               {card(`anchors.${i}.aspect`, 'Trait', FingerprintIcon, cap(a.aspect.label), 'trait', 'Re-roll trait')}
@@ -238,15 +245,25 @@ export default function ConceptDisplay({
 
       {/* Backstories: a second, smaller row of cards per character */}
       {concept.agents.map((a, i) => {
-        if (!a.backstory || stage < 3) return null;
+        if (!a.backstory) return null;
         const bs = a.backstory;
         const bsText = bs.engine.label.charAt(0).toLowerCase() + bs.engine.label.slice(1);
         const p = `agents.${i}.backstory`;
         return (
-          <section key={`bs-${i}`} className="tray" aria-label={`Backstory for ${theAgent(a)}`}>
+          <section
+            key={`bs-${i}`}
+            className="tray"
+            aria-label={up(`agents.${i}.agent`) ? `Backstory for ${theAgent(a)}` : 'Backstory'}
+          >
             <p className="tray-prose">
               <span className="tray-label">Backstory</span>
-              {theAgent(a) + ' '}
+              {'The '}
+              {a.aspect && (
+                <>
+                  {word(`agents.${i}.aspect`, a.aspect.label, 'el-aspect', 'Re-roll trait')}{' '}
+                </>
+              )}
+              {word(`agents.${i}.agent`, stripArticle(a.agent.label), 'el-agent', 'Re-roll character')}{' '}
               {word(`${p}.engine`, bsText, 'el-bs-engine', 'Re-roll backstory')}{' '}
               {bs.targetAspect ? (
                 <>

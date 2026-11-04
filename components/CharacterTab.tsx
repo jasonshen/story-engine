@@ -40,6 +40,7 @@ import {
 import { WritingEntry } from '@/lib/types';
 import ClickableElement from './ClickableElement';
 import DealControls from './DealControls';
+import { dealProgress, useDealQueue } from './useDealQueue';
 import Drawer from './Drawer';
 import EmptyDeck from './EmptyDeck';
 import NarrativeBlock from './NarrativeBlock';
@@ -83,9 +84,14 @@ interface CharacterTabProps {
   savedEntries: React.ReactNode;
 }
 
-// The character is dealt in four steps: the wound and the belief it left,
+// The character is dealt in four groups: the wound and the belief it left,
 // the strategy with its payoff and cost, the four behaviour traits, the arc.
-const CHARACTER_STEPS = 4;
+const CHARACTER_GROUPS = [
+  'Wound and belief',
+  'Strategy, payoff and cost',
+  'How they behave',
+  'Arc',
+];
 const CHAR_STAGE: Record<CharacterSlot, number> = {
   wound: 0,
   belief: 0,
@@ -107,9 +113,11 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
   const [sketchLoading, setSketchLoading] = useState(false);
   const [sketchError, setSketchError] = useState<string | null>(null);
   const [shuffleKey, setShuffleKey] = useState(0);
-  // Staged deal: which step is on the table and which cards are face-up.
-  const [stage, setStage] = useState(0);
-  const [flipped, setFlipped] = useState<Set<CharacterSlot>>(new Set());
+  // The whole character is laid out as empty slots; cards deal in by group
+  // or one at a time when their slot is tapped.
+  const deal = useDealQueue<CharacterSlot>();
+  const dealRef = useRef(deal);
+  dealRef.current = deal;
   const writingRef = useRef<WritingSectionHandle>(null);
 
   // Refs so the deal callback always sees current state.
@@ -118,18 +126,26 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
     stateRef.current = { character, pins, intensity };
   }, [character, pins, intensity]);
 
-  const handleGenerate = useCallback(() => {
+  /** Lay out a fresh table. Locked cards carry over; the rest start empty. */
+  const handleGenerate = useCallback((intensityOverride?: Intensity | null) => {
     const { character: prev, pins: p, intensity: i } = stateRef.current;
-    const { character: next, pins: nextPins } = generateCharacter(prev, p, i);
-    if (prev) setHistory((h) => [...h, prev]);
+    const weight = intensityOverride === undefined ? i : intensityOverride;
+    const { character: next, pins: nextPins } = generateCharacter(prev, p, weight);
+    const { landed, carried } = dealRef.current;
+    // Keep it in the history only if any of it was actually dealt this time.
+    if (prev && Array.from(landed).some((s) => !carried.has(s))) setHistory((h) => [...h, prev]);
     setCharacter(next);
     setPins(nextPins);
     setSketchError(null);
     setShuffleKey((k) => k + 1);
-    setStage(0);
-    // Locked cards carry over face-up; everything else is dealt face-down.
-    setFlipped(new Set(nextPins));
+    dealRef.current.reset(Array.from(nextPins));
     writingRef.current?.reset();
+  }, []);
+
+  // Shuffle the first character on load (client-side, random per visit).
+  useEffect(() => {
+    handleGenerate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleReroll = useCallback((slot: CharacterSlot) => {
@@ -278,29 +294,37 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
     }
   };
 
-  const handleFlip = useCallback((slot: CharacterSlot) => {
-    setFlipped((prev) => new Set(prev).add(slot));
+  const progress = dealProgress(
+    character ? CHARACTER_SLOTS : [],
+    (s: CharacterSlot) => CHAR_STAGE[s],
+    CHARACTER_GROUPS,
+    deal.queued,
+    deal.landed,
+    deal.carried
+  );
+  const complete = progress.complete;
+  const flipped = deal.landed;
+  const nextKeysRef = useRef(progress.nextKeys);
+  nextKeysRef.current = progress.nextKeys;
+
+  const handleDealNext = useCallback(() => {
+    dealRef.current.queue(nextKeysRef.current);
   }, []);
 
-  const dealtSlots = character
-    ? CHARACTER_SLOTS.filter((s) => CHAR_STAGE[s] <= stage)
-    : [];
-  const canContinue = dealtSlots.every((s) => flipped.has(s));
-  const complete = !!character && stage >= CHARACTER_STEPS - 1 && canContinue;
-
-  const handleContinue = useCallback(() => {
-    setStage((s) => Math.min(s + 1, CHARACTER_STEPS - 1));
-  }, []);
-
-  // A card's turn in its step's deal, skipping locked cards already on the table.
-  const dealTurn = (slot: CharacterSlot) =>
-    CHARACTER_SLOTS.slice(0, CHARACTER_SLOTS.indexOf(slot)).filter(
-      (s) => CHAR_STAGE[s] === CHAR_STAGE[slot] && !flipped.has(s)
-    ).length;
+  // Changing the wound weight before anything is dealt reshuffles the
+  // (still hidden) layout so the filter applies to this deal.
+  const startedRef = useRef(progress.started);
+  startedRef.current = progress.started;
+  const chooseIntensity = useCallback(
+    (i: Intensity | null) => {
+      setIntensity(i);
+      if (!startedRef.current) handleGenerate(i);
+    },
+    [handleGenerate]
+  );
 
   const card = (slot: CharacterSlot) => {
     if (!character) return null;
-    if (CHAR_STAGE[slot] > stage) return null;
     const blocked = !canReroll(character, slot, pins);
     return (
       <PlayCard
@@ -309,15 +333,16 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
         icon={SLOT_ICON[slot]}
         value={slotValue(character, slot)}
         variant={SLOT_VARIANT[slot]}
-        dealIndex={dealTurn(slot)}
+        dealIndex={deal.queued.get(slot) ?? 0}
         title={blocked ? blockedTitle(slot) : rerollTitle(slot)}
         blocked={blocked}
         locked={pins.has(slot)}
         onToggleLock={() => togglePin(slot)}
         onReroll={() => handleReroll(slot)}
         randomLabel={() => randomSlotLabel(slot)}
-        dealOnMount={!flipped.has(slot)}
-        onDealt={() => handleFlip(slot)}
+        dealt={deal.queued.has(slot)}
+        onDealt={() => deal.land(slot)}
+        onRequestDeal={() => deal.queue([slot])}
         quote={slot === 'belief'}
         lead={slot === 'lesson' ? 'Learning that' : undefined}
         meta={slotMeta(character, slot)}
@@ -349,13 +374,14 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
         <div className="table">
           <div className="deal-bar">
             <DealControls
-              started={!!character}
-              complete={complete}
-              canContinue={canContinue}
-              step={stage}
-              steps={CHARACTER_STEPS}
-              onDeal={handleGenerate}
-              onContinue={handleContinue}
+              started={progress.started}
+              complete={progress.complete}
+              dealing={progress.dealing}
+              nextName={progress.nextName}
+              dealtCount={progress.dealtCount}
+              total={progress.total}
+              onDealNext={handleDealNext}
+              onNewDeal={() => handleGenerate()}
               active={active}
             />
             <div className="field field--inline">
@@ -369,7 +395,7 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
                     type="button"
                     className={`seg ${intensity === i ? 'selected' : ''}`}
                     aria-pressed={intensity === i}
-                    onClick={() => setIntensity(i)}
+                    onClick={() => chooseIntensity(i)}
                   >
                     {i ? i.charAt(0).toUpperCase() + i.slice(1) : 'Any'}
                   </button>
@@ -379,7 +405,8 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
           </div>
 
           <p className="table-hint">
-            Tap a card to re-roll it. Locked cards stay on the table when you deal again.
+            Tap an empty slot to deal just that card, or a dealt card to re-roll it. Locked
+            cards stay on the table when you deal again.
             Belief and strategy are a pair, so locking one holds the other.
             {pins.size > 0 && (
               <button type="button" className="link-btn" onClick={() => setPins(new Set())}>
@@ -390,7 +417,7 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
           </p>
 
           {!character ? (
-            <EmptyDeck text="Press Deal or G to lay out a character." />
+            <EmptyDeck text="Shuffling the deck..." />
           ) : (
             <>
               <div className="prose prose--character">
@@ -413,11 +440,9 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
                 {card('strategy')}
                 {card('payoff')}
                 {card('cost')}
-                {stage >= 2 && (
-                  <div className="behaviors" role="group" aria-label="How they behave">
-                    {BEHAVIORS.map((s) => card(s))}
-                  </div>
-                )}
+                <div className="behaviors" role="group" aria-label="How they behave">
+                  {BEHAVIORS.map((s) => card(s))}
+                </div>
                 {card('lesson')}
               </div>
 
@@ -445,7 +470,7 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
         <aside className="pad" aria-label="Writing pad">
           <WritingSection
             ref={writingRef}
-            ready={!!character}
+            ready={progress.dealtCount > 0}
             onSave={handleSave}
             prompt="Now write a scene that reveals them..."
             placeholder="Show the strategy working, then show it cost them..."

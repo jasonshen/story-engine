@@ -12,11 +12,12 @@ import {
 import { MotionConfig } from 'motion/react';
 import { BookOpenTextIcon, CardsIcon, UserFocusIcon } from '@phosphor-icons/react';
 import ConceptDisplay, {
-  STORY_STEPS,
+  STORY_GROUPS,
   storyCardPaths,
   storyStageOf,
 } from '@/components/ConceptDisplay';
 import DealControls from '@/components/DealControls';
+import { dealProgress, useDealQueue } from '@/components/useDealQueue';
 import WritingSection, { SaveResult, WritingSectionHandle } from '@/components/WritingSection';
 import SavedEntries from '@/components/SavedEntries';
 import ConceptHistory from '@/components/ConceptHistory';
@@ -92,9 +93,11 @@ export default function Home() {
   const [savedEntries, setSavedEntries] = useState<WritingEntry[]>([]);
   const writingSectionRef = useRef<WritingSectionHandle>(null);
   const [tab, setTab] = useState<Tab>('story');
-  // Staged deal: which step is on the table and which cards are face-up.
-  const [stage, setStage] = useState(0);
-  const [flipped, setFlipped] = useState<Set<string>>(new Set());
+  // The whole story is laid out as empty slots; cards deal in by group or
+  // one at a time when their slot is tapped.
+  const deal = useDealQueue<string>();
+  const landedRef = useRef(deal.landed);
+  landedRef.current = deal.landed;
 
   // Remember the last tab (per-browser convenience only)
   useEffect(() => {
@@ -152,9 +155,11 @@ export default function Home() {
     }
   }, []);
 
+  /** Lay out a fresh, empty table for a new story. */
   const handleGenerate = useCallback(() => {
     setConcept((prev) => {
-      if (prev) {
+      // Keep it in the history only if any of it was actually dealt.
+      if (prev && landedRef.current.size > 0) {
         setHistory((h) => [...h, prev]);
       }
       return null;
@@ -162,11 +167,16 @@ export default function Home() {
 
     const newConcept = generateConcept();
     setConcept(newConcept);
-    setStage(0);
-    setFlipped(new Set());
+    deal.reset();
     setNarrativeError(null);
 
     writingSectionRef.current?.reset();
+  }, [deal.reset]);
+
+  // Shuffle the first story on load (client-side, so it is random per visit).
+  useEffect(() => {
+    handleGenerate();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleReroll = useCallback(
@@ -179,19 +189,26 @@ export default function Home() {
     [concept]
   );
 
-  const handleFlip = useCallback((path: string) => {
-    setFlipped((prev) => new Set(prev).add(path));
-  }, []);
+  const storyPaths = concept ? storyCardPaths(concept) : [];
+  const progress = dealProgress(
+    storyPaths,
+    storyStageOf,
+    STORY_GROUPS,
+    deal.queued,
+    deal.landed,
+    deal.carried
+  );
+  const nextKeysRef = useRef(progress.nextKeys);
+  nextKeysRef.current = progress.nextKeys;
 
-  const dealtPaths = concept
-    ? storyCardPaths(concept).filter((p) => storyStageOf(p) <= stage)
-    : [];
-  const canContinue = dealtPaths.every((p) => flipped.has(p));
-  const storyComplete = !!concept && stage >= STORY_STEPS - 1 && canContinue;
+  const handleDealNext = useCallback(() => {
+    deal.queue(nextKeysRef.current);
+  }, [deal.queue]);
 
-  const handleContinue = useCallback(() => {
-    setStage((s) => Math.min(s + 1, STORY_STEPS - 1));
-  }, []);
+  const handleRequestDeal = useCallback(
+    (path: string) => deal.queue([path]),
+    [deal.queue]
+  );
 
   const handleCreateNarrative = useCallback(() => {
     if (concept && !concept.narrative && !narrativeLoading) {
@@ -306,17 +323,19 @@ export default function Home() {
               <div className="table">
                 <div className="deal-bar">
                   <DealControls
-                    started={!!concept}
-                    complete={storyComplete}
-                    canContinue={canContinue}
-                    step={stage}
-                    steps={STORY_STEPS}
-                    onDeal={handleGenerate}
-                    onContinue={handleContinue}
+                    started={progress.started}
+                    complete={progress.complete}
+                    dealing={progress.dealing}
+                    nextName={progress.nextName}
+                    dealtCount={progress.dealtCount}
+                    total={progress.total}
+                    onDealNext={handleDealNext}
+                    onNewDeal={handleGenerate}
                     active={tab === 'story'}
                   />
                   <p className="table-hint table-hint--inline">
-                    Tap any card, or any underlined word, to re-roll just that piece.
+                    Tap an empty slot to deal just that card. Tap a dealt card, or an
+                    underlined word, to re-roll it.
                   </p>
                 </div>
 
@@ -326,17 +345,18 @@ export default function Home() {
                   onCreateNarrative={handleCreateNarrative}
                   narrativeLoading={narrativeLoading}
                   narrativeError={narrativeError}
-                  stage={stage}
-                  flipped={flipped}
-                  onFlip={handleFlip}
-                  complete={storyComplete}
+                  queued={deal.queued}
+                  landed={deal.landed}
+                  onLanded={deal.land}
+                  onRequestDeal={handleRequestDeal}
+                  complete={progress.complete}
                 />
               </div>
 
               <aside className="pad" aria-label="Writing pad">
                 <WritingSection
                   ref={writingSectionRef}
-                  ready={!!concept}
+                  ready={progress.dealtCount > 0}
                   onSave={handleSave}
                   emptyText="Deal a story, then write the opening here."
                 />

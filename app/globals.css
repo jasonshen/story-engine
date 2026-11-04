@@ -1533,6 +1533,47 @@ button {
 .pcard .pcard-lock {
   z-index: 2;
 }
+/* An empty slot on the table: what will be dealt here, and a tap target. */
+.pcard-slot {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 12px;
+  text-align: center;
+  pointer-events: none;
+}
+.pcard-slot-cat {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-display), system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink-3);
+}
+.pcard-slot-hint {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ink-3);
+  opacity: 0.8;
+}
+.pcard.is-pending .pcard-face {
+  cursor: pointer;
+}
+.pcard.is-pending:hover::before {
+  opacity: 0.7;
+  border-color: var(--accent);
+}
+.pcard.is-pending:hover .pcard-slot-hint {
+  color: var(--accent-text);
+  opacity: 1;
+}
+
 /* The card being dealt slides over its neighbours rather than under them. */
 .pcard.is-dealing {
   z-index: 3;
