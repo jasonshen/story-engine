@@ -1512,35 +1512,46 @@ button {
 }
 
 
-/* ---- deal choreography: face-down backs and decoy flashes ---- */
-.pcard.is-facedown .pcard-face > *,
-.pcard.is-facedown .pcard-lock {
-  visibility: hidden;
+/* ---- deal choreography: empty slots, cards sliding in over cards ---- */
+.pcard.is-pending .pcard-face {
+  opacity: 0;
 }
-.pcard.is-facedown .pcard-face {
-  cursor: default;
-  background:
-    repeating-linear-gradient(
-      45deg,
-      transparent 0 9px,
-      var(--line) 9px 10px
-    ),
-    var(--card-2);
-}
-.pcard.is-facedown .pcard-face::after {
+.pcard.is-pending::before {
   content: '';
   position: absolute;
-  inset: 10px;
-  border-radius: var(--r-nested);
-  border: 1px solid var(--line-strong);
+  inset: 0;
+  border-radius: var(--r-surface);
+  border: 1.5px dashed var(--line-strong);
+  background: var(--accent-soft);
+  opacity: 0.35;
   pointer-events: none;
 }
-.pcard.is-decoy .pcard-value,
-.pcard.is-decoy .pcard-meta,
-.pcard.is-decoy .pcard-lead {
-  opacity: 0.45;
+.pcard .pcard-face:not(.pcard-ghost) {
+  z-index: 1;
 }
-
+/* The lock sits above the card face it belongs to. */
+.pcard .pcard-lock {
+  z-index: 2;
+}
+/* While a card is being dealt, the slot clips it so the card sliding in
+   covers the one beneath instead of spilling over its neighbour. */
+.pcard.is-dealing {
+  overflow: hidden;
+  border-radius: var(--r-surface);
+}
+.pcard-ghost {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.pcard.is-decoy .pcard-value,
+.pcard.is-decoy .pcard-lead,
+.pcard-ghost .pcard-value,
+.pcard-ghost .pcard-lead {
+  opacity: 0.5;
+}
 
 /* ---- staged deal: Deal / Continue / Start Over ---- */
 .deal-controls {
@@ -1592,37 +1603,6 @@ button {
     repeating-linear-gradient(45deg, transparent 0 5px, var(--line) 5px 6px),
     var(--card-2);
   border: 1px dashed var(--line-strong);
-}
-
-/* Face-down card label, shown on the back. */
-.pcard.is-facedown .pcard-face > .pcard-back-hint {
-  visibility: visible;
-}
-.pcard-back-hint {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  text-align: center;
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: var(--ink-3);
-}
-.pcard-back-cat {
-  font-family: var(--font-display), system-ui, sans-serif;
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: var(--ink-2);
-}
-.pcard.is-facedown .pcard-face {
-  cursor: pointer;
-}
-.pcard.is-facedown:hover .pcard-face {
-  border-color: var(--accent);
 }
 
 @media (prefers-reduced-motion: reduce) {

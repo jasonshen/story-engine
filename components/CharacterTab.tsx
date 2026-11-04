@@ -292,6 +292,12 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
     setStage((s) => Math.min(s + 1, CHARACTER_STEPS - 1));
   }, []);
 
+  // A card's turn in its step's deal, skipping locked cards already on the table.
+  const dealTurn = (slot: CharacterSlot) =>
+    CHARACTER_SLOTS.slice(0, CHARACTER_SLOTS.indexOf(slot)).filter(
+      (s) => CHAR_STAGE[s] === CHAR_STAGE[slot] && !flipped.has(s)
+    ).length;
+
   const card = (slot: CharacterSlot) => {
     if (!character) return null;
     if (CHAR_STAGE[slot] > stage) return null;
@@ -303,16 +309,15 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
         icon={SLOT_ICON[slot]}
         value={slotValue(character, slot)}
         variant={SLOT_VARIANT[slot]}
-        dealIndex={CHARACTER_SLOTS.indexOf(slot)}
+        dealIndex={dealTurn(slot)}
         title={blocked ? blockedTitle(slot) : rerollTitle(slot)}
         blocked={blocked}
         locked={pins.has(slot)}
         onToggleLock={() => togglePin(slot)}
         onReroll={() => handleReroll(slot)}
         randomLabel={() => randomSlotLabel(slot)}
-        revealOnMount={false}
-        startFaceDown={!flipped.has(slot)}
-        onFlip={() => handleFlip(slot)}
+        dealOnMount={!flipped.has(slot)}
+        onDealt={() => handleFlip(slot)}
         quote={slot === 'belief'}
         lead={slot === 'lesson' ? 'Learning that' : undefined}
         meta={slotMeta(character, slot)}
@@ -374,9 +379,8 @@ export default function CharacterTab({ onEntrySaved, active, savedEntries }: Cha
           </div>
 
           <p className="table-hint">
-            Tap a card to turn it over, and again to re-roll it. Locked cards stay face-up
-            when you deal again. Belief and strategy are a pair, so locking one holds the
-            other.
+            Tap a card to re-roll it. Locked cards stay on the table when you deal again.
+            Belief and strategy are a pair, so locking one holds the other.
             {pins.size > 0 && (
               <button type="button" className="link-btn" onClick={() => setPins(new Set())}>
                 <LockSimpleOpenIcon size={14} weight="bold" aria-hidden="true" />

@@ -137,9 +137,8 @@ export default function ConceptDisplay({
         dealIndex={stepIndex[s]++}
         onReroll={() => onReroll(path)}
         randomLabel={decoyFor(path)}
-        revealOnMount={false}
-        startFaceDown={!up(path)}
-        onFlip={() => onFlip(path)}
+        dealOnMount={!up(path)}
+        onDealt={() => onFlip(path)}
       />
     );
   };

@@ -20,7 +20,10 @@ export interface PlayCardProps {
   title: string;
   /** Size and styling variant (maps to a CSS modifier) */
   variant: string;
-  /** Position in the deal, used to stagger the deal-in */
+  /**
+   * This card's turn in its step's deal (0 = first). Cards are dealt one
+   * after another, so this sets how long the card waits before dealing.
+   */
   dealIndex?: number;
   /** Small connective text printed before the value */
   lead?: string;
@@ -34,28 +37,36 @@ export interface PlayCardProps {
   /** When present the card shows a lock toggle in its corner */
   onToggleLock?: () => void;
   className?: string;
-  /** Random label from this card's pool, flashed as a decoy during a flip */
+  /** Random label from this card's pool, dealt as a decoy before the real card */
   randomLabel?: () => string;
   /**
-   * Arrive face-down and turn over in deal order (default). False for cards
-   * that should stay put on a new deal, e.g. locked character cards.
+   * Deal this card in when it first appears (default). False for a card that
+   * is already on the table, e.g. a locked character card carried over.
    */
-  revealOnMount?: boolean;
-  /** Arrive face-down and wait for a click to turn over */
-  startFaceDown?: boolean;
-  /** Called once the card has been turned face-up by a click */
-  onFlip?: () => void;
+  dealOnMount?: boolean;
+  /** Called once the real card has landed after its deal */
+  onDealt?: () => void;
 }
 
-// Deal choreography (ms). Cards arrive face-down, then turn over one at a
-// time; each flashes a couple of faded decoys before landing on its value.
-const DEAL_BASE = 260;
-const DEAL_STEP = 150;
-const CASCADE_STEP = 90;
-const HALF_OUT = 0.07;
-const HALF_IN = 0.08;
+/*
+ * Deal choreography. A card is "dealt" into its slot: a decoy slides in from
+ * the left and lands, a second decoy slides in over it, then the real card
+ * slides in over the top and stays. No rotation. Cards in a step deal one
+ * after another, DEAL_STEP apart.
+ */
+const SLIDE_PX = 56;
+const DECOY_IN = 0.16; // s
+const DECOY_HOLD = 70; // ms the decoy rests before the next card covers it
+const FINAL_IN = 0.26; // s
+const DEAL_DECOYS = 2;
+const REROLL_DECOYS = 1;
+const DEAL_BASE = 180; // ms before the first card of a step
+export const DEAL_STEP = 600; // ms between cards in a step
+const CASCADE_STEP = 120; // ms between cards changed by a cascade
+const EASE_OUT: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+const POP_IN = 0.05; // s: just enough fade that a card doesn't blink in
 
 // A small, stable tilt per card so the spread reads as cards on a table.
 const TILTS = [-0.6, 0.45, -0.25, 0.7, -0.5, 0.3, -0.7, 0.55, -0.35, 0.2];
@@ -76,32 +87,38 @@ export default function PlayCard({
   onToggleLock,
   className = '',
   randomLabel,
-  revealOnMount = true,
-  startFaceDown = false,
-  onFlip,
+  dealOnMount = true,
+  onDealt,
 }: PlayCardProps) {
   const reduce = useReducedMotion();
   const [faceRef, animate] = useAnimate<HTMLButtonElement>();
-  const prevValue = useRef(value);
+
   const valueRef = useRef(value);
   valueRef.current = value;
   const labelRef = useRef(randomLabel);
   labelRef.current = randomLabel;
-  const busy = useRef(false);
+  const onDealtRef = useRef(onDealt);
+  onDealtRef.current = onDealt;
+
+  const prevValue = useRef(value);
   const clicked = useRef(false);
   const runId = useRef(0);
   const alive = useRef(true);
-  const [rollTick, setRollTick] = useState(0);
   const mounted = useRef(false);
+  const [rollTick, setRollTick] = useState(0);
 
-  // What the face shows right now: the real value, or a decoy mid-flip.
+  // What the top card shows (a decoy mid-deal, or the real value), the card
+  // underneath it while the next one slides over, and whether the slot is
+  // still empty because this card hasn't been dealt yet.
   const [shown, setShown] = useState(value);
+  const [under, setUnder] = useState<string | null>(null);
   const [decoy, setDecoy] = useState(false);
-  const [faceDown, setFaceDown] = useState(revealOnMount || startFaceDown);
-  const faceDownRef = useRef(faceDown);
-  faceDownRef.current = faceDown;
-  const onFlipRef = useRef(onFlip);
-  onFlipRef.current = onFlip;
+  const [pending, setPending] = useState(dealOnMount);
+  const [dealing, setDealing] = useState(dealOnMount);
+  const pendingRef = useRef(pending);
+  pendingRef.current = pending;
+  const shownRef = useRef(shown);
+  shownRef.current = shown;
 
   useEffect(() => {
     alive.current = true;
@@ -112,67 +129,83 @@ export default function PlayCard({
   }, []);
 
   /**
-   * Turn the card over to its current value, flashing `decoys` random labels
-   * on the way. Starting a new run cancels any run still in progress.
+   * Deal the current value into the slot, preceded by `decoys` decoy cards.
+   * Each new card slides in from the left over the one before it. A newer
+   * deal cancels any deal still in progress.
    */
-  const reveal = useCallback(
-    async (decoys: number, delayMs: number, onLanded?: () => void) => {
+  const slideIn = useCallback(
+    (el: HTMLElement, duration: number, overCard: boolean) =>
+      Promise.all([
+        animate(el, { x: [-SLIDE_PX, 0] }, { duration, ease: EASE_OUT }),
+        // Into an empty slot, a short fade so it doesn't pop; over another
+        // card, fully solid so the card beneath never shows through.
+        animate(el, { opacity: overCard ? 1 : [0, 1] }, { duration: overCard ? 0 : POP_IN }),
+      ]),
+    [animate]
+  );
+
+  const deal = useCallback(
+    async (decoys: number, delayMs: number) => {
       const id = ++runId.current;
       const live = () => alive.current && id === runId.current;
-      busy.current = true;
+      setDealing(true);
       try {
         if (delayMs) await sleep(delayMs);
         const el = faceRef.current;
         if (!live() || !el) return;
 
         if (reduce) {
-          setFaceDown(false);
+          setPending(false);
+          setUnder(null);
           setDecoy(false);
           setShown(valueRef.current);
-          onLanded?.();
-          await animate(el, { opacity: [0.25, 1], rotateY: 0 }, { duration: 0.22 });
+          onDealtRef.current?.();
+          await animate(el, { opacity: [0, 1], x: 0 }, { duration: 0.2 });
           return;
         }
 
+        // What is already in the slot gets covered by the first card in.
+        let lying: string | null = pendingRef.current ? null : shownRef.current;
         const pick = labelRef.current;
         for (let k = 0; pick && k < decoys; k++) {
-          await animate(el, { rotateY: 90 }, { duration: HALF_OUT, ease: [0.5, 0, 1, 1] });
-          if (!live()) return;
-          setFaceDown(false);
+          const label = pick();
+          setUnder(lying);
+          setPending(false);
           setDecoy(true);
-          setShown(pick());
-          await animate(el, { rotateY: [-90, 0] }, { duration: HALF_IN, ease: [0, 0, 0.5, 1] });
+          setShown(label);
+          await slideIn(el, DECOY_IN, lying !== null);
           if (!live()) return;
+          await sleep(DECOY_HOLD);
+          if (!live()) return;
+          lying = label;
         }
-        await animate(el, { rotateY: 90 }, { duration: HALF_OUT, ease: [0.5, 0, 1, 1] });
-        if (!live()) return;
-        setFaceDown(false);
+
+        setUnder(lying);
+        setPending(false);
         setDecoy(false);
         setShown(valueRef.current);
-        // The real value is showing: count the card as turned over now,
-        // not after the settle, so Continue unlocks without a lag.
-        onLanded?.();
-        await animate(
-          el,
-          { rotateY: [-90, 0] },
-          { type: 'spring', stiffness: 320, damping: 24, mass: 0.7 }
-        );
+        // The real card is on its way in: count it as dealt now, so the
+        // prose fills in and Continue unlocks without waiting for the settle.
+        onDealtRef.current?.();
+        await slideIn(el, FINAL_IN, lying !== null);
+        if (!live()) return;
+        setUnder(null);
       } finally {
-        if (id === runId.current) busy.current = false;
+        if (id === runId.current && alive.current) setDealing(false);
       }
     },
-    [reduce, animate, faceRef]
+    [reduce, animate, faceRef, slideIn]
   );
 
-  // First appearance: wait for this card's turn in the deal, then flip.
+  // First appearance: wait for this card's turn in the step, then deal it.
   useEffect(() => {
-    if (!revealOnMount) return;
-    reveal(2, DEAL_BASE + Math.min(dealIndex, 14) * DEAL_STEP);
+    if (!dealOnMount) return;
+    deal(DEAL_DECOYS, DEAL_BASE + Math.min(dealIndex, 14) * DEAL_STEP);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Later value changes: a tap on this card flips it straight away; a
-  // cascade from another card ripples down the spread in deal order.
+  // Later value changes: a tap on this card re-deals it straight away; a
+  // cascade from another card re-deals the changed cards in order.
   useEffect(() => {
     if (!mounted.current) {
       mounted.current = true;
@@ -181,101 +214,81 @@ export default function PlayCard({
     const changed = prevValue.current !== value;
     prevValue.current = value;
     if (!changed && rollTick === 0) return;
-    if (faceDownRef.current && runId.current === 0) {
+    if (pendingRef.current && runId.current === 0) {
+      // Not dealt yet: it will deal the new value when its turn comes.
       setShown(value);
       return;
     }
     const fromTap = clicked.current;
     clicked.current = false;
-    reveal(1, fromTap ? 0 : Math.min(dealIndex, 14) * CASCADE_STEP);
+    deal(REROLL_DECOYS, fromTap ? 0 : Math.min(dealIndex, 14) * CASCADE_STEP);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value, rollTick]);
 
-  const handleClick = useCallback(async () => {
-    if (busy.current) return;
-    // A face-down card turns over on click instead of re-rolling.
-    if (faceDown) {
-      if (startFaceDown) {
-        await reveal(2, 0, () => onFlipRef.current?.());
-      }
-      return;
-    }
-    if (blocked) return;
-    busy.current = true;
+  const handleClick = useCallback(() => {
+    if (blocked || dealing || pending) return;
     clicked.current = true;
-    const el = faceRef.current;
-    try {
-      if (el) {
-        if (reduce) {
-          await animate(el, { opacity: 0.25 }, { duration: 0.12 });
-        } else {
-          await animate(el, { rotateY: 90 }, { duration: 0.12, ease: [0.5, 0, 1, 1] });
-        }
-      }
-    } finally {
-      onReroll();
-      setRollTick((t) => t + 1);
-    }
-  }, [blocked, reduce, animate, faceRef, onReroll, faceDown, startFaceDown, reveal]);
+    onReroll();
+    setRollTick((t) => t + 1);
+  }, [blocked, dealing, pending, onReroll]);
 
   const tilt = locked ? 0 : TILTS[dealIndex % TILTS.length];
+
+  const valueText = (v: string) => (quote ? <>&ldquo;{v}&rdquo;</> : v);
 
   return (
     <motion.div
       className={`pcard pcard--${variant} ${locked ? 'is-locked' : ''} ${
         blocked ? 'is-blocked' : ''
-      } ${onToggleLock ? 'has-lock' : ''} ${faceDown ? 'is-facedown' : ''} ${
+      } ${onToggleLock ? 'has-lock' : ''} ${pending ? 'is-pending' : ''} ${
+        dealing && !pending ? 'is-dealing' : ''
+      } ${
         decoy ? 'is-decoy' : ''
       } ${className}`}
-      initial={
-        !revealOnMount && !startFaceDown
-          ? false
-          : reduce
-            ? { opacity: 0 }
-            : { opacity: 0, y: -26, rotate: tilt * 6, scale: 0.94 }
-      }
-      animate={{ opacity: 1, y: 0, rotate: tilt, scale: 1 }}
-      transition={{
-        type: 'spring',
-        stiffness: 260,
-        damping: 24,
-        delay: Math.min(dealIndex, 14) * 0.045,
-      }}
+      initial={dealOnMount ? { opacity: 0 } : false}
+      animate={{ opacity: 1, rotate: tilt }}
+      transition={{ duration: 0.2 }}
       whileHover={
-        blocked
+        blocked || pending || dealing
           ? undefined
           : { y: -3, transition: { type: 'spring', stiffness: 420, damping: 26 } }
       }
     >
+      {under !== null && (
+        <div className="pcard-face pcard-ghost" aria-hidden="true">
+          <span className="pcard-cat">
+            <CatIcon size={15} weight="bold" aria-hidden="true" />
+            {category}
+          </span>
+          <span className="pcard-value">
+            {lead && <span className="pcard-lead">{lead} </span>}
+            {valueText(under)}
+          </span>
+        </div>
+      )}
       <button
         ref={faceRef}
         type="button"
         className="pcard-face"
         onClick={handleClick}
-        aria-disabled={(faceDown ? !startFaceDown : blocked) || undefined}
-        aria-busy={decoy || undefined}
-        title={faceDown ? 'Turn over' : title}
+        aria-disabled={blocked || pending || undefined}
+        aria-busy={dealing || undefined}
+        title={pending ? `${category}: being dealt` : title}
         aria-label={
-          faceDown
-            ? `${category}: face down. Turn over`
+          pending
+            ? `${category}: being dealt`
             : `${category}: ${value.replace(/[.!?]+$/, '')}. ${title}`
         }
       >
-        {faceDown && startFaceDown && (
-          <span className="pcard-back-hint" aria-hidden="true">
-            <span className="pcard-back-cat">{category}</span>
-            Tap to turn over
-          </span>
-        )}
         <span className="pcard-cat">
           <CatIcon size={15} weight="bold" aria-hidden="true" />
           {category}
         </span>
         <span className="pcard-value">
           {lead && <span className="pcard-lead">{lead} </span>}
-          {quote ? <>&ldquo;{shown}&rdquo;</> : shown}
+          {valueText(shown)}
         </span>
-        {meta && <span className="pcard-meta">{meta}</span>}
+        {meta && !decoy && <span className="pcard-meta">{meta}</span>}
         <span className="pcard-foot" aria-hidden="true">
           {blocked ? (
             <>
@@ -290,7 +303,7 @@ export default function PlayCard({
           )}
         </span>
       </button>
-      {onToggleLock && (
+      {onToggleLock && !pending && (
         <button
           type="button"
           className="pcard-lock"

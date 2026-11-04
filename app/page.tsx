@@ -316,8 +316,7 @@ export default function Home() {
                     active={tab === 'story'}
                   />
                   <p className="table-hint table-hint--inline">
-                    Tap a card to turn it over. Tap it again, or an underlined word, to
-                    re-roll just that piece.
+                    Tap any card, or any underlined word, to re-roll just that piece.
                   </p>
                 </div>
 

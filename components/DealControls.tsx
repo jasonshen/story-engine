@@ -49,9 +49,8 @@ export default function DealControls({
             Step {step + 1} of {steps}
           </span>
           <span className="deal-aside-row">
-            {!canContinue && <span>Turn over each card to continue,</span>}
             <span>
-              {canContinue ? 'or ' : ' or '}
+              or{' '}
               <button type="button" className="link-btn link-btn--plain" onClick={onDeal}>
                 Start Over
               </button>
