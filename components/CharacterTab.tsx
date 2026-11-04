@@ -1,6 +1,7 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { forwardRef, useCallback, useEffect, useImperativeHandle, useRef, useState } from 'react';
+import { Lock, LockOpen } from '@phosphor-icons/react';
 import {
   Character,
   CharacterSlot,
@@ -14,7 +15,6 @@ import {
   canReroll,
   characterElements,
   characterSummaryHTML,
-  characterText,
   generateCharacter,
   randomSlotLabel,
   rerollSlot,
@@ -24,8 +24,10 @@ import {
 } from '@/lib/character-engine';
 import { WritingEntry } from '@/lib/types';
 import ClickableElement from './ClickableElement';
-import HoldToGenerate from './HoldToGenerate';
-import WritingSection, { WritingSectionHandle } from './WritingSection';
+import { useWriting, WritingSheet, WritingTools, SavePayload } from './WritingSection';
+import Workspace, { GenerateButton } from './Workspace';
+import { EmptyPage, Expansion, RerollHint } from './ConceptDisplay';
+import KeysList from './KeysList';
 
 const SLOT_CLASS: Record<CharacterSlot, string> = {
   wound: 'el-wound',
@@ -56,36 +58,33 @@ const SLOT_DURATION: Record<CharacterSlot, number> = {
 
 const INTENSITIES: (Intensity | null)[] = [null, ...GRAPH.enums.intensity];
 
-const LockIcon = ({ locked }: { locked: boolean }) => (
-  <svg
-    viewBox="0 0 24 24"
-    width="14"
-    height="14"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <rect x="5" y="11" width="14" height="10" rx="2" />
-    {locked ? <path d="M8 11V7a4 4 0 0 1 8 0v4" /> : <path d="M8 11V7a4 4 0 0 1 7.5-2" />}
-  </svg>
-);
+/** Digit shortcut per slot, in template order: 1..9 then 0 */
+const SLOT_KEY: Record<CharacterSlot, string> = Object.fromEntries(
+  CHARACTER_SLOTS.map((slot, i) => [slot, String((i + 1) % 10)])
+) as Record<CharacterSlot, string>;
+
+export interface CharacterTabHandle {
+  generate: () => void;
+}
 
 interface CharacterTabProps {
   onEntrySaved: (entry: WritingEntry) => void;
+  /** Receives the outgoing character each time a new one is generated */
+  onArchive: (previous: Character) => void;
 }
 
-export default function CharacterTab({ onEntrySaved }: CharacterTabProps) {
+const CharacterTab = forwardRef<CharacterTabHandle, CharacterTabProps>(function CharacterTab(
+  { onEntrySaved, onArchive },
+  ref
+) {
   const [character, setCharacter] = useState<Character | null>(null);
   const [pins, setPins] = useState<Set<CharacterSlot>>(new Set());
   const [intensity, setIntensity] = useState<Intensity | null>(null);
-  const [history, setHistory] = useState<Character[]>([]);
   const [sketchLoading, setSketchLoading] = useState(false);
   const [sketchError, setSketchError] = useState<string | null>(null);
   const [shuffleKey, setShuffleKey] = useState(0);
-  const writingRef = useRef<WritingSectionHandle>(null);
+  const w = useWriting();
+  const resetWriting = w.reset;
 
   // Refs so the hold-to-generate callback always sees current state.
   const stateRef = useRef({ character, pins, intensity });
@@ -96,13 +95,15 @@ export default function CharacterTab({ onEntrySaved }: CharacterTabProps) {
   const handleGenerate = useCallback(() => {
     const { character: prev, pins: p, intensity: i } = stateRef.current;
     const { character: next, pins: nextPins } = generateCharacter(prev, p, i);
-    if (prev) setHistory((h) => [...h, prev]);
+    if (prev) onArchive(prev);
     setCharacter(next);
     setPins(nextPins);
     setSketchError(null);
     setShuffleKey((k) => k + 1);
-    writingRef.current?.reset();
-  }, []);
+    resetWriting();
+  }, [onArchive, resetWriting]);
+
+  useImperativeHandle(ref, () => ({ generate: handleGenerate }), [handleGenerate]);
 
   const handleReroll = useCallback((slot: CharacterSlot) => {
     const { character: c, pins: p, intensity: i } = stateRef.current;
@@ -149,12 +150,7 @@ export default function CharacterTab({ onEntrySaved }: CharacterTabProps) {
   }, [sketchLoading]);
 
   const handleSave = useCallback(
-    async (data: {
-      opening_style: string | null;
-      body: string;
-      word_count: number;
-      duration_seconds: number | null;
-    }) => {
+    async (data: SavePayload) => {
       const c = stateRef.current.character;
       if (!c) return;
       const summary = characterSummaryHTML(c);
@@ -183,7 +179,8 @@ export default function CharacterTab({ onEntrySaved }: CharacterTabProps) {
         const entryData = await entryRes.json();
 
         onEntrySaved({
-          id: entryData.id,
+          // Without a database the API returns no id; keep the entry usable locally.
+          id: entryData.id ?? `local-${Date.now()}`,
           concept_id: conceptData.id,
           concept_summary: summary,
           opening_style: data.opening_style,
@@ -232,145 +229,124 @@ export default function CharacterTab({ onEntrySaved }: CharacterTabProps) {
         shuffleKey={shuffleKey}
         shuffleDuration={SLOT_DURATION[slot]}
         disabled={blocked}
+        hotkey={SLOT_KEY[slot]}
       />
     );
   };
 
-  return (
+  const tools = (
     <>
-      <div className="controls controls-stack">
-        <HoldToGenerate onGenerate={handleGenerate} />
-        <div className="opening-section filter-section">
-          <div className="opening-label">Wound weight</div>
-          <div className="opening-pills">
-            {INTENSITIES.map((i) => (
-              <button
-                key={i ?? 'any'}
-                type="button"
-                className={`pill ${intensity === i ? 'selected' : ''}`}
-                onClick={() => setIntensity(i)}
-              >
-                {i ? i.charAt(0).toUpperCase() + i.slice(1) : 'Any'}
-              </button>
-            ))}
-          </div>
+      <div className="tool tool-generate">
+        <GenerateButton onGenerate={handleGenerate} rollKey={shuffleKey} />
+      </div>
+      <div className="tool">
+        <div className="tool-label" id="wound-weight-label">
+          Wound weight
+        </div>
+        <div className="segmented" role="group" aria-labelledby="wound-weight-label">
+          {INTENSITIES.map((i) => (
+            <button
+              key={i ?? 'any'}
+              type="button"
+              className={`seg ${intensity === i ? 'selected' : ''}`}
+              aria-pressed={intensity === i}
+              onClick={() => setIntensity(i)}
+            >
+              {i ? i.charAt(0).toUpperCase() + i.slice(1) : 'Any'}
+            </button>
+          ))}
         </div>
       </div>
-
-      <div className="concept">
-        {!character ? (
-          <div className="concept-empty">
-            <span className="glyph">&#x2727;</span>
-            Press generate to conjure a character
-          </div>
-        ) : (
-          <div className="concept-enter character-profile">
-            <div className="character-origin">
-              After {el('wound')}, they came to believe:
-            </div>
-            <div className="character-belief">
-              &ldquo;{el('belief')}&rdquo;
-            </div>
-            <div className="character-origin">
-              So they {el('strategy')}. It buys them {el('payoff')}, but costs
-              them {el('cost')}.
-            </div>
-
-            <hr className="concept-divider" />
-
-            <div className="backstory-block">
-              <div className="backstory-sentence">
-                On an ordinary day they&rsquo;re {el('coping')}. When they want
-                something, they turn {el('negotiating')}. When the wound gets
-                poked, they go {el('conflict')}. But when the armor slips,
-                they&rsquo;re {el('wildcard')}.
-              </div>
-            </div>
-
-            <div className="character-arc">
-              Their arc: learning that {el('lesson')}.
-            </div>
-
-            {/* Sketch */}
-            {sketchLoading && (
-              <div className="narrative">
-                <div className="narrative-text narrative-loading">
-                  Sketching character...
-                </div>
-              </div>
-            )}
-            {!sketchLoading && character.sketch && (
-              <div className="narrative">
-                <div className="narrative-text">{character.sketch}</div>
-              </div>
-            )}
-            {!sketchLoading && !character.sketch && (
-              <div className="narrative-action">
-                <button
-                  className="btn btn-narrative"
-                  onClick={handleSketch}
-                  type="button"
-                >
-                  Create Sketch
-                </button>
-                {sketchError && <div className="sketch-error">{sketchError}</div>}
-              </div>
-            )}
-
-            <Anatomy
-              character={character}
-              pins={pins}
-              onTogglePin={togglePin}
-              onClearPins={() => setPins(new Set())}
-            />
-          </div>
-        )}
-      </div>
-
-      <WritingSection
-        ref={writingRef}
-        ready={!!character}
-        onSave={handleSave}
-        prompt="Now write a scene that reveals them..."
-        placeholder="Show the strategy working, then show it cost them..."
-      />
-
-      <div className="history">
-        <hr className="history-rule" />
-        <div className="history-title">Previous characters</div>
-        {history.length === 0 ? (
-          <div className="history-empty">
-            Characters will collect here as you generate.
-          </div>
-        ) : (
-          [...history].reverse().map((c, idx) => (
-            <div key={`${c.id}-${idx}`} className="history-item">
-              <div className="history-num">No. {history.length - idx}</div>
-              <div className="history-logline">{characterText(c)}</div>
-              {c.sketch && <div className="history-narr">{c.sketch}</div>}
-            </div>
-          ))
-        )}
-      </div>
+      {character ? (
+        <Anatomy
+          character={character}
+          pins={pins}
+          onTogglePin={togglePin}
+          onClearPins={() => setPins(new Set())}
+        />
+      ) : (
+        <KeysList compact tab="character" />
+      )}
+      <WritingTools w={w} ready={!!character} />
     </>
   );
-}
+
+  const prompt = !character ? (
+    <EmptyPage noun="character" />
+  ) : (
+    <div className="prompt concept-enter character-profile">
+      <p className="character-origin">
+        After {el('wound')}, they came to believe:
+      </p>
+      <p className="character-belief">
+        <span className="quote-open" aria-hidden="true">&ldquo;</span>
+        {el('belief')}&rdquo;
+      </p>
+      <p className="character-origin">
+        So they {el('strategy')}. It buys them {el('payoff')}, but costs them{' '}
+        {el('cost')}.
+      </p>
+
+      <p className="backstory">
+        On an ordinary day they&rsquo;re {el('coping')}. When they want something, they
+        turn {el('negotiating')}. When the wound gets poked, they go {el('conflict')}. But
+        when the armor slips, they&rsquo;re {el('wildcard')}.
+      </p>
+
+      <p className="character-arc">Their arc: learning that {el('lesson')}.</p>
+
+      <RerollHint />
+
+      <Expansion
+        loading={sketchLoading}
+        text={character.sketch}
+        error={sketchError}
+        onCreate={handleSketch}
+        label="Create Sketch"
+        loadingLabel="Sketching character..."
+      />
+    </div>
+  );
+
+  return (
+    <Workspace
+      toolsLabel="Character tools"
+      prompt={prompt}
+      writing={
+        <WritingSheet
+          w={w}
+          ready={!!character}
+          onSave={handleSave}
+          prompt="Now write a scene that reveals them..."
+          placeholder="Show the strategy working, then show it cost them..."
+        />
+      }
+      tools={tools}
+    />
+  );
+});
+
+export default CharacterTab;
 
 // ---------- anatomy panel: the graph behind the prose, with locks ----------
 
-function slotMeta(c: Character, slot: CharacterSlot): string | null {
+function slotMeta(c: Character, slot: CharacterSlot): string[] {
   const s = strategyOf(c);
   switch (slot) {
     case 'wound':
-      return woundOf(c).intensity;
+      return [woundOf(c).intensity];
     case 'belief':
-      return `about ${beliefOf(c).locus}`;
+      return [`about ${beliefOf(c).locus}`];
     case 'strategy':
-      return `${s.inspiredBy} · ${s.stance} (${GRAPH.enums.stance[s.stance]}) · ${s.outlook} (${GRAPH.enums.outlook[s.outlook]}) · fears ${s.fear}, wants ${s.desire}`;
+      return [
+        s.inspiredBy,
+        `${s.stance} (${GRAPH.enums.stance[s.stance]}), ${s.outlook} (${GRAPH.enums.outlook[s.outlook]})`,
+        `fears ${s.fear}, wants ${s.desire}`,
+      ];
     case 'conflict':
-      return `${c.conflict.mode}: ${GRAPH.enums.conflictMode[c.conflict.mode]}`;
+      return [`${c.conflict.mode}: ${GRAPH.enums.conflictMode[c.conflict.mode]}`];
     default:
-      return null;
+      return [];
   }
 }
 
@@ -383,53 +359,67 @@ interface AnatomyProps {
 
 function Anatomy({ character, pins, onTogglePin, onClearPins }: AnatomyProps) {
   return (
-    <div className="anatomy">
-      <div className="anatomy-head">
-        <div className="anatomy-title">Anatomy</div>
-        <div className="anatomy-hint">
-          Lock what you like; Generate re-rolls everything else around it.
-          Belief and strategy are a pair, so locking one holds the other.
-          {pins.size > 0 && (
-            <>
-              {' '}
-              <button type="button" className="anatomy-clear" onClick={onClearPins}>
-                Unlock all
-              </button>
-            </>
-          )}
-        </div>
+    <div className="tool anatomy">
+      <div className="tool-label-row">
+        <div className="tool-label">Anatomy</div>
+        {pins.size > 0 && (
+          <button type="button" className="text-btn" onClick={onClearPins}>
+            Unlock all
+          </button>
+        )}
       </div>
-      {CHARACTER_SLOTS.map((slot) => {
-        const locked = pins.has(slot);
-        const held =
-          !locked &&
-          slot === 'strategy' &&
-          (['belief', 'payoff', 'cost'] as CharacterSlot[]).some((s) => pins.has(s));
-        const meta = slotMeta(character, slot);
-        return (
-          <div key={slot} className={`anatomy-row ${locked ? 'locked' : ''}`}>
-            <button
-              type="button"
-              className="anatomy-lock"
-              onClick={() => onTogglePin(slot)}
-              aria-pressed={locked}
-              title={locked ? 'Unlock' : 'Lock (survives Generate)'}
-            >
-              <LockIcon locked={locked} />
-            </button>
-            <div className="anatomy-label">{SLOT_LABELS[slot]}</div>
-            <div className="anatomy-value">
-              {slotValue(character, slot)}
-              {meta && <div className="anatomy-meta">{meta}</div>}
-              {held && (
-                <div className="anatomy-meta anatomy-held">
-                  held by the locked belief
+      <p className="tool-note">
+        Lock what you like; Generate re-rolls everything else around it. Belief and strategy
+        are a pair, so locking one holds the other.
+      </p>
+      <ol className="anatomy-list">
+        {CHARACTER_SLOTS.map((slot) => {
+          const locked = pins.has(slot);
+          const held =
+            !locked &&
+            slot === 'strategy' &&
+            (['belief', 'payoff', 'cost'] as CharacterSlot[]).some((s) => pins.has(s));
+          const blocked = !locked && !canReroll(character, slot, pins);
+          const meta = slotMeta(character, slot);
+          return (
+            <li key={slot} className={`anatomy-row ${locked ? 'locked' : ''}`}>
+              <span className="anatomy-num" aria-hidden="true">
+                {SLOT_KEY[slot]}
+              </span>
+              <div className="anatomy-body">
+                <div className="anatomy-label">
+                  {SLOT_LABELS[slot]}
+                  {blocked && <span className="anatomy-flag">blocked by a lock</span>}
                 </div>
-              )}
-            </div>
-          </div>
-        );
-      })}
+                <div className="anatomy-value" title={slotValue(character, slot)}>
+                  {slotValue(character, slot)}
+                </div>
+                {meta.map((m) => (
+                  <div key={m} className="anatomy-meta">
+                    {m}
+                  </div>
+                ))}
+                {held && <div className="anatomy-meta anatomy-held">held by the locked belief</div>}
+              </div>
+              <button
+                type="button"
+                className="icon-btn anatomy-lock"
+                data-lock-key={SLOT_KEY[slot]}
+                onClick={() => onTogglePin(slot)}
+                aria-pressed={locked}
+                aria-label={`${locked ? 'Unlock' : 'Lock'} ${SLOT_LABELS[slot].toLowerCase()}`}
+                title={locked ? 'Unlock' : 'Lock (survives Generate)'}
+              >
+                {locked ? (
+                  <Lock weight="fill" aria-hidden="true" />
+                ) : (
+                  <LockOpen aria-hidden="true" />
+                )}
+              </button>
+            </li>
+          );
+        })}
+      </ol>
     </div>
   );
 }

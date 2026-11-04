@@ -18,6 +18,8 @@ interface ClickableElementProps {
   randomLabel?: () => string;
   /** Not re-rollable right now (e.g. blocked by a lock); shows `title` as the reason */
   disabled?: boolean;
+  /** Keyboard shortcut digit ("1".."9", "0"); rendered as a footnote marker */
+  hotkey?: string;
 }
 
 const SHUFFLE_INTERVAL = 60; // ms between label swaps
@@ -32,6 +34,7 @@ export default function ClickableElement({
   shuffleDuration = 500,
   randomLabel,
   disabled = false,
+  hotkey,
 }: ClickableElementProps) {
   // Keep the label source in a ref so a new function identity each render
   // doesn't retrigger the shuffle effect.
@@ -77,58 +80,82 @@ export default function ClickableElement({
     };
   }, [shuffleKey, canShuffle, shuffleDuration, text]);
 
+  const reroll = useCallback(() => {
+    if (disabled) return;
+    if (isShuffling) return; // don't allow clicks during shuffle
+
+    if (!canShuffle) {
+      // No label source: use the simple swap animation
+      const span = spanRef.current;
+      if (!span) return;
+      span.classList.add('el-swapping');
+      setTimeout(() => {
+        onReroll();
+        span.classList.remove('el-swapping');
+      }, 170);
+      return;
+    }
+
+    // Reroll with shuffle animation (2x duration)
+    setIsShuffling(true);
+    const rerollDuration = 1000;
+
+    intervalRef.current = setInterval(() => {
+      const next = labelSourceRef.current;
+      if (next) setDisplayText(next());
+    }, SHUFFLE_INTERVAL);
+
+    // Fire the reroll partway through so the new value is ready
+    setTimeout(() => {
+      onReroll();
+    }, rerollDuration * 0.7);
+
+    shuffleTimerRef.current = setTimeout(() => {
+      if (intervalRef.current) clearInterval(intervalRef.current);
+      setIsShuffling(false);
+      // text prop will have updated from onReroll, useEffect will sync displayText
+    }, rerollDuration);
+  }, [onReroll, canShuffle, isShuffling, disabled]);
+
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
-      if (disabled) return;
-      if (isShuffling) return; // don't allow clicks during shuffle
-
-      if (!canShuffle) {
-        // No label source — use the old swap animation
-        const span = spanRef.current;
-        if (!span) return;
-        span.classList.add('el-swapping');
-        setTimeout(() => {
-          onReroll();
-          span.classList.remove('el-swapping');
-        }, 170);
-        return;
-      }
-
-      // Reroll with shuffle animation (2x duration)
-      setIsShuffling(true);
-      const rerollDuration = 1000;
-
-      intervalRef.current = setInterval(() => {
-        const next = labelSourceRef.current;
-        if (next) setDisplayText(next());
-      }, SHUFFLE_INTERVAL);
-
-      // Fire the reroll partway through so the new value is ready
-      setTimeout(() => {
-        onReroll();
-      }, rerollDuration * 0.7);
-
-      shuffleTimerRef.current = setTimeout(() => {
-        if (intervalRef.current) clearInterval(intervalRef.current);
-        setIsShuffling(false);
-        // text prop will have updated from onReroll, useEffect will sync displayText
-      }, rerollDuration);
+      reroll();
     },
-    [onReroll, canShuffle, isShuffling, disabled]
+    [reroll]
+  );
+
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        e.stopPropagation();
+        reroll();
+      }
+    },
+    [reroll]
   );
 
   return (
     <span
       ref={spanRef}
+      role="button"
+      tabIndex={0}
       className={`el ${className} ${isShuffling ? 'el-shuffling' : ''} ${
         disabled ? 'el-disabled' : ''
       }`}
       aria-disabled={disabled || undefined}
+      data-key={hotkey}
       onClick={handleClick}
+      onKeyDown={handleKeyDown}
       title={title}
     >
-      {displayText}
+      <span className="el-text">{displayText}</span>
+      {hotkey && (
+        <sup className="el-key" aria-hidden="true">
+          {hotkey}
+        </sup>
+      )}
     </span>
   );
 }

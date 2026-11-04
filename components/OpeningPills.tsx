@@ -19,19 +19,18 @@ const STYLES: OpeningStyle[] = [
 
 export default function OpeningPills({ selected, onSelect }: OpeningPillsProps) {
   return (
-    <div className="opening-section">
-      <div className="opening-label">Begin with</div>
-      <div className="opening-pills">
-        {STYLES.map((style) => (
-          <button
-            key={style}
-            className={`pill ${selected === style ? 'selected' : ''}`}
-            onClick={() => onSelect(selected === style ? null : style)}
-          >
-            {OPENING_LABELS[style]}
-          </button>
-        ))}
-      </div>
+    <div className="chips" role="group" aria-label="Begin with">
+      {STYLES.map((style) => (
+        <button
+          key={style}
+          type="button"
+          className={`chip ${selected === style ? 'selected' : ''}`}
+          aria-pressed={selected === style}
+          onClick={() => onSelect(selected === style ? null : style)}
+        >
+          {OPENING_LABELS[style]}
+        </button>
+      ))}
     </div>
   );
 }
