@@ -1,5 +1,6 @@
 'use client';
 
+import { useId } from 'react';
 import { OpeningStyle, OPENING_LABELS } from '@/lib/types';
 
 interface OpeningPillsProps {
@@ -18,14 +19,19 @@ const STYLES: OpeningStyle[] = [
 ];
 
 export default function OpeningPills({ selected, onSelect }: OpeningPillsProps) {
+  const labelId = useId();
   return (
-    <div className="opening-section">
-      <div className="opening-label">Begin with</div>
-      <div className="opening-pills">
+    <div className="field">
+      <div className="field-label" id={labelId}>
+        Begin with
+      </div>
+      <div className="pills" role="group" aria-labelledby={labelId}>
         {STYLES.map((style) => (
           <button
             key={style}
+            type="button"
             className={`pill ${selected === style ? 'selected' : ''}`}
+            aria-pressed={selected === style}
             onClick={() => onSelect(selected === style ? null : style)}
           >
             {OPENING_LABELS[style]}

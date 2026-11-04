@@ -84,7 +84,7 @@ export default function ClickableElement({
       if (isShuffling) return; // don't allow clicks during shuffle
 
       if (!canShuffle) {
-        // No label source — use the old swap animation
+        // No label source, so use the old swap animation
         const span = spanRef.current;
         if (!span) return;
         span.classList.add('el-swapping');

@@ -10,7 +10,9 @@
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^1.4.0",
+    "@phosphor-icons/react": "^2.1.10",
     "@supabase/supabase-js": "^2.99.3",
+    "motion": "^14.9.0",
     "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18"

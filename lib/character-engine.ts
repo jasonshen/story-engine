@@ -9,6 +9,7 @@ import {
   Strategy,
   Wound,
 } from './character-types';
+import { drawFrom } from './deck';
 
 /*
  * Character engine.
@@ -47,10 +48,30 @@ function rand<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
-/** Random pick, avoiding `current` when there is any alternative. */
-function randOther<T>(arr: T[], current: T, eq: (a: T, b: T) => boolean = (a, b) => a === b): T {
-  const others = arr.filter((x) => !eq(x, current));
-  return rand(others.length ? others : arr);
+const byId = <T extends { id: string }>(a: T, b: T) => a.id === b.id;
+
+/**
+ * Draw from the shuffled deck for this pool, avoiding `current` when there
+ * is any alternative. Every option comes up once before any repeats.
+ */
+function drawPool<T>(
+  key: string,
+  pool: T[],
+  current?: T,
+  eq: (a: T, b: T) => boolean = (a, b) => a === b
+): T {
+  const notCurrent = current === undefined ? undefined : (x: T) => !eq(x, current);
+  return drawFrom(key, pool, notCurrent, eq) ?? drawFrom(key, pool, undefined, eq) ?? rand(pool);
+}
+
+/** Draw the next wound or belief whose id is in `ids`. A single option is
+ *  taken as-is, so a fixed or locked choice doesn't use up a card. */
+function drawWhere<T extends { id: string }>(key: string, all: T[], ids: Set<string>): T {
+  if (ids.size === 1) {
+    const only = ids.values().next().value as string;
+    return all.find((x) => x.id === only)!;
+  }
+  return drawFrom(key, all, (x) => ids.has(x.id), byId) ?? all.find((x) => ids.has(x.id))!;
 }
 
 const sameConflict = (a: ConflictTrait, b: ConflictTrait) => a.word === b.word;
@@ -131,25 +152,31 @@ function candidatePairs(
 }
 
 function samplePair(pairs: Pair[], change: Change): Pair {
+  const woundIds = (ps: Pair[]) => new Set(ps.map((p) => p.wound.id));
+  const beliefIds = (ps: Pair[]) => new Set(ps.map((p) => p.belief.id));
   if (change === 'wound') {
-    // New wound uniformly, then one of its (valid) beliefs.
-    const wounds = Array.from(new Set(pairs.map((p) => p.wound.id)));
-    const wid = rand(wounds);
-    return rand(pairs.filter((p) => p.wound.id === wid));
+    // Next wound from the wound deck, then one of its (valid) beliefs.
+    const wound = drawWhere('char:wound', GRAPH.wounds, woundIds(pairs));
+    const withWound = pairs.filter((p) => p.wound.id === wound.id);
+    const belief = drawWhere('char:belief', GRAPH.beliefs, beliefIds(withWound));
+    return { wound, belief };
   }
-  // Belief uniformly (keeps strategies balanced), then a linked wound.
-  const beliefs = Array.from(new Set(pairs.map((p) => p.belief.id)));
-  const bid = rand(beliefs);
-  return rand(pairs.filter((p) => p.belief.id === bid));
+  // Next belief from the belief deck (all 63 come up before any repeats, which
+  // also keeps the nine strategies balanced), then a linked wound.
+  const belief = drawWhere('char:belief', GRAPH.beliefs, beliefIds(pairs));
+  const withBelief = pairs.filter((p) => p.belief.id === belief.id);
+  const wound = drawWhere('char:wound', GRAPH.wounds, woundIds(withBelief));
+  return { wound, belief };
 }
 
-/** Null when no pair satisfies the locks (the re-roll is blocked). */
-function solvePair(
+/** The valid pairs for this change, or null when the locks block it. Pure:
+ *  draws nothing, so it is safe to call on every render. */
+function findPairs(
   prev: Character | null,
   pins: Pins,
   intensity: Intensity | null,
   change: Change
-): Pair | null {
+): Pair[] | null {
   const attempts: Attempt[] =
     prev && (change === 'belief' || change === 'strategy')
       ? [
@@ -161,15 +188,26 @@ function solvePair(
 
   for (const a of attempts) {
     const pairs = candidatePairs(prev, pins, intensity, change, a);
-    if (pairs.length) return samplePair(pairs, change);
+    if (pairs.length) return pairs;
   }
   return null;
+}
+
+/** Null when no pair satisfies the locks (the re-roll is blocked). */
+function solvePair(
+  prev: Character | null,
+  pins: Pins,
+  intensity: Intensity | null,
+  change: Change
+): Pair | null {
+  const pairs = findPairs(prev, pins, intensity, change);
+  return pairs ? samplePair(pairs, change) : null;
 }
 
 /** Whether a slot can be re-rolled without breaking any other lock. */
 export function canReroll(c: Character, slot: CharacterSlot, pins: Pins): boolean {
   if (slot === 'wound' || slot === 'belief' || slot === 'strategy') {
-    return solvePair(c, pins, null, slot) !== null;
+    return findPairs(c, pins, null, slot) !== null;
   }
   return true;
 }
@@ -187,6 +225,7 @@ function build(
 
   function keep<T>(
     slot: CharacterSlot,
+    deckKey: string,
     prevVal: T | undefined,
     pool: T[],
     eq: (a: T, b: T) => boolean = (a, b) => a === b
@@ -194,20 +233,20 @@ function build(
     if (prev && pins.has(slot) && prevVal !== undefined && pool.some((x) => eq(x, prevVal))) {
       return prevVal;
     }
-    return rand(pool);
+    return drawPool(deckKey, pool, undefined, eq);
   }
 
   return {
     id: Math.random().toString(36).slice(2),
     woundId: wound.id,
     beliefId: belief.id,
-    payoff: keep('payoff', prev?.payoff, belief.payoffs),
-    cost: keep('cost', prev?.cost, belief.costs),
-    coping: keep('coping', prev?.coping, t.coping),
-    negotiating: keep('negotiating', prev?.negotiating, t.negotiating),
-    conflict: keep('conflict', prev?.conflict, t.conflict, sameConflict),
-    wildcard: keep('wildcard', prev?.wildcard, t.wildcard),
-    lesson: keep('lesson', prev?.lesson, lessonPool(belief)),
+    payoff: keep('payoff', `char:payoff:${belief.id}`, prev?.payoff, belief.payoffs),
+    cost: keep('cost', `char:cost:${belief.id}`, prev?.cost, belief.costs),
+    coping: keep('coping', `char:coping:${strategy.id}`, prev?.coping, t.coping),
+    negotiating: keep('negotiating', `char:negotiating:${strategy.id}`, prev?.negotiating, t.negotiating),
+    conflict: keep('conflict', `char:conflict:${strategy.id}`, prev?.conflict, t.conflict, sameConflict),
+    wildcard: keep('wildcard', `char:wildcard:${strategy.id}`, prev?.wildcard, t.wildcard),
+    lesson: keep('lesson', `char:lesson:${belief.id}`, prev?.lesson, lessonPool(belief)),
     sketch: null,
   };
 }
@@ -262,29 +301,30 @@ export function rerollSlot(
   }
 
   const belief = beliefOf(c);
-  const t = strategyOf(c).traits;
+  const strategy = strategyOf(c);
+  const t = strategy.traits;
   const next: Character = { ...c, sketch: null };
   switch (slot) {
     case 'payoff':
-      next.payoff = randOther(belief.payoffs, c.payoff);
+      next.payoff = drawPool(`char:payoff:${belief.id}`, belief.payoffs, c.payoff);
       break;
     case 'cost':
-      next.cost = randOther(belief.costs, c.cost);
+      next.cost = drawPool(`char:cost:${belief.id}`, belief.costs, c.cost);
       break;
     case 'coping':
-      next.coping = randOther(t.coping, c.coping);
+      next.coping = drawPool(`char:coping:${strategy.id}`, t.coping, c.coping);
       break;
     case 'negotiating':
-      next.negotiating = randOther(t.negotiating, c.negotiating);
+      next.negotiating = drawPool(`char:negotiating:${strategy.id}`, t.negotiating, c.negotiating);
       break;
     case 'conflict':
-      next.conflict = randOther(t.conflict, c.conflict, sameConflict);
+      next.conflict = drawPool(`char:conflict:${strategy.id}`, t.conflict, c.conflict, sameConflict);
       break;
     case 'wildcard':
-      next.wildcard = randOther(t.wildcard, c.wildcard);
+      next.wildcard = drawPool(`char:wildcard:${strategy.id}`, t.wildcard, c.wildcard);
       break;
     case 'lesson':
-      next.lesson = randOther(lessonPool(belief), c.lesson);
+      next.lesson = drawPool(`char:lesson:${belief.id}`, lessonPool(belief), c.lesson);
       break;
   }
   return { character: next, pins: new Set(pins) };

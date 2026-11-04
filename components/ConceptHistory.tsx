@@ -6,6 +6,7 @@ import {
   anchorDisplayName,
   enginePlural,
 } from '@/lib/grammar';
+import Drawer from './Drawer';
 
 interface ConceptHistoryProps {
   history: Concept[];
@@ -39,29 +40,23 @@ export default function ConceptHistory({ history }: ConceptHistoryProps) {
   const reversed = [...history].reverse();
 
   return (
-    <div className="history">
-      <hr className="history-rule" />
-      <div className="history-title">Previous concepts</div>
-      <div>
-        {reversed.length === 0 ? (
-          <div className="history-empty">
-            Concepts will collect here as you generate.
-          </div>
-        ) : (
-          reversed.map((c, idx) => (
-            <div key={`${c.id}-${idx}`} className="history-item">
-              <div className="history-num">No. {history.length - idx}</div>
-              <div
+    <Drawer title="Previous concepts" count={history.length}>
+      {reversed.length === 0 ? (
+        <p className="drawer-empty">Concepts will collect here as you deal.</p>
+      ) : (
+        <ol className="history-list">
+          {reversed.map((c, idx) => (
+            <li key={`${c.id}-${idx}`} className="history-item">
+              <span className="history-num">No. {history.length - idx}</span>
+              <span
                 className="history-logline"
                 dangerouslySetInnerHTML={{ __html: summaryHTML(c) }}
               />
-              {c.narrative && (
-                <div className="history-narr">{c.narrative}</div>
-              )}
-            </div>
-          ))
-        )}
-      </div>
-    </div>
+              {c.narrative && <span className="history-narr">{c.narrative}</span>}
+            </li>
+          ))}
+        </ol>
+      )}
+    </Drawer>
   );
 }

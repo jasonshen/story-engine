@@ -1,10 +1,21 @@
 import { getCardsByType } from './data';
+import { drawFrom } from './deck';
 import { Card, Concept, AgentEntry, AnchorEntry } from './types';
 
+const sameCard = (a: Card, b: Card) => a.id === b.id;
+
+/**
+ * Draw the next card of this type from its shuffled deck, skipping any in
+ * `exclude` (cards already on the table, or the one being replaced). Every
+ * card of a type comes up once before any repeats.
+ */
 function pick(arr: Card[], exclude: string[] = []): Card {
-  const pool = exclude.length ? arr.filter(x => !exclude.includes(x.id)) : arr;
-  const source = pool.length ? pool : arr;
-  return source[Math.floor(Math.random() * source.length)];
+  const key = `story:${arr[0]?.type}`;
+  return (
+    drawFrom(key, arr, (c) => !exclude.includes(c.id), sameCard) ??
+    drawFrom(key, arr, undefined, sameCard) ??
+    arr[0]
+  );
 }
 
 function maybe(p: number = 0.7): boolean {
