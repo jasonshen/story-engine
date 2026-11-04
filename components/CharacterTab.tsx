@@ -2,6 +2,21 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import {
+  CoinsIcon,
+  FireIcon,
+  HandshakeIcon,
+  HeartBreakIcon,
+  LockSimpleOpenIcon,
+  PathIcon,
+  PenNibIcon,
+  QuotesIcon,
+  ReceiptIcon,
+  ShieldSlashIcon,
+  StrategyIcon,
+  SunIcon,
+} from '@phosphor-icons/react';
+import type { Icon } from '@phosphor-icons/react';
+import {
   Character,
   CharacterSlot,
   CHARACTER_SLOTS,
@@ -16,7 +31,6 @@ import {
   characterSummaryHTML,
   characterText,
   generateCharacter,
-  randomSlotLabel,
   rerollSlot,
   slotValue,
   strategyOf,
@@ -24,60 +38,51 @@ import {
 } from '@/lib/character-engine';
 import { WritingEntry } from '@/lib/types';
 import ClickableElement from './ClickableElement';
-import HoldToGenerate from './HoldToGenerate';
-import WritingSection, { WritingSectionHandle } from './WritingSection';
+import DealButton from './DealButton';
+import Drawer from './Drawer';
+import EmptyDeck from './EmptyDeck';
+import NarrativeBlock from './NarrativeBlock';
+import PlayCard from './PlayCard';
+import WritingSection, { SaveResult, WritingSectionHandle } from './WritingSection';
 
-const SLOT_CLASS: Record<CharacterSlot, string> = {
-  wound: 'el-wound',
-  belief: 'el-belief',
-  strategy: 'el-engine',
-  payoff: 'el-anchor',
-  cost: 'el-bs-conflict',
-  coping: 'el-aspect',
-  negotiating: 'el-aspect',
-  conflict: 'el-aspect',
-  wildcard: 'el-aspect',
-  lesson: 'el-lesson',
+const SLOT_ICON: Record<CharacterSlot, Icon> = {
+  wound: HeartBreakIcon,
+  belief: QuotesIcon,
+  strategy: StrategyIcon,
+  payoff: CoinsIcon,
+  cost: ReceiptIcon,
+  coping: SunIcon,
+  negotiating: HandshakeIcon,
+  conflict: FireIcon,
+  wildcard: ShieldSlashIcon,
+  lesson: PathIcon,
 };
 
-// Staggered landing on Generate, top of the chain first.
-const SLOT_DURATION: Record<CharacterSlot, number> = {
-  wound: 500,
-  belief: 650,
-  strategy: 750,
-  payoff: 850,
-  cost: 900,
-  coping: 950,
-  negotiating: 1000,
-  conflict: 1050,
-  wildcard: 1100,
-  lesson: 1200,
+const SLOT_VARIANT: Record<CharacterSlot, string> = {
+  wound: 'wound',
+  belief: 'belief',
+  strategy: 'strategy',
+  payoff: 'payoff',
+  cost: 'cost',
+  coping: 'behavior',
+  negotiating: 'behavior',
+  conflict: 'behavior',
+  wildcard: 'behavior',
+  lesson: 'arc',
 };
 
 const INTENSITIES: (Intensity | null)[] = [null, ...GRAPH.enums.intensity];
-
-const LockIcon = ({ locked }: { locked: boolean }) => (
-  <svg
-    viewBox="0 0 24 24"
-    width="14"
-    height="14"
-    fill="none"
-    stroke="currentColor"
-    strokeWidth="2.2"
-    strokeLinecap="round"
-    strokeLinejoin="round"
-    aria-hidden="true"
-  >
-    <rect x="5" y="11" width="14" height="10" rx="2" />
-    {locked ? <path d="M8 11V7a4 4 0 0 1 8 0v4" /> : <path d="M8 11V7a4 4 0 0 1 7.5-2" />}
-  </svg>
-);
+const BEHAVIORS: CharacterSlot[] = ['coping', 'negotiating', 'conflict', 'wildcard'];
 
 interface CharacterTabProps {
   onEntrySaved: (entry: WritingEntry) => void;
+  /** Whether this tab is visible (it owns the G shortcut while it is) */
+  active: boolean;
+  /** The shared saved-entries drawer */
+  savedEntries: React.ReactNode;
 }
 
-export default function CharacterTab({ onEntrySaved }: CharacterTabProps) {
+export default function CharacterTab({ onEntrySaved, active, savedEntries }: CharacterTabProps) {
   const [character, setCharacter] = useState<Character | null>(null);
   const [pins, setPins] = useState<Set<CharacterSlot>>(new Set());
   const [intensity, setIntensity] = useState<Intensity | null>(null);
@@ -87,7 +92,7 @@ export default function CharacterTab({ onEntrySaved }: CharacterTabProps) {
   const [shuffleKey, setShuffleKey] = useState(0);
   const writingRef = useRef<WritingSectionHandle>(null);
 
-  // Refs so the hold-to-generate callback always sees current state.
+  // Refs so the deal callback always sees current state.
   const stateRef = useRef({ character, pins, intensity });
   useEffect(() => {
     stateRef.current = { character, pins, intensity };
@@ -154,10 +159,13 @@ export default function CharacterTab({ onEntrySaved }: CharacterTabProps) {
       body: string;
       word_count: number;
       duration_seconds: number | null;
-    }) => {
+    }): Promise<SaveResult> => {
       const c = stateRef.current.character;
-      if (!c) return;
+      if (!c) return 'local';
       const summary = characterSummaryHTML(c);
+      let conceptId: string | null = null;
+      let entryId: string | undefined;
+      let ok = false;
       try {
         // Character goes in saved_concepts too, tagged so it can be told apart.
         const conceptRes = await fetch('/api/concepts', {
@@ -170,6 +178,7 @@ export default function CharacterTab({ onEntrySaved }: CharacterTabProps) {
           }),
         });
         const conceptData = await conceptRes.json();
+        conceptId = conceptData.id ?? null;
 
         const entryRes = await fetch('/api/entries', {
           method: 'POST',
@@ -181,20 +190,23 @@ export default function CharacterTab({ onEntrySaved }: CharacterTabProps) {
           }),
         });
         const entryData = await entryRes.json();
-
-        onEntrySaved({
-          id: entryData.id,
-          concept_id: conceptData.id,
-          concept_summary: summary,
-          opening_style: data.opening_style,
-          body: data.body,
-          word_count: data.word_count,
-          duration_seconds: data.duration_seconds,
-          created_at: new Date().toISOString(),
-        });
+        entryId = entryData.id;
+        ok = conceptRes.ok && entryRes.ok && !!entryId;
       } catch (error) {
         console.error('Save failed:', error);
       }
+
+      onEntrySaved({
+        id: entryId ?? `local-${Date.now()}`,
+        concept_id: conceptId,
+        concept_summary: summary,
+        opening_style: data.opening_style,
+        body: data.body,
+        word_count: data.word_count,
+        duration_seconds: data.duration_seconds,
+        created_at: new Date().toISOString(),
+      });
+      return ok ? 'saved' : 'local';
     },
     [onEntrySaved]
   );
@@ -219,18 +231,63 @@ export default function CharacterTab({ onEntrySaved }: CharacterTabProps) {
     return `Locked: re-rolling this would change a locked element (${locks}). Unlock to re-roll.`;
   };
 
+  const slotMeta = (c: Character, slot: CharacterSlot): React.ReactNode => {
+    switch (slot) {
+      case 'wound':
+        return <span className="chip">{woundOf(c).intensity}</span>;
+      case 'belief':
+        return `about ${beliefOf(c).locus}`;
+      case 'strategy': {
+        const held =
+          !pins.has('strategy') &&
+          (['belief', 'payoff', 'cost'] as CharacterSlot[]).some((s) => pins.has(s));
+        return (
+          <>
+            {strategyOf(c).inspiredBy}
+            {held && <span className="meta-held">Held by the locked belief</span>}
+          </>
+        );
+      }
+      case 'conflict':
+        return c.conflict.mode;
+      default:
+        return null;
+    }
+  };
+
+  const card = (slot: CharacterSlot) => {
+    if (!character) return null;
+    const blocked = !canReroll(character, slot, pins);
+    return (
+      <PlayCard
+        key={`${shuffleKey}-${slot}`}
+        category={SLOT_LABELS[slot]}
+        icon={SLOT_ICON[slot]}
+        value={slotValue(character, slot)}
+        variant={SLOT_VARIANT[slot]}
+        dealIndex={CHARACTER_SLOTS.indexOf(slot)}
+        title={blocked ? blockedTitle(slot) : rerollTitle(slot)}
+        blocked={blocked}
+        locked={pins.has(slot)}
+        onToggleLock={() => togglePin(slot)}
+        onReroll={() => handleReroll(slot)}
+        quote={slot === 'belief'}
+        lead={slot === 'lesson' ? 'Learning that' : undefined}
+        meta={slotMeta(character, slot)}
+      />
+    );
+  };
+
+  // Words in the prose summary stay re-rollable too.
   const el = (slot: CharacterSlot) => {
     if (!character) return null;
     const blocked = !canReroll(character, slot, pins);
     return (
       <ClickableElement
         text={slotValue(character, slot)}
-        className={`${SLOT_CLASS[slot]} ${pins.has(slot) ? 'el-pinned' : ''}`}
+        className={`el-${slot} ${pins.has(slot) ? 'el-pinned' : ''}`}
         onReroll={() => handleReroll(slot)}
         title={blocked ? blockedTitle(slot) : rerollTitle(slot)}
-        randomLabel={() => randomSlotLabel(slot)}
-        shuffleKey={shuffleKey}
-        shuffleDuration={SLOT_DURATION[slot]}
         disabled={blocked}
       />
     );
@@ -238,198 +295,152 @@ export default function CharacterTab({ onEntrySaved }: CharacterTabProps) {
 
   return (
     <>
-      <div className="controls controls-stack">
-        <HoldToGenerate onGenerate={handleGenerate} />
-        <div className="opening-section filter-section">
-          <div className="opening-label">Wound weight</div>
-          <div className="opening-pills">
-            {INTENSITIES.map((i) => (
-              <button
-                key={i ?? 'any'}
-                type="button"
-                className={`pill ${intensity === i ? 'selected' : ''}`}
-                onClick={() => setIntensity(i)}
-              >
-                {i ? i.charAt(0).toUpperCase() + i.slice(1) : 'Any'}
+      <div className="board">
+        <div className="table">
+          <div className="deal-bar">
+            <DealButton onDeal={handleGenerate} active={active} />
+            <div className="field field--inline">
+              <span className="field-label" id="wound-weight-label">
+                Wound weight
+              </span>
+              <div className="segmented" role="group" aria-labelledby="wound-weight-label">
+                {INTENSITIES.map((i) => (
+                  <button
+                    key={i ?? 'any'}
+                    type="button"
+                    className={`seg ${intensity === i ? 'selected' : ''}`}
+                    aria-pressed={intensity === i}
+                    onClick={() => setIntensity(i)}
+                  >
+                    {i ? i.charAt(0).toUpperCase() + i.slice(1) : 'Any'}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <p className="table-hint">
+            Tap a card to re-roll it. Lock the ones you like and Deal re-rolls everything
+            around them. Belief and strategy are a pair, so locking one holds the other.
+            {pins.size > 0 && (
+              <button type="button" className="link-btn" onClick={() => setPins(new Set())}>
+                <LockSimpleOpenIcon size={14} weight="bold" aria-hidden="true" />
+                Unlock all
               </button>
-            ))}
-          </div>
-        </div>
-      </div>
+            )}
+          </p>
 
-      <div className="concept">
-        {!character ? (
-          <div className="concept-empty">
-            <span className="glyph">&#x2727;</span>
-            Press generate to conjure a character
-          </div>
-        ) : (
-          <div className="concept-enter character-profile">
-            <div className="character-origin">
-              After {el('wound')}, they came to believe:
-            </div>
-            <div className="character-belief">
-              &ldquo;{el('belief')}&rdquo;
-            </div>
-            <div className="character-origin">
-              So they {el('strategy')}. It buys them {el('payoff')}, but costs
-              them {el('cost')}.
-            </div>
-
-            <hr className="concept-divider" />
-
-            <div className="backstory-block">
-              <div className="backstory-sentence">
-                On an ordinary day they&rsquo;re {el('coping')}. When they want
-                something, they turn {el('negotiating')}. When the wound gets
-                poked, they go {el('conflict')}. But when the armor slips,
-                they&rsquo;re {el('wildcard')}.
-              </div>
-            </div>
-
-            <div className="character-arc">
-              Their arc: learning that {el('lesson')}.
-            </div>
-
-            {/* Sketch */}
-            {sketchLoading && (
-              <div className="narrative">
-                <div className="narrative-text narrative-loading">
-                  Sketching character...
+          {!character ? (
+            <EmptyDeck text="Press Deal or G to lay out a character." />
+          ) : (
+            <>
+              <div className="spread spread--character">
+                {card('wound')}
+                {card('belief')}
+                {card('strategy')}
+                {card('payoff')}
+                {card('cost')}
+                <div className="behaviors" role="group" aria-label="How they behave">
+                  {BEHAVIORS.map((s) => card(s))}
                 </div>
+                {card('lesson')}
               </div>
-            )}
-            {!sketchLoading && character.sketch && (
-              <div className="narrative">
-                <div className="narrative-text">{character.sketch}</div>
-              </div>
-            )}
-            {!sketchLoading && !character.sketch && (
-              <div className="narrative-action">
-                <button
-                  className="btn btn-narrative"
-                  onClick={handleSketch}
-                  type="button"
-                >
-                  Create Sketch
-                </button>
-                {sketchError && <div className="sketch-error">{sketchError}</div>}
-              </div>
-            )}
 
-            <Anatomy
-              character={character}
-              pins={pins}
-              onTogglePin={togglePin}
-              onClearPins={() => setPins(new Set())}
-            />
-          </div>
-        )}
+              <div className="prose prose--character">
+                <p>
+                  After {el('wound')}, they came to believe: &ldquo;{el('belief')}&rdquo; So
+                  they {el('strategy')}. It buys them {el('payoff')}, but costs them{' '}
+                  {el('cost')}.
+                </p>
+                <p>
+                  On an ordinary day they&rsquo;re {el('coping')}. When they want something,
+                  they turn {el('negotiating')}. When the wound gets poked, they go{' '}
+                  {el('conflict')}. But when the armor slips, they&rsquo;re {el('wildcard')}.
+                </p>
+                <p>Their arc: learning that {el('lesson')}.</p>
+              </div>
+
+              <NarrativeBlock
+                text={character.sketch}
+                loading={sketchLoading}
+                loadingText="Sketching character..."
+                error={sketchError}
+                buttonLabel="Create Sketch"
+                icon={PenNibIcon}
+                onCreate={handleSketch}
+              />
+
+              <Drawer title="Anatomy">
+                <Anatomy character={character} />
+              </Drawer>
+            </>
+          )}
+        </div>
+
+        <aside className="pad" aria-label="Writing pad">
+          <WritingSection
+            ref={writingRef}
+            ready={!!character}
+            onSave={handleSave}
+            prompt="Now write a scene that reveals them..."
+            placeholder="Show the strategy working, then show it cost them..."
+            emptyText="Deal a character, then write a scene that reveals them."
+          />
+        </aside>
       </div>
 
-      <WritingSection
-        ref={writingRef}
-        ready={!!character}
-        onSave={handleSave}
-        prompt="Now write a scene that reveals them..."
-        placeholder="Show the strategy working, then show it cost them..."
-      />
-
-      <div className="history">
-        <hr className="history-rule" />
-        <div className="history-title">Previous characters</div>
-        {history.length === 0 ? (
-          <div className="history-empty">
-            Characters will collect here as you generate.
-          </div>
-        ) : (
-          [...history].reverse().map((c, idx) => (
-            <div key={`${c.id}-${idx}`} className="history-item">
-              <div className="history-num">No. {history.length - idx}</div>
-              <div className="history-logline">{characterText(c)}</div>
-              {c.sketch && <div className="history-narr">{c.sketch}</div>}
-            </div>
-          ))
-        )}
+      <div className="drawers">
+        {savedEntries}
+        <Drawer title="Previous characters" count={history.length}>
+          {history.length === 0 ? (
+            <p className="drawer-empty">Characters will collect here as you deal.</p>
+          ) : (
+            <ol className="history-list">
+              {[...history].reverse().map((c, idx) => (
+                <li key={`${c.id}-${idx}`} className="history-item">
+                  <span className="history-num">No. {history.length - idx}</span>
+                  <span className="history-logline">{characterText(c)}</span>
+                  {c.sketch && <span className="history-narr">{c.sketch}</span>}
+                </li>
+              ))}
+            </ol>
+          )}
+        </Drawer>
       </div>
     </>
   );
 }
 
-// ---------- anatomy panel: the graph behind the prose, with locks ----------
+// ---------- anatomy: the graph behind the cards ----------
 
-function slotMeta(c: Character, slot: CharacterSlot): string | null {
-  const s = strategyOf(c);
-  switch (slot) {
-    case 'wound':
-      return woundOf(c).intensity;
-    case 'belief':
-      return `about ${beliefOf(c).locus}`;
-    case 'strategy':
-      return `${s.inspiredBy} · ${s.stance} (${GRAPH.enums.stance[s.stance]}) · ${s.outlook} (${GRAPH.enums.outlook[s.outlook]}) · fears ${s.fear}, wants ${s.desire}`;
-    case 'conflict':
-      return `${c.conflict.mode}: ${GRAPH.enums.conflictMode[c.conflict.mode]}`;
-    default:
-      return null;
-  }
-}
-
-interface AnatomyProps {
-  character: Character;
-  pins: Set<CharacterSlot>;
-  onTogglePin: (slot: CharacterSlot) => void;
-  onClearPins: () => void;
-}
-
-function Anatomy({ character, pins, onTogglePin, onClearPins }: AnatomyProps) {
+function Anatomy({ character }: { character: Character }) {
+  const w = woundOf(character);
+  const b = beliefOf(character);
+  const s = strategyOf(character);
+  const mode = character.conflict.mode;
   return (
-    <div className="anatomy">
-      <div className="anatomy-head">
-        <div className="anatomy-title">Anatomy</div>
-        <div className="anatomy-hint">
-          Lock what you like; Generate re-rolls everything else around it.
-          Belief and strategy are a pair, so locking one holds the other.
-          {pins.size > 0 && (
-            <>
-              {' '}
-              <button type="button" className="anatomy-clear" onClick={onClearPins}>
-                Unlock all
-              </button>
-            </>
-          )}
-        </div>
+    <dl className="anatomy">
+      <div>
+        <dt>Wound</dt>
+        <dd>{w.intensity}</dd>
       </div>
-      {CHARACTER_SLOTS.map((slot) => {
-        const locked = pins.has(slot);
-        const held =
-          !locked &&
-          slot === 'strategy' &&
-          (['belief', 'payoff', 'cost'] as CharacterSlot[]).some((s) => pins.has(s));
-        const meta = slotMeta(character, slot);
-        return (
-          <div key={slot} className={`anatomy-row ${locked ? 'locked' : ''}`}>
-            <button
-              type="button"
-              className="anatomy-lock"
-              onClick={() => onTogglePin(slot)}
-              aria-pressed={locked}
-              title={locked ? 'Unlock' : 'Lock (survives Generate)'}
-            >
-              <LockIcon locked={locked} />
-            </button>
-            <div className="anatomy-label">{SLOT_LABELS[slot]}</div>
-            <div className="anatomy-value">
-              {slotValue(character, slot)}
-              {meta && <div className="anatomy-meta">{meta}</div>}
-              {held && (
-                <div className="anatomy-meta anatomy-held">
-                  held by the locked belief
-                </div>
-              )}
-            </div>
-          </div>
-        );
-      })}
-    </div>
+      <div>
+        <dt>Belief</dt>
+        <dd>about {b.locus}</dd>
+      </div>
+      <div className="anatomy-wide">
+        <dt>Strategy</dt>
+        <dd>
+          {s.inspiredBy}. Stance: {s.stance} ({GRAPH.enums.stance[s.stance]}). Outlook:{' '}
+          {s.outlook} ({GRAPH.enums.outlook[s.outlook]}). Fears {s.fear}, wants {s.desire}.
+        </dd>
+      </div>
+      <div className="anatomy-wide">
+        <dt>Wound poked</dt>
+        <dd>
+          {mode}: {GRAPH.enums.conflictMode[mode]}
+        </dd>
+      </div>
+    </dl>
   );
 }

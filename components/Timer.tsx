@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback, useImperativeHandle, forwardRef } from 'react';
+import { ArrowCounterClockwiseIcon, PlayIcon, StopIcon } from '@phosphor-icons/react';
 
 export interface TimerHandle {
   reset: () => void;
@@ -48,23 +49,19 @@ const Timer = forwardRef<TimerHandle, { onStart?: () => void }>(
 
     const m = Math.floor(seconds / 60);
     const s = seconds % 60;
-    const displayClass = running
-      ? 'timer-display running'
-      : seconds === 0
-        ? 'timer-display done'
-        : 'timer-display';
-
+    const state = running ? 'running' : seconds === 0 ? 'done' : 'idle';
     const buttonLabel = running ? 'Stop' : seconds < 300 && !running ? 'Reset' : 'Start';
+    const ButtonIcon =
+      buttonLabel === 'Stop' ? StopIcon : buttonLabel === 'Reset' ? ArrowCounterClockwiseIcon : PlayIcon;
 
     return (
-      <div className="timer-area">
-        <span className={displayClass}>
-          {m}:{s < 10 ? '0' : ''}{s}
+      <div className={`timer timer--${state}`}>
+        <span className="timer-display" role="timer" aria-live="off">
+          {m}:{s < 10 ? '0' : ''}
+          {s}
         </span>
-        <button
-          className={`btn-timer ${running ? 'active-timer' : ''}`}
-          onClick={handleClick}
-        >
+        <button type="button" className="btn-timer" onClick={handleClick}>
+          <ButtonIcon size={14} weight="fill" aria-hidden="true" />
           {buttonLabel}
         </button>
       </div>
