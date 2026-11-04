@@ -11,6 +11,7 @@ import {
 import {
   GRAPH,
   beliefOf,
+  canReroll,
   characterElements,
   characterSummaryHTML,
   characterText,
@@ -198,22 +199,42 @@ export default function CharacterTab({ onEntrySaved }: CharacterTabProps) {
     [onEntrySaved]
   );
 
-  const el = (slot: CharacterSlot) =>
-    character && (
+  const rerollTitle = (slot: CharacterSlot): string => {
+    switch (slot) {
+      case 'wound':
+        return 'Re-roll wound (re-rolls everything below it)';
+      case 'belief':
+        return 'Re-roll belief (keeps the wound; strategy and traits follow)';
+      case 'strategy':
+        return 'Re-roll strategy (changes the belief too; each belief implies one strategy)';
+      default:
+        return `Re-roll ${SLOT_LABELS[slot].toLowerCase()}`;
+    }
+  };
+
+  const blockedTitle = (slot: CharacterSlot): string => {
+    const locks = CHARACTER_SLOTS.filter((s) => s !== slot && pins.has(s))
+      .map((s) => SLOT_LABELS[s])
+      .join(', ');
+    return `Locked: re-rolling this would change a locked element (${locks}). Unlock to re-roll.`;
+  };
+
+  const el = (slot: CharacterSlot) => {
+    if (!character) return null;
+    const blocked = !canReroll(character, slot, pins);
+    return (
       <ClickableElement
         text={slotValue(character, slot)}
         className={`${SLOT_CLASS[slot]} ${pins.has(slot) ? 'el-pinned' : ''}`}
         onReroll={() => handleReroll(slot)}
-        title={`Re-roll ${SLOT_LABELS[slot].toLowerCase()}${
-          slot === 'wound' || slot === 'belief' || slot === 'strategy'
-            ? ' (cascades down)'
-            : ''
-        }`}
+        title={blocked ? blockedTitle(slot) : rerollTitle(slot)}
         randomLabel={() => randomSlotLabel(slot)}
         shuffleKey={shuffleKey}
         shuffleDuration={SLOT_DURATION[slot]}
+        disabled={blocked}
       />
     );
+  };
 
   return (
     <>
@@ -367,6 +388,7 @@ function Anatomy({ character, pins, onTogglePin, onClearPins }: AnatomyProps) {
         <div className="anatomy-title">Anatomy</div>
         <div className="anatomy-hint">
           Lock what you like; Generate re-rolls everything else around it.
+          Belief and strategy are a pair, so locking one holds the other.
           {pins.size > 0 && (
             <>
               {' '}
@@ -379,6 +401,10 @@ function Anatomy({ character, pins, onTogglePin, onClearPins }: AnatomyProps) {
       </div>
       {CHARACTER_SLOTS.map((slot) => {
         const locked = pins.has(slot);
+        const held =
+          !locked &&
+          slot === 'strategy' &&
+          (['belief', 'payoff', 'cost'] as CharacterSlot[]).some((s) => pins.has(s));
         const meta = slotMeta(character, slot);
         return (
           <div key={slot} className={`anatomy-row ${locked ? 'locked' : ''}`}>
@@ -395,6 +421,11 @@ function Anatomy({ character, pins, onTogglePin, onClearPins }: AnatomyProps) {
             <div className="anatomy-value">
               {slotValue(character, slot)}
               {meta && <div className="anatomy-meta">{meta}</div>}
+              {held && (
+                <div className="anatomy-meta anatomy-held">
+                  held by the locked belief
+                </div>
+              )}
             </div>
           </div>
         );

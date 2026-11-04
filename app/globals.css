@@ -545,6 +545,9 @@ body::after {
 .el-wound { color: var(--crimson); }
 .el-belief { color: var(--gold-bright); }
 .el-lesson { color: var(--gold-bright); font-style: italic; font-weight: 600; }
+.el-disabled { cursor: not-allowed; }
+.el-disabled:hover { border-bottom-color: transparent; }
+.anatomy-meta.anatomy-held { color: var(--gold); }
 .el-pinned {
   border-bottom: 1.5px solid currentColor;
   background: rgba(138,90,16,0.08);

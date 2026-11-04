@@ -70,30 +70,22 @@ const STRATEGY_LEVEL: CharacterSlot[] = [
 ];
 
 interface Attempt {
+  /** Respect the wound-weight filter (a preference, so it can be relaxed). */
   intensity: boolean;
-  wound: boolean;
-  belief: boolean;
-  strategy: boolean;
-  lesson: boolean;
   /** Keep the current wound (soft preference for belief/strategy re-rolls). */
   fixWound?: boolean;
 }
-
-// Strictest first; each step relaxes one constraint so a roll always succeeds.
-const RELAXATION: Attempt[] = [
-  { intensity: true, wound: true, belief: true, strategy: true, lesson: true },
-  { intensity: false, wound: true, belief: true, strategy: true, lesson: true },
-  { intensity: false, wound: true, belief: true, strategy: true, lesson: false },
-  { intensity: false, wound: true, belief: true, strategy: false, lesson: false },
-  { intensity: false, wound: true, belief: false, strategy: false, lesson: false },
-  { intensity: false, wound: false, belief: false, strategy: false, lesson: false },
-];
 
 interface Pair {
   wound: Wound;
   belief: Belief;
 }
 
+/**
+ * Valid (wound, belief) pairs. Locks are hard constraints: the only lock that
+ * doesn't apply is the clicked slot's own. Belief and strategy are paired 1:1
+ * in the graph, so locking anything at belief level also fixes the strategy.
+ */
 function candidatePairs(
   prev: Character | null,
   pins: Pins,
@@ -101,17 +93,11 @@ function candidatePairs(
   change: Change,
   a: Attempt
 ): Pair[] {
-  const has = (s: CharacterSlot) => !!prev && pins.has(s);
-  // The clicked slot's own pins don't constrain its re-roll.
-  const pinWound = a.wound && has('wound') && change !== 'wound';
-  const pinBelief =
-    a.belief &&
-    change !== 'belief' &&
-    change !== 'strategy' &&
-    BELIEF_LEVEL.some(has);
-  const pinStrategy =
-    a.strategy && change !== 'strategy' && STRATEGY_LEVEL.some(has);
-  const pinLesson = a.lesson && has('lesson');
+  const has = (s: CharacterSlot) => !!prev && pins.has(s) && s !== change;
+  const pinWound = has('wound');
+  const pinBelief = BELIEF_LEVEL.some(has);
+  const pinStrategy = STRATEGY_LEVEL.some(has);
+  const pinLesson = has('lesson');
 
   const prevBelief = prev ? beliefOf(prev) : null;
   const out: Pair[] = [];
@@ -157,24 +143,35 @@ function samplePair(pairs: Pair[], change: Change): Pair {
   return rand(pairs.filter((p) => p.belief.id === bid));
 }
 
+/** Null when no pair satisfies the locks (the re-roll is blocked). */
 function solvePair(
   prev: Character | null,
   pins: Pins,
   intensity: Intensity | null,
   change: Change
-): Pair {
+): Pair | null {
   const attempts: Attempt[] =
     prev && (change === 'belief' || change === 'strategy')
-      ? [...RELAXATION.map((a) => ({ ...a, fixWound: true })), ...RELAXATION]
-      : RELAXATION;
+      ? [
+          { intensity: false, fixWound: true },
+          { intensity: true },
+          { intensity: false },
+        ]
+      : [{ intensity: true }, { intensity: false }];
 
   for (const a of attempts) {
     const pairs = candidatePairs(prev, pins, intensity, change, a);
     if (pairs.length) return samplePair(pairs, change);
   }
-  // Unreachable with the shipped graph, but never fail a roll.
-  const wound = rand(GRAPH.wounds);
-  return { wound, belief: getBelief(rand(wound.beliefs)) };
+  return null;
+}
+
+/** Whether a slot can be re-rolled without breaking any other lock. */
+export function canReroll(c: Character, slot: CharacterSlot, pins: Pins): boolean {
+  if (slot === 'wound' || slot === 'belief' || slot === 'strategy') {
+    return solvePair(c, pins, null, slot) !== null;
+  }
+  return true;
 }
 
 // ---------- building a character ----------
@@ -235,7 +232,10 @@ export function generateCharacter(
   pins: Pins,
   intensity: Intensity | null
 ): RollResult {
-  const pair = solvePair(prev, pins, intensity, 'all');
+  // prev always satisfies its own locks, so this only fails on a cold start
+  // with an impossible filter, which the graph doesn't allow.
+  const pair =
+    solvePair(prev, pins, intensity, 'all') ?? solvePair(null, new Set(), null, 'all')!;
   const character = build(pair, prev, pins);
   return {
     character,
@@ -252,9 +252,10 @@ export function rerollSlot(
 ): RollResult {
   if (slot === 'wound' || slot === 'belief' || slot === 'strategy') {
     const pair = solvePair(c, pins, intensity, slot);
-    // The clicked slot is re-rolled even if pinned; keep its pin flag on.
-    const buildPins = new Set(pins);
-    const character = build(pair, c, buildPins);
+    // Blocked by another lock: leave everything as it is.
+    if (!pair) return { character: c, pins: new Set(pins) };
+    const character = build(pair, c, pins);
+    // Every other lock held; the clicked slot keeps its lock flag.
     const next = survivingPins(c, character, pins);
     if (pins.has(slot)) next.add(slot);
     return { character, pins: next };

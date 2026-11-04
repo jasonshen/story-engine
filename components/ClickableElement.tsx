@@ -16,6 +16,8 @@ interface ClickableElementProps {
   shuffleDuration?: number;
   /** Custom source of random labels for the shuffle (used instead of cardType) */
   randomLabel?: () => string;
+  /** Not re-rollable right now (e.g. blocked by a lock); shows `title` as the reason */
+  disabled?: boolean;
 }
 
 const SHUFFLE_INTERVAL = 60; // ms between label swaps
@@ -29,6 +31,7 @@ export default function ClickableElement({
   shuffleKey = 0,
   shuffleDuration = 500,
   randomLabel,
+  disabled = false,
 }: ClickableElementProps) {
   // Keep the label source in a ref so a new function identity each render
   // doesn't retrigger the shuffle effect.
@@ -77,6 +80,7 @@ export default function ClickableElement({
   const handleClick = useCallback(
     (e: React.MouseEvent) => {
       e.stopPropagation();
+      if (disabled) return;
       if (isShuffling) return; // don't allow clicks during shuffle
 
       if (!canShuffle) {
@@ -111,13 +115,16 @@ export default function ClickableElement({
         // text prop will have updated from onReroll, useEffect will sync displayText
       }, rerollDuration);
     },
-    [onReroll, canShuffle, isShuffling]
+    [onReroll, canShuffle, isShuffling, disabled]
   );
 
   return (
     <span
       ref={spanRef}
-      className={`el ${className} ${isShuffling ? 'el-shuffling' : ''}`}
+      className={`el ${className} ${isShuffling ? 'el-shuffling' : ''} ${
+        disabled ? 'el-disabled' : ''
+      }`}
+      aria-disabled={disabled || undefined}
       onClick={handleClick}
       title={title}
     >
